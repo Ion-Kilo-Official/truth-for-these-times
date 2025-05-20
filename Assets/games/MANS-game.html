@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A New Start: Interactive Journey (Linked Images)</title>
+    <style>
+        /* --- CSS Start (Same as previous version with simplified interactions) --- */
+        :root {
+            --primary-color: #3498db; /* Lighter Blue */
+            --primary-hover: #2980b9;
+            --success-color: #2ecc71; /* Emerald Green */
+            --success-hover: #27ae60;
+            --danger-color: #e74c3c; /* Alizarin Red */
+            --danger-hover: #c0392b;
+            --info-color: #1abc9c;    /* Turquoise */
+            --warning-color: #f1c40f; /* Sunflower Yellow */
+            --light-bg: #f8f9fa;
+            --white-bg: #ffffff;
+            --text-dark: #2c3e50; /* Midnight Blue text */
+            --text-light: #7f8c8d; /* Grey text */
+            --border-color: #dee2e6;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --font-base-size: clamp(14px, 1.8vh, 16px);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; overflow: hidden; }
+
+        body {
+            font-family: 'Arial', sans-serif; /* Simple, clear font */
+            background: linear-gradient(to bottom, #eaf5ff, #d4e7f5); /* Subtle gradient bg */
+            color: var(--text-dark);
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            padding: 10px;
+            font-size: var(--font-base-size);
+        }
+
+        #progress-container { /* As before */
+            width: 100%; max-width: 700px; background-color: #ccc;
+            border-radius: 8px; margin-bottom: 10px; overflow: hidden; height: 18px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+        #progress-bar { /* As before */
+            height: 100%; width: 0%; background: linear-gradient(to right, var(--info-color), var(--success-color));
+            border-radius: 8px; transition: width 0.6s ease-in-out; text-align: right; padding-right: 5px;
+            color: white; font-size: clamp(9px, 1.5vh, 11px); line-height: 18px; font-weight: bold; text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+        }
+
+        #game-container { /* As before */
+            background-color: var(--white-bg); border-radius: 15px; box-shadow: 0 5px 25px var(--shadow-color);
+            padding: 20px; width: 100%; max-width: 700px; display: flex; flex-direction: column;
+            position: relative; overflow: hidden; height: auto; max-height: calc(100vh - 60px);
+            transition: background-color 0.5s ease, opacity 0.3s ease-out;
+        }
+
+        #main-content-area { /* As before - internal scroll */
+             flex-grow: 1; overflow-y: auto; padding: 0 10px 10px 10px; margin-bottom: 10px;
+             scrollbar-width: thin; scrollbar-color: var(--primary-color) #e0e0e0;
+        }
+         #main-content-area::-webkit-scrollbar { width: 8px; }
+         #main-content-area::-webkit-scrollbar-track { background: #e0e0e0; border-radius: 4px; }
+         #main-content-area::-webkit-scrollbar-thumb { background-color: var(--primary-color); border-radius: 4px; border: 2px solid #e0e0e0; }
+
+        #score-display { /* As before */
+            position: absolute; top: 15px; right: 25px; font-size: clamp(1em, 2vh, 1.2em); font-weight: bold;
+            color: var(--primary-color); background: rgba(255, 255, 255, 0.85); padding: 5px 12px; border-radius: 20px;
+            z-index: 10; box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .points-animation { /* As before */
+            position: absolute; top: 10px; right: 20px; font-size: 1.1em; font-weight: bold;
+            color: var(--success-color); z-index: 11; opacity: 0; animation: pointsPopup 1.5s ease-out forwards;
+        }
+        @keyframes pointsPopup { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-40px) scale(1.3); } }
+
+        h1 { color: var(--primary-hover); margin-bottom: 5px; text-align: center; font-size: clamp(1.5em, 3vh, 1.8em); }
+        #level-info { font-size: clamp(0.9em, 1.8vh, 1.1em); color: var(--text-light); margin-bottom: 15px; font-weight: bold; text-align: center; }
+
+        #scene-image { /* As before */
+            display: block; max-width: clamp(80px, 12vh, 100px); height: auto; max-height: 100px;
+            margin: 0 auto 15px auto; opacity: 1; transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        #scene-image.hidden { opacity: 0; height: 0; margin-bottom: 0; transform: scale(0.5); }
+
+        #narrative { /* As before */
+            margin-bottom: 20px; line-height: 1.6; min-height: 50px; text-align: left; padding: 15px;
+            border-left: 5px solid var(--primary-color); background-color: #fdfdfe; /* Cleaner white */
+            border-radius: 8px; font-size: clamp(0.95em, 1.9vh, 1.05em);
+        }
+        #narrative p { margin-bottom: 10px; } #narrative p:last-child { margin-bottom: 0; }
+        #narrative blockquote { font-style: italic; color: var(--text-light); margin: 12px 0; padding: 10px 15px; border-left: 3px solid var(--info-color); background-color: #f1fcfb; border-radius: 4px; font-size: 0.95em; }
+
+        .keyword { /* As before */
+            font-weight: normal; color: var(--primary-color); cursor: help; position: relative;
+            border-bottom: 1px dashed var(--primary-color); transition: color 0.2s ease; padding-bottom: 1px;
+        }
+        .keyword:hover { color: var(--primary-hover); border-bottom-style: solid; }
+        .keyword .tooltip { /* As before */
+             visibility: hidden; min-width: 120px; max-width: 200px; background-color: rgba(44, 62, 80, 0.9);
+             color: #fff; text-align: center; border-radius: 6px; padding: 8px 12px; position: absolute;
+             z-index: 100; bottom: 130%; left: 50%; transform: translateX(-50%); opacity: 0; transition: opacity 0.3s ease;
+             font-size: clamp(0.8em, 1.5vh, 0.9em); line-height: 1.4; font-weight: normal; pointer-events: none; white-space: normal;
+        }
+        .keyword .tooltip::after { /* As before */
+            content: ""; position: absolute; top: 100%; left: 50%; margin-left: -6px; border-width: 6px;
+            border-style: solid; border-color: rgba(44, 62, 80, 0.9) transparent transparent transparent;
+        }
+        .keyword:hover .tooltip { visibility: visible; opacity: 1; }
+
+        /* Interaction Areas */
+        #choices { /* Only one area needed */
+            margin-top: 15px; padding: 10px 0; display: flex; flex-wrap: wrap;
+            justify-content: center; align-items: center; gap: 15px; /* Increased gap */
+            min-height: 60px; /* Ensure space for items */
+        }
+
+        /* CLICKABLE INTERACTION ITEMS */
+        .interactive-item { /* Style as before */
+             display: flex; flex-direction: column; align-items: center;
+             text-align: center; padding: 10px; border-radius: 10px;
+             border: 2px solid var(--border-color); cursor: pointer;
+             transition: all 0.2s ease; background-color: #f8f9fa;
+             min-width: 100px;
+         }
+         .interactive-item:hover { /* Style as before */
+             transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); border-color: var(--primary-color);
+         }
+         .interactive-item img { width: clamp(35px, 5vh, 45px); height: auto; margin-bottom: 8px; }
+         .interactive-item span { font-size: clamp(0.85em, 1.6vh, 0.95em); font-weight: bold; }
+         .interactive-item.correct { border-color: var(--success-color); background-color: #eafaf1; animation: pulseCorrect 0.5s ease; }
+         .interactive-item.incorrect { border-color: var(--danger-color); background-color: #fdecea; animation: shake 0.6s ease; }
+         .interactive-item.disabled { opacity: 0.6; cursor: not-allowed; pointer-events: none; }
+         .interactive-item.ordered { border-color: var(--info-color); background-color: #e8f7f9; }
+         @keyframes pulseCorrect { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+        /* Action buttons (Next, Restart) */
+        .action-button { /* Style as before */
+            background: linear-gradient(to bottom, var(--primary-color), var(--primary-hover)); color: white; border: none;
+            border-bottom: 3px solid var(--primary-hover); padding: clamp(8px, 1.8vh, 12px) clamp(15px, 3vw, 25px); border-radius: 25px;
+            cursor: pointer; font-size: clamp(0.9em, 1.8vh, 1em); font-weight: bold; text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+            transition: all 0.2s ease; flex-grow: 0; flex-shrink: 0;
+        }
+        .action-button:hover { /* Style as before */
+             background: linear-gradient(to bottom, var(--primary-hover), var(--primary-color)); transform: translateY(-2px);
+             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); border-bottom-width: 2px;
+        }
+        .action-button:active { /* Style as before */
+             transform: translateY(1px); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); border-bottom-width: 1px;
+        }
+        .action-button:disabled { /* Style as before */
+             opacity: 0.6; cursor: not-allowed; background: #BDBDBD; border-bottom-color: #9E9E9E; transform: translateY(0); box-shadow: none;
+        }
+
+        /* Takeaway Box & Feedback */
+        #takeaway-box { /* Style as before */
+            background-color: #e6f3ff; border: 1px solid var(--primary-color); border-left-width: 5px;
+            padding: 15px; margin: 20px 0; border-radius: 8px; text-align: center;
+            font-size: clamp(0.9em, 1.8vh, 1em); animation: fadeIn 0.5s ease-out;
+        }
+        #takeaway-box strong { color: var(--primary-hover); display: block; margin-bottom: 5px; }
+        #feedback { /* Style as before */
+             margin-top: 15px; font-weight: bold; min-height: 20px;
+             font-size: clamp(0.95em, 1.9vh, 1.1em); transition: opacity 0.3s ease;
+             padding: 10px; border-radius: 8px; text-align: center;
+        }
+        .feedback-correct { color: var(--success-hover); background-color: #e9f7ef; border: 1px solid #d6f0e1; }
+        .feedback-incorrect { color: var(--danger-hover); background-color: #fdeded; border: 1px solid #fbd9d9;}
+        .feedback-info { color: var(--text-light); background-color: #f8f9fa; border: 1px solid #e9ecef; }
+
+         #action-buttons-container { /* Style as before */
+            padding-top: 10px; border-top: 1px solid var(--border-color); margin-top: auto;
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;
+        }
+
+        /* Animations */
+        @keyframes shake { /* Style as before */
+            0% { transform: translateX(0); } 10%, 90% { transform: translateX(-8px) rotate(-1deg); }
+            30%, 70% { transform: translateX(8px) rotate(1deg); } 50% { transform: translateX(-5px) rotate(0); } 100% { transform: translateX(0); }
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes descend { from { transform: translateY(-50px) rotate(-5deg); opacity: 0.5; } to { transform: translateY(0) rotate(0deg); opacity: 1; } }
+        .dove-animation { animation: descend 1.2s ease-out forwards; }
+
+        /* Helper class */
+        .hidden { display: none !important; }
+
+        /* Media Queries */
+         @media (max-width: 600px) { /* As before */
+             #game-container { padding: 15px; }
+             .interactive-item { min-width: 80px; padding: 8px;}
+             .interactive-item img { width: clamp(30px, 4vh, 40px); }
+         }
+         @media (max-width: 450px) { /* As before */
+             body { padding: 5px; }
+             #game-container { padding: 10px; max-height: calc(100vh - 30px); }
+             #main-content-area { padding: 0 5px 5px 5px; }
+             h1 { font-size: clamp(1.2em, 2.5vh, 1.4em); }
+             #level-info { margin-bottom: 10px; }
+             #narrative { padding: 10px; font-size: clamp(0.85em, 1.7vh, 0.95em); }
+             .interactive-item { min-width: calc(45% - 10px); max-width: calc(50% - 10px); }
+             #action-buttons-container button { width: calc(50% - 10px); margin: 5px auto; }
+             #action-buttons-container button:last-child:nth-child(odd) { width: 80%; margin-left: auto; margin-right: auto; }
+         }
+        /* --- CSS End --- */
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div id="progress-container"><div id="progress-bar">0% Complete</div></div>
+
+    <!-- Game Container -->
+    <div id="game-container" style="opacity: 1;">
+        <div id="score-display">Score: 0</div>
+        <div id="main-content-area">
+            <h1 id="game-title">A New Start</h1>
+            <div id="level-info">Level 0: Starting Point</div>
+            <img id="scene-image" src="" alt="" class="hidden">
+            <div id="narrative" class="fade-in">
+                 <p>Ever feel stuck? Wished for a reset button on life?</p>
+                 <p>This journey explores how to find a fresh start through understanding forgiveness and God's plan. Let's begin! ✨</p>
+             </div>
+            <div id="takeaway-box" class="hidden"><strong>Key Takeaway:</strong> <span id="takeaway-text"></span></div>
+            <div id="choices"></div> <!-- Interactions Load Here -->
+            <div id="feedback" class="hidden"></div>
+         </div><!-- End Main Content -->
+         <div id="action-buttons-container">
+            <button id="start-button" class="action-button fade-in">Let's Go! <span style="font-size: 1.1em;">🚀</span></button>
+            <button id="next-button" class="action-button hidden">Next <span style="font-size: 1.1em;">➡️</span></button>
+            <button id="restart-button" class="action-button hidden">Start Over <span style="font-size: 1.1em;">🔄</span></button>
+        </div>
+    </div><!-- End Game Container -->
+
+    <script>
+        // --- JavaScript Start ---
+        // Get Elements
+        const gameContainer = document.getElementById('game-container');
+        const mainContentArea = document.getElementById('main-content-area');
+        const levelInfo = document.getElementById('level-info');
+        const narrative = document.getElementById('narrative');
+        const choicesDiv = document.getElementById('choices');
+        const feedback = document.getElementById('feedback');
+        const startButton = document.getElementById('start-button');
+        const nextButton = document.getElementById('next-button');
+        const restartButton = document.getElementById('restart-button');
+        const sceneImage = document.getElementById('scene-image');
+        const progressBar = document.getElementById('progress-bar');
+        const scoreDisplay = document.getElementById('score-display');
+        const takeawayBox = document.getElementById('takeaway-box');
+        const takeawayText = document.getElementById('takeaway-text');
+
+        // Game State
+        let currentLevel = 0; let score = 0; let totalLevels = 0;
+        let levels = []; let orderedItems = [];
+
+        // --- Updated IMAGE Object with Direct Links ---
+        // NOTE: These links rely on icons8.com. Requires internet connection.
+        // Link stability/terms of use might change over time.
+        const IMAGES = {
+            start: "https://img.icons8.com/ios-filled/100/3498db/restart.png",
+            criminal: "https://img.icons8.com/ios-glyphs/100/795548/prisoner.png",
+            cross: "https://img.icons8.com/ios-filled/50/e74c3c/cancel.png", // Using 'cancel' icon for incorrect option
+            light: "https://img.icons8.com/ios-filled/100/f1c40f/light-on.png",
+            baptism: "https://img.icons8.com/ios-filled/50/1abc9c/water.png", // Smaller version for interaction item
+            dove: "https://img.icons8.com/ios-filled/100/ecf0f1/dove.png",
+            scroll: "https://img.icons8.com/ios-filled/50/bdc3c7/scroll.png", // Smaller for interaction
+            chariot: "https://img.icons8.com/ios-filled/100/e67e22/ancient-chariot.png",
+            prison: "https://img.icons8.com/ios-filled/100/34495e/prison-bars.png",
+            heart: "https://img.icons8.com/ios-filled/50/e74c3c/heart-suit.png", // Red heart for plea
+            church: "https://img.icons8.com/ios-filled/100/9b59b6/church.png",
+            new_leaf: "https://img.icons8.com/ios-filled/50/27ae60/natural-food.png", // Smaller leaf for interactions/end
+            // Icons specifically for interactions (using 50px versions):
+            confess: "https://img.icons8.com/ios-filled/50/3498db/speech-bubble.png",
+            forgive: "https://img.icons8.com/ios-glyphs/50/2ecc71/trust.png", // Placeholder if needed
+            listen: "https://img.icons8.com/ios-filled/50/f1c40f/listen.png", // Ear icon
+            wash: "https://img.icons8.com/ios-filled/50/1abc9c/clean.png",
+            believe_heart: "https://img.icons8.com/ios-filled/50/2ecc71/heart-health.png", // Green Heart for Belief
+            learn: "https://img.icons8.com/ios-filled/50/f39c12/book.png",
+            repent: "https://img.icons8.com/ios-filled/50/e74c3c/rotate-left.png"
+        };
+
+
+        // --- Level Definitions (Using Click Interactions) ---
+        function setupLevels() {
+            levels = [
+                 { level: 1, title: "A Glimmer of Hope", points: 10, image: IMAGES.criminal,
+                  narrative: `<p>In Moscow, a man felt trapped by his past mistakes. But then he heard about God's promise:</p><blockquote>'If we confess our sins, He is faithful and just to forgive...' (1 John 1:9)</blockquote><p>Click the element representing the first step towards this forgiveness.</p>`,
+                  interactionType: 'click-item',
+                  items: [
+                      { id: 'ignore', text: "Ignore Past", icon: IMAGES.cross, correct: false, feedback: "Ignoring doesn't lead to the forgiveness mentioned."},
+                      { id: 'confess', text: "Confess", icon: IMAGES.confess, correct: true }
+                  ],
+                  feedbackCorrect: "Right! Acknowledging our need (confessing) is the first step mentioned.",
+                 },
+                 { level: 2, title: "Stopped by Light", points: 10, image: IMAGES.light,
+                   narrative: `<p>Saul hated Christians. Suddenly, a <span class="keyword">blinding light<span class="tooltip">A divine encounter that stopped Saul instantly.</span></span> and Jesus' voice stopped him!</p><p>Blind for days, he had time to think. God had a new path for him. What was Saul's response needed to start this new path?</p>`,
+                   interactionType: 'click-item',
+                   items: [
+                       { id: 'ignore', text: "Ignore Voice", icon: IMAGES.cross, correct: false, feedback: "Ignoring the call wouldn't lead to change."},
+                       { id: 'listen', text: "Listen & Obey", icon: IMAGES.listen, correct: true }
+                   ],
+                   feedbackCorrect: "Yes! Listening and being willing to obey God's direction was key for Saul's transformation.",
+                   takeaway: "Dramatic encounters can happen, but our response (willingness to listen/obey) matters greatly."
+                 },
+                  { level: 3, title: "Affirmed from Heaven", points: 10, image: IMAGES.dove, triggerAnimation: 'dove-animation',
+                    narrative: `<p>Even Jesus, sinless, chose to be baptized. As He came from the water, the Holy Spirit descended 🕊️, and the Father spoke.</p><p>Click to acknowledge the Father's powerful affirmation:</p><blockquote>"This is my beloved Son..."</blockquote>`,
+                    interactionType: 'click-item',
+                    items: [ { id: 'affirm', text: "God Affirms Jesus", icon: IMAGES.believe_heart, correct: true } ], // Using Green Belief Heart
+                    feedbackCorrect: "Exactly! This moment clearly showed Jesus' divine identity.",
+                    milestone: "You're grasping key biblical events!"
+                 },
+                  { level: 4, title: "Understanding Dawns", points: 10, image: IMAGES.chariot,
+                     narrative: `<p>Philip explained the scriptures about <span class="keyword">Jesus<span class="tooltip">Showing how prophecies pointed to Jesus.</span></span> to the confused Ethiopian official.</p><p>Suddenly, the official understood! Seeing water 💧, he was eager for the next step following true belief. What did he seek?</p>`,
+                     interactionType: 'click-item',
+                     items: [
+                         { id: 'study_more', text: "More Scrolls", icon: IMAGES.scroll, correct: false, feedback: "He understood enough to know the next step!"},
+                         { id: 'baptism', text: "Be Baptized", icon: IMAGES.baptism, correct: true }
+                     ],
+                     feedbackCorrect: "Right! Having understood and believed, he immediately sought baptism.",
+                     takeaway: "Belief naturally leads to wanting to follow Jesus' example, including baptism."
+                 },
+                 { level: 5, title: "The Jailer's Question", points: 10, image: IMAGES.prison,
+                   narrative: `<p>Earthquake! Prison break? No! Paul & Silas remained.</p><p>The amazed jailer, realizing divine power, fell before them asking the crucial question about eternity. Click to represent his urgent plea:</p>`,
+                   interactionType: 'click-item',
+                   items: [
+                       { id: 'blame', text: "Blame Them", icon: IMAGES.cross, correct: false},
+                       { id: 'ask_salvation', text: "Ask: How Be Saved?", icon: IMAGES.heart, correct: true } // Using Red Heart for plea
+                   ],
+                   feedbackCorrect: "Yes! He asked 'What must I do to be saved?' His focus shifted entirely.",
+                 },
+                 { level: 6, title: "Faith in Action", points: 10, image: IMAGES.heart, // Using previous Green heart (post-belief)
+                   narrative: `<p>Paul replied: 'Believe on the Lord Jesus Christ...'</p><p>The jailer's belief showed immediately. Click the actions showing his changed heart:</p>`,
+                   interactionType: 'multi-click',
+                   items: [
+                       { id: 'wash', text: "Washed Wounds", icon: IMAGES.wash, correct: true },
+                       { id: 'baptized', text: "Got Baptized", icon: IMAGES.baptism, correct: true },
+                       { id: 'ignore', text: "Ignored Them", icon: IMAGES.cross, correct: false }
+                   ],
+                   minCorrectClicks: 2,
+                   feedbackCorrect: "Great! He showed compassion (washing wounds) AND commitment (getting baptized).",
+                   feedbackIncorrect: "He did more than just one thing. Find the actions that show care and commitment.",
+                   milestone: "Great progress! Connecting faith and action."
+                 },
+                  { level: 7, title: "Symbol of Newness", points: 10, image: IMAGES.baptism, // Main scene image is water
+                     narrative: `<p>Jesus spoke of being born of <span class="keyword">water & Spirit<span class="tooltip">Water=Baptism; Spirit=Inner Transformation by God.</span></span>.</p><p>Going under water buries the old life. Coming up pictures rising to what?</p>`,
+                     interactionType: 'click-item',
+                     items: [
+                          { id: 'old_life', text: "Old Habits", icon: IMAGES.cross, correct: false, feedback: "Baptism symbolizes leaving the old life."},
+                          { id: 'new_life', text: "New Life", icon: IMAGES.new_leaf, correct: true } // New Leaf icon
+                     ],
+                     feedbackCorrect: "Exactly! It represents rising to walk in a completely new life with Jesus.",
+                  },
+                  { level: 8, title: "Steps to Starting", points: 15, image: IMAGES.scroll, // Scroll as scene image
+                     narrative: `<p>Let's recap the preparation for this new start. Click the icons representing the core steps in order (1, 2, 3):</p>`,
+                     interactionType: 'order-items',
+                     items: [
+                          { id: 1, text: "Believe", icon: IMAGES.believe_heart }, // Belief Heart
+                          { id: 3, text: "Repent", icon: IMAGES.repent },       // Repent Arrow
+                          { id: 2, text: "Commit/Learn", icon: IMAGES.learn }    // Learn Book
+                     ],
+                     feedbackCorrect: "Perfect sequence! Belief -> Commitment -> Repentance.",
+                     feedbackIncorrect: "Think about the stories. What has to happen in the heart first?",
+                     takeaway: "A new start involves Belief, Commitment, and Repentance."
+                  },
+                  { level: 9, title: "The Invitation", points: 10, image: IMAGES.church,
+                    narrative: `<p>Baptism connects us publicly with Jesus and his community (<span class="keyword">the Church<span class="tooltip">The family of believers worldwide.</span></span>) ⛪.</p><p>The invitation to follow Jesus is open. Click to acknowledge:</p>`,
+                    interactionType: 'click-item',
+                    items: [ { id: 'understand', text: "Acknowledge Invite", icon: IMAGES.new_leaf, correct: true } ],
+                    feedbackCorrect: "Acknowledged. It's a personal decision to respond.",
+                    isFinalQuestion: true
+                  },
+                  { level: 10, title: "Journey Onward!", isEndScreen: true, image: IMAGES.new_leaf, // Using large leaf
+                     narrative: `<p>Awesome! 🎉 You've explored the 'New Start' journey! Final Score: <strong id='final-score'></strong> points.</p><p>Remember, this is just the beginning. Keep growing in faith! God bless!</p>`,
+                     interactionType: 'none'
+                  }
+            ];
+            // Calculate total levels excluding end screen for progress bar
+            totalLevels = levels.filter(l => !l.isEndScreen).length;
+            updateProgressBar();
+        }
+
+        // --- Game Logic Functions (Mainly unchanged from previous simplified version) ---
+        function updateProgressBar() {
+            const currentPlayableLevelIndex = levels.findIndex(l => l.level === (levels[currentLevel]?.level));
+            const progress = totalLevels > 0 ? Math.min(100, ((currentPlayableLevelIndex + 1) / totalLevels) * 100) : 0;
+            progressBar.style.width = `${progress}%`;
+            progressBar.textContent = `${Math.round(progress)}% Complete`;
+        }
+
+        function updateScore(points) {
+            const pointsGained = points || 0; score += pointsGained; scoreDisplay.textContent = `Score: ${score}`;
+            if (pointsGained > 0) {
+                 const pointsEl = document.createElement('div'); pointsEl.className = 'points-animation';
+                pointsEl.textContent = `+${pointsGained}`; gameContainer.appendChild(pointsEl);
+                setTimeout(() => pointsEl.remove(), 1500);
+            }
+        }
+
+        function playSound(sound) { /* Placeholder */ }
+        function shuffleArray(array) { /* As before */
+            for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; }
+        }
+        function setupKeywords() { /* CSS handles */ }
+
+        function displayLevel(levelIndex) {
+            if (levelIndex >= levels.length || levelIndex < 0) return;
+            const levelData = levels[levelIndex]; currentLevel = levelIndex;
+
+            gameContainer.className = `level-${levelData.level || 0}`;
+            levelInfo.textContent = levelData.isEndScreen ? levelData.title : `Level ${levelData.level}: ${levelData.title}`;
+            narrative.innerHTML = levelData.narrative;
+            setupKeywords();
+            feedback.textContent = ''; feedback.className = 'hidden';
+            choicesDiv.innerHTML = '';
+            takeawayBox.classList.add('hidden');
+            nextButton.classList.add('hidden');
+            restartButton.classList.add('hidden');
+            mainContentArea.scrollTop = 0;
+            updateProgressBar(); // Update based on starting the level
+
+            // Image Handling
+            sceneImage.classList.add('hidden'); sceneImage.className = 'hidden'; void sceneImage.offsetWidth;
+            if (levelData.image) {
+                 sceneImage.src = levelData.image; sceneImage.alt = levelData.title;
+                 sceneImage.classList.remove('hidden'); sceneImage.classList.add('fade-in');
+                 if (levelData.triggerAnimation) { /* Animation logic as before */
+                      sceneImage.classList.add(levelData.triggerAnimation);
+                      sceneImage.addEventListener('animationend', () => sceneImage.classList.remove(levelData.triggerAnimation), { once: true });
+                 }
+            }
+
+            setupInteraction(levelData); // Setup interactions
+
+            if (levelData.isEndScreen) { // Handle end screen
+                const finalScoreSpan = document.getElementById('final-score');
+                if(finalScoreSpan) finalScoreSpan.textContent = score;
+                restartButton.classList.remove('hidden');
+            }
+            if (levelData.milestone) { showFeedback(levelData.milestone, 'info', 2500); }
+        }
+
+        function setupInteraction(levelData) { // Adapted for new 'items' structure
+            choicesDiv.innerHTML = ''; orderedItems = [];
+            if (!levelData.items || levelData.interactionType === 'none') return;
+
+            let itemsToDisplay = [...levelData.items];
+             if (levelData.interactionType === 'order-items') { shuffleArray(itemsToDisplay); }
+
+             itemsToDisplay.forEach(itemData => {
+                 const itemEl = document.createElement('div');
+                itemEl.className = 'interactive-item'; itemEl.dataset.id = itemData.id;
+                itemEl.dataset.correct = itemData.correct ?? false; // Assume false if not set for non-gameplay items
+                itemEl.dataset.feedback = itemData.feedback || '';
+
+                const img = document.createElement('img'); img.src = itemData.icon; img.alt = itemData.text;
+                itemEl.appendChild(img);
+                 const span = document.createElement('span'); span.textContent = itemData.text; itemEl.appendChild(span);
+
+                 if (levelData.interactionType === 'click-item' || levelData.interactionType === 'multi-click') {
+                     itemEl.onclick = () => handleItemClick(itemEl, levelData);
+                 } else if (levelData.interactionType === 'order-items') {
+                     itemEl.onclick = () => handleOrderItemClick(itemEl, levelData);
+                 }
+                 choicesDiv.appendChild(itemEl);
+            });
+        }
+
+        function disableInteraction(makePermanent = false) { // As before
+             choicesDiv.querySelectorAll('.interactive-item').forEach(item => {
+                 item.onclick = null; if(makePermanent) item.classList.add('disabled');
+             });
+        }
+        function showFeedback(message, type = 'info', duration = null) { // As before
+             feedback.textContent = message; feedback.className = `feedback-${type} fade-in`;
+             if (duration) { setTimeout(() => { if (feedback.textContent === message) { feedback.textContent = ''; feedback.className = 'hidden'; } }, duration); }
+         }
+
+        function handleItemClick(itemEl, levelData) { // Logic largely as before (multi-click adapted slightly)
+             const isCorrect = itemEl.dataset.correct === 'true';
+             const feedbackMsg = itemEl.dataset.feedback;
+             const requiredClicks = levelData.minCorrectClicks || 1;
+
+             itemEl.onclick = null; // Prevent re-clicking
+
+
+            if (levelData.interactionType === 'multi-click') {
+                 // Toggle selected state visually for feedback
+                 if(isCorrect) itemEl.classList.add('selected-correct', 'correct');
+                 else itemEl.classList.add('selected-incorrect', 'incorrect');
+
+                 const correctSelected = choicesDiv.querySelectorAll('.selected-correct').length;
+
+                if (correctSelected >= requiredClicks) {
+                    disableInteraction(true); playSound(/* CORRECT */);
+                     showFeedback(`✅ ${levelData.feedbackCorrect || 'Got it!'}`, 'correct');
+                     updateScore(levelData.points);
+                     if (levelData.takeaway) { setTimeout(() => showTakeaway(levelData.takeaway, levelData.isFinalQuestion), 500); }
+                     else if (levelData.isFinalQuestion) { setTimeout(loadNextLevel, 1500); }
+                     else { nextButton.classList.remove('hidden'); }
+                } else if (!isCorrect) {
+                     playSound(/* INCORRECT */);
+                     showFeedback(`🤔 ${feedbackMsg || 'That one isn\'t part of this group.'}`, 'incorrect', 2000);
+                     // Reset only the incorrect item
+                    setTimeout(() => {
+                         itemEl.classList.remove('incorrect', 'selected-incorrect');
+                         itemEl.onclick = () => handleItemClick(itemEl, levelData); // Re-enable only this one
+                     }, 2000);
+                }
+
+             } else { // Single 'click-item'
+                disableInteraction(true);
+                 if (isCorrect) {
+                     itemEl.classList.add('correct'); playSound(/* CORRECT */);
+                     showFeedback(`✅ ${levelData.feedbackCorrect || 'Correct!'}`, 'correct');
+                     updateScore(levelData.points);
+                     if (levelData.takeaway) { setTimeout(() => showTakeaway(levelData.takeaway, levelData.isFinalQuestion), 500); }
+                     else if (levelData.isFinalQuestion) { setTimeout(loadNextLevel, 1500); }
+                     else { nextButton.classList.remove('hidden'); }
+                 } else {
+                     itemEl.classList.add('incorrect'); playSound(/* INCORRECT */);
+                    showFeedback(`🤔 ${feedbackMsg || 'That wasn\'t it. Let\'s review and try again.'}`, 'incorrect');
+                    setTimeout(() => displayLevel(currentLevel), 3000); // Reset level
+                }
+            }
+         }
+
+        function handleOrderItemClick(itemEl, levelData) { // Logic as before
+             itemEl.onclick = null; itemEl.classList.add('ordered'); const itemId = parseInt(itemEl.dataset.id); orderedItems.push(itemId);
+            let sequenceStr = orderedItems.map(id => levelData.items.find(item => item.id === id)?.text || id).join(' → ');
+             showFeedback(`Sequence: ${sequenceStr}`, 'info', 5000);
+
+             if (orderedItems.length === levelData.items.length) {
+                disableInteraction(true); let correctOrder = orderedItems.every((id, index) => id === index + 1);
+                playSound(correctOrder ? CORRECT_SOUND : INCORRECT_SOUND);
+                if (correctOrder) {
+                     showFeedback(`✅ Perfect order! ${levelData.feedbackCorrect || ''}`, 'correct'); updateScore(levelData.points);
+                    if (levelData.takeaway) { setTimeout(() => showTakeaway(levelData.takeaway, levelData.isFinalQuestion), 500); }
+                    else if (levelData.isFinalQuestion) { setTimeout(loadNextLevel, 1500); } else { nextButton.classList.remove('hidden'); }
+                } else {
+                    showFeedback(`🤔 Order incorrect. Let's re-sequence.`, 'incorrect'); setTimeout(() => displayLevel(currentLevel), 3500);
+                }
+            }
+        }
+
+        function showTakeaway(text, isFinal) { // As before
+             takeawayText.innerHTML = text; takeawayBox.classList.remove('hidden'); takeawayBox.classList.add('fade-in');
+            takeawayBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            if (isFinal) { setTimeout(loadNextLevel, 2500); } else { nextButton.classList.remove('hidden'); }
+        }
+
+        function loadNextLevel() { // As before
+            gameContainer.style.opacity = 0;
+            setTimeout(() => {
+                 if (currentLevel + 1 < levels.length) { displayLevel(currentLevel + 1); }
+                else { const endScreenIndex = levels.findIndex(l => l.isEndScreen); if (endScreenIndex !== -1) displayLevel(endScreenIndex); else console.error("End screen not found!"); }
+                 gameContainer.style.opacity = 1; mainContentArea.scrollTop = 0;
+             }, 300);
+         }
+        function startGame() { // As before
+            setupLevels(); score = 0; updateScore(0); currentLevel = 0; startButton.classList.add('hidden');
+             // Find the first actual level index (skipping intro if level 0 is just conceptual)
+            const firstLevelIndex = levels.findIndex(l => l.level === 1);
+            if(firstLevelIndex !== -1) {
+                currentLevel = firstLevelIndex -1; // Start before the first level index to load it next
+                 loadNextLevel();
+            } else {
+                console.error("Could not find Level 1");
+                 // Fallback or error handling
+             }
+         }
+        function restartGame() { // As before
+            score = 0; updateScore(0); currentLevel = -1; gameContainer.style.opacity = 0;
+             setTimeout(() => {
+                 gameContainer.className = ''; levelInfo.textContent = 'Level 0: Starting Point';
+                narrative.innerHTML = `<p>Ever feel stuck? Wished for a reset button on life?</p><p>This journey explores how to find a fresh start through understanding forgiveness and God's plan. Let's begin! ✨</p>`;
+                narrative.className = 'fade-in'; setupKeywords(); choicesDiv.innerHTML = ''; feedback.textContent = ''; feedback.className = 'hidden'; takeawayBox.classList.add('hidden');
+                 sceneImage.src = IMAGES.start; sceneImage.alt = "Starting Point"; sceneImage.classList.remove('hidden'); sceneImage.classList.add('fade-in');
+                 startButton.classList.remove('hidden'); nextButton.classList.add('hidden'); restartButton.classList.add('hidden');
+                updateProgressBar(); gameContainer.style.opacity = 1; mainContentArea.scrollTop = 0;
+            }, 300);
+        }
+
+        // --- Initialization ---
+        function initializeGame() { // As before
+             setupLevels(); sceneImage.src = IMAGES.start; sceneImage.alt = "Starting Point"; sceneImage.classList.remove('hidden');
+            levelInfo.textContent = 'Level 0: Starting Point'; scoreDisplay.textContent = `Score: ${score}`;
+             narrative.innerHTML = `<p>Ever feel stuck? Wished for a reset button on life?</p><p>This journey explores how to find a fresh start through understanding forgiveness and God's plan. Let's begin! ✨</p>`;
+             setupKeywords(); updateProgressBar();
+        }
+
+        // Add Event Listeners
+        startButton.addEventListener('click', startGame);
+        nextButton.addEventListener('click', loadNextLevel);
+        restartButton.addEventListener('click', restartGame);
+
+        // Initialize on load
+        initializeGame();
+        // --- JavaScript End ---
+    </script>
+
+</body>
+</html>

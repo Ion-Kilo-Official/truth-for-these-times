@@ -1,0 +1,1810 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Path of Truth: A Biblical Deception Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="none" width="100" height="100"/><path fill="%23111" d="M30,30L70,30L70,70L30,70Z"/></svg>');
+            background-size: 50px;
+        }
+
+        #game-container {
+            width: 100%;
+            max-width: 800px;
+            height: 600px;
+            position: relative;
+            background-color: #111;
+            border: 4px solid #444;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+
+        #start-screen,
+        #game-over-screen,
+        #victory-screen,
+        #scripture-screen,
+        #level-transition {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 100;
+            padding: 20px;
+        }
+
+        #scripture-screen {
+            justify-content: flex-start;
+            padding-top: 50px;
+            overflow-y: auto;
+        }
+
+        #scripture-text {
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        #level-transition {
+            background-color: rgba(0, 0, 0, 0.95);
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #add8e6;
+        }
+
+        p {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        button {
+            /* General button style */
+            background-color: #4a4a8a;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 10px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background-color: #6a6aaa;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #game-stats {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            z-index: 5;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        #bible-indicator {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+        }
+
+        #bible-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #ffd700;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+            margin-right: 5px;
+            color: #333;
+            /* Darker color for text on gold */
+        }
+
+        #bible-count {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        #player {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: #5a5af0;
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 10px #5a5af0;
+            transition: transform 0.1s;
+        }
+
+        .light-aura {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%;
+            transform: translate(-30px, -30px);
+            z-index: -1;
+        }
+
+        .enemy {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #ff4444;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .spirit-enemy {
+            background-color: transparent;
+            border: 2px solid #ff8800;
+            box-shadow: 0 0 10px #ff8800;
+        }
+
+        .familiar-spirit {
+            background-color: #ff88ff;
+            opacity: 0.8;
+        }
+
+        .bible {
+            position: absolute;
+            width: 25px;
+            height: 20px;
+            background-color: #ffd700;
+            border-radius: 3px;
+            z-index: 1;
+            transform: rotate(5deg);
+        }
+
+        .bible::before {
+            content: "";
+            position: absolute;
+            width: 15px;
+            height: 2px;
+            background-color: #000;
+            top: 5px;
+            left: 5px;
+            box-shadow: 0 4px 0 #000, 0 8px 0 #000;
+        }
+
+        .scripture {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #00ffff;
+            border-radius: 50%;
+            z-index: 1;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(0, 255, 255, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(0, 255, 255, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 255, 255, 0);
+            }
+        }
+
+        .obstacle {
+            position: absolute;
+            background-color: #333;
+            z-index: 1;
+        }
+
+        .shield {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(136, 180, 255, 0.6) 0%, rgba(136, 180, 255, 0) 70%);
+            transform: translate(-20px, -20px);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .shield.active {
+            opacity: 1;
+        }
+
+        .truth-beam {
+            position: absolute;
+            width: 10px;
+            height: 15px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            z-index: 1;
+            box-shadow: 0 0 10px #ffffff;
+        }
+
+        .effect {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%;
+            z-index: 2;
+            pointer-events: none;
+            animation: expand 0.5s forwards;
+        }
+
+        @keyframes expand {
+            from {
+                transform: scale(0.5);
+                opacity: 1;
+            }
+
+            to {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        .dialog-box {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 2px solid #444;
+            padding: 15px;
+            border-radius: 10px;
+            z-index: 10;
+            display: none;
+        }
+
+        .dialog-text {
+            color: #fff;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .dialog-continue {
+            text-align: right;
+            color: #ffd700;
+            margin-top: 10px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        #quiz-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 20px;
+        }
+
+        .quiz-question {
+            color: #ffd700;
+            font-size: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .quiz-options {
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: center;
+        }
+
+        .quiz-option:hover {
+            background-color: #444;
+        }
+
+        #tutorial-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 110;
+            padding: 20px;
+        }
+
+        .tutorial-content {
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .tutorial-controls {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .message-popup {
+            position: absolute;
+            padding: 10px 15px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0;
+            transition: opacity 0.3s;
+            transform: translate(-50%, -50%);
+            /* Added for centering */
+        }
+
+        .message-popup.show {
+            opacity: 1;
+        }
+
+        #settings-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 20;
+            color: #fff;
+        }
+
+        #settings-menu {
+            position: absolute;
+            top: 50px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.9);
+            border: 1px solid #444;
+            padding: 15px;
+            border-radius: 5px;
+            z-index: 20;
+            display: none;
+        }
+
+        .settings-item {
+            margin-bottom: 10px;
+        }
+
+        .settings-item label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .settings-item input[type="range"] {
+            width: 100%;
+        }
+
+        /* --- ADDED: Styles for Return Button --- */
+        .return-button {
+            position: fixed;
+            /* Keep it fixed relative to the viewport */
+            top: 15px;
+            right: 15px;
+            /* Position in top right */
+            z-index: 200;
+            /* Ensure it's above other elements */
+            background-color: rgba(50, 50, 50, 0.8);
+            /* Dark semi-transparent background */
+            color: #ccc;
+            /* Light gray text */
+            padding: 8px 15px;
+            text-decoration: none;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #555;
+            opacity: 0;
+            /* Initially hidden */
+            transition: opacity 1.5s ease-in-out, background-color 0.3s;
+            /* Fade-in transition */
+            pointer-events: none;
+            /* Initially not clickable */
+        }
+
+        .return-button.visible {
+            opacity: 1;
+            /* Make it visible */
+            pointer-events: auto;
+            /* Make it clickable */
+        }
+
+        .return-button:hover {
+            background-color: rgba(80, 80, 80, 0.9);
+            /* Slightly lighter on hover */
+            color: #fff;
+        }
+
+        /* --- END ADDED Styles --- */
+    </style>
+</head>
+
+<body>
+    <div id="game-container">
+        <div id="start-screen">
+            <h1>Path of Truth</h1>
+            <h2>A Biblical Deception Game</h2>
+            <p>Navigate through spiritual deception by using Biblical knowledge to protect yourself.</p>
+            <p>Arrow keys to move, Space to use Bible shield, B to shoot truth beams.</p>
+            <button id="start-button">Start Game</button>
+        </div>
+
+        <div id="game-over-screen" style="display: none;">
+            <h1>Game Over</h1>
+            <p id="game-over-reason"></p>
+            <p>You were deceived by false spirits.</p>
+            <button id="restart-button">Try Again</button>
+        </div>
+
+        <div id="victory-screen" style="display: none;">
+            <h1>Victory!</h1>
+            <p>You have successfully protected yourself from deception and stood firm in Biblical truth!</p>
+            <div id="final-stats"></div>
+            <button id="play-again-button">Play Again</button>
+        </div>
+
+        <div id="scripture-screen" style="display: none;">
+            <h2 id="scripture-title">Biblical Truth</h2>
+            <div id="scripture-text"></div>
+            <button id="continue-game-button">Continue</button>
+        </div>
+
+        <div id="level-transition" style="display: none;">
+            <h2 id="level-title">Level 1</h2>
+            <p id="level-description">Beginning your journey of spiritual discernment.</p>
+            <button id="begin-level-button">Begin</button>
+        </div>
+
+        <div id="tutorial-overlay" style="display: none;">
+            <div class="tutorial-content">
+                <h2>How to Play</h2>
+                <div id="tutorial-text"></div>
+                <div class="tutorial-controls">
+                    <button id="prev-tutorial">Previous</button>
+                    <button id="next-tutorial">Next</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="quiz-overlay" style="display: none;">
+            <div class="quiz-question" id="quiz-question"></div>
+            <div class="quiz-options" id="quiz-options"></div>
+        </div>
+
+        <div id="player">
+            <div class="light-aura"></div>
+            <div class="shield"></div>
+        </div>
+
+        <div id="game-stats">
+            <div>Level: <span id="level-display">1</span></div>
+            <div>Truth: <span id="truth-display">100</span>%</div>
+            <div>Scriptures: <span id="scripture-display">0</span>/5</div>
+        </div>
+
+        <div id="bible-indicator">
+            <div id="bible-icon">B</div>
+            <div id="bible-count">0</div>
+        </div>
+
+        <div class="dialog-box" id="dialog-box">
+            <div class="dialog-text" id="dialog-text"></div>
+            <div class="dialog-continue">Press Space to continue...</div>
+        </div>
+
+        <div class="message-popup" id="message-popup"></div>
+
+        <div id="settings-button">⚙️</div>
+        <div id="settings-menu">
+            <div class="settings-item">
+                <label for="music-volume">Music Volume</label>
+                <input type="range" id="music-volume" min="0" max="100" value="50">
+            </div>
+            <div class="settings-item">
+                <label for="sfx-volume">Sound Effects Volume</label>
+                <input type="range" id="sfx-volume" min="0" max="100" value="70">
+            </div>
+        </div>
+    </div>
+
+    <!-- ADDED: Return Button -->
+    <!-- IMPORTANT: Ensure 'index.html' is the correct path to your study guide -->
+    <a href="voices_from_beyond_the_grave_study_guide.html" id="return-button" class="return-button" aria-label="Return to Study Guide">
+        « Back to Study Guide
+    </a>
+    <!-- END ADDED -->
+
+
+    <script>
+        // Game State and Variables
+        const gameState = {
+            running: false,
+            level: 1,
+            truth: 100,
+            bibleCount: 0,
+            scripturesCollectedThisGame: 0,
+            requiredScripturesTotal: 5,
+            playerPos: { x: 400, y: 300 },
+            playerVelocity: { x: 0, y: 0 },
+            playerSpeed: 4,
+            enemies: [],
+            bibles: [],
+            scriptureOrbs: [],
+            obstacles: [],
+            truthBeams: [],
+            effects: [],
+            keys: {
+                ArrowUp: false,
+                ArrowDown: false,
+                ArrowLeft: false,
+                ArrowRight: false,
+                Space: false,
+                KeyB: false
+            },
+            shieldActive: false,
+            shieldCooldown: 0,
+            shieldMaxCooldown: 120,
+            beamCooldown: 0,
+            beamMaxCooldown: 30,
+            lastDialogTime: 0,
+            currentDialog: null,
+            dialogQueue: [],
+            tutorialStep: 0,
+            showingTutorial: false,
+            gameContainer: document.getElementById('game-container'),
+            player: document.getElementById('player'),
+            settings: {
+                musicVolume: 0.5,
+                sfxVolume: 0.7
+            },
+            animationFrameId: null
+        };
+
+        // Game Elements (remain the same)
+        const gameElements = {
+            startScreen: document.getElementById('start-screen'),
+            gameOverScreen: document.getElementById('game-over-screen'),
+            victoryScreen: document.getElementById('victory-screen'),
+            levelTransition: document.getElementById('level-transition'),
+            scriptureScreen: document.getElementById('scripture-screen'),
+            levelDisplay: document.getElementById('level-display'),
+            truthDisplay: document.getElementById('truth-display'),
+            scriptureDisplay: document.getElementById('scripture-display'),
+            bibleCount: document.getElementById('bible-count'),
+            dialogBox: document.getElementById('dialog-box'),
+            dialogText: document.getElementById('dialog-text'),
+            quizOverlay: document.getElementById('quiz-overlay'),
+            quizQuestion: document.getElementById('quiz-question'),
+            quizOptions: document.getElementById('quiz-options'),
+            gameOverReason: document.getElementById('game-over-reason'),
+            finalStats: document.getElementById('final-stats'),
+            tutorialOverlay: document.getElementById('tutorial-overlay'),
+            tutorialText: document.getElementById('tutorial-text'),
+            messagePopup: document.getElementById('message-popup'),
+            scriptureTitle: document.getElementById('scripture-title'),
+            scriptureText: document.getElementById('scripture-text'),
+            levelTitle: document.getElementById('level-title'),
+            levelDescription: document.getElementById('level-description'),
+            settingsButton: document.getElementById('settings-button'),
+            settingsMenu: document.getElementById('settings-menu'),
+            musicVolume: document.getElementById('music-volume'),
+            sfxVolume: document.getElementById('sfx-volume'),
+            // ADDED: Reference to return button for JS
+            returnButton: document.getElementById('return-button')
+        };
+
+
+        // Audio Context and Sounds (remain the same)
+        let audioContext;
+        const sounds = {};
+
+        function initAudio() {
+            if (audioContext) return;
+            try { // Added try-catch for browsers blocking autoplay audio contexts
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            } catch (e) {
+                console.warn("Web Audio API could not be initialized (maybe blocked?):", e);
+                return;
+            }
+            if (!audioContext) {
+                console.warn("Web Audio API not supported. Sounds will be disabled.");
+                return;
+            }
+
+            createSound('collect', [220, 440, 880], [0, 0.1, 0.2], 0.3);
+            createSound('hit', [440, 220, 110], [0, 0.05, 0.1], 0.4);
+            createSound('shield', [440, 880, 1760], [0, 0.05, 0.1], 0.2);
+            createSound('beam', [1760, 880], [0, 0.1], 0.15);
+            createSound('scripture', [523.25, 659.25, 783.99], [0, 0.1, 0.2], 0.5);
+            createSound('enemy_destroy', [330, 165], [0, 0.1], 0.2);
+            createSound('levelup', [523.25, 659.25, 783.99, 1046.50], [0, 0.1, 0.2, 0.3], 0.8);
+            createSound('gameover', [440, 415.30, 392.00, 369.99], [0, 0.2, 0.4, 0.6], 1);
+            createSound('victory', [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98], [0, 0.1, 0.2, 0.3, 0.4, 0.5], 1.5);
+        }
+
+        function createSound(name, frequencies, times, duration) {
+            if (!audioContext) return; // Don't create if context failed
+            sounds[name] = { frequencies, times, duration };
+        }
+
+        function playSound(name) {
+            if (!audioContext || !sounds[name] || audioContext.state === 'suspended') return; // Don't play if suspended
+
+            const sound = sounds[name];
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            oscillator.type = 'sine';
+            const startTime = audioContext.currentTime;
+            sound.frequencies.forEach((freq, i) => {
+                oscillator.frequency.setValueAtTime(freq, startTime + sound.times[i]);
+            });
+            gainNode.gain.setValueAtTime(gameState.settings.sfxVolume, startTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, startTime + sound.duration);
+            oscillator.start(startTime);
+            oscillator.stop(startTime + sound.duration);
+        }
+
+        // Level Definitions (remain the same)
+        const levels = [
+            {
+                title: "The Basics of Discernment",
+                description: "Learn to recognize false spirits and collect Biblical truths.",
+                enemies: 3, spirits: 0, familiarSpirits: 0, obstacles: 3, bibles: 5, scripturesToSpawn: 1, enemySpeed: 1.5,
+                dialog: [
+                    "Welcome to your journey of spiritual discernment.",
+                    "There are many deceiving spirits in this world, as the Bible warns us.",
+                    "Collect Bibles (gold rectangles) to increase your protection and find Scripture orbs (cyan orbs) to learn Biblical truths.",
+                    "Use ARROW KEYS to move, SPACE to activate your Bible shield, and B to fire truth beams."
+                ]
+            },
+            {
+                title: "Recognizing False Spirits",
+                description: "Be wary of deceiving spirits that may appear familiar.",
+                enemies: 5, spirits: 3, familiarSpirits: 0, obstacles: 5, bibles: 7, scripturesToSpawn: 1, enemySpeed: 2,
+                dialog: [
+                    "As you progress, you'll encounter spirit enemies (outlined circles) that are harder to see.",
+                    "These represent the deceiving spirits mentioned in Revelation.",
+                    "Remember that Satan himself can transform into an angel of light. (2 Corinthians 11:14)",
+                    "Strengthen your faith by collecting more scriptures and Bibles."
+                ]
+            },
+            {
+                title: "Familiar Spirits",
+                description: "Some spirits may appear as departed loved ones.",
+                enemies: 3, spirits: 5, familiarSpirits: 2, obstacles: 7, bibles: 10, scripturesToSpawn: 1, enemySpeed: 2.2,
+                dialog: [
+                    "Now you'll face familiar spirits (pink circles) - demons that impersonate departed loved ones.",
+                    "The Bible clearly tells us that 'the dead know nothing' (Ecclesiastes 9:5).",
+                    "These spirits may seem harmless, but they're actually demons in disguise.",
+                    "Use your Bible shield and truth beams to protect yourself from their deception."
+                ]
+            },
+            {
+                title: "Standing Firm in Truth",
+                description: "The deceptions grow stronger - stand firm in Biblical truth.",
+                enemies: 4, spirits: 6, familiarSpirits: 4, obstacles: 8, bibles: 12, scripturesToSpawn: 1, enemySpeed: 2.4,
+                dialog: [
+                    "The deceptions grow stronger as you near the end of your journey.",
+                    "Remember that Satan seeks to deceive even the elect, if possible. (Matthew 24:24)",
+                    "Only those who fortify their minds with God's Word can stand against deception.",
+                    "Collect the scripture and complete your armor of truth!"
+                ]
+            },
+            {
+                title: "The Final Test",
+                description: "Face Satan's ultimate deception and stand firm in faith.",
+                enemies: 6, spirits: 8, familiarSpirits: 6, obstacles: 10, bibles: 15, scripturesToSpawn: 1, enemySpeed: 2.6,
+                dialog: [
+                    "This is your final test. Satan's deceptions are at their strongest.",
+                    "He may even try to impersonate Christ himself, as Jesus warned. (Matthew 24:23-24)",
+                    "Hold fast to the Biblical truths you've learned and stand firm.",
+                    "Your eternal salvation depends on knowing God's truth about life after death."
+                ]
+            }
+        ];
+
+        // Biblical Scriptures (remain the same)
+        const scriptures = [
+            {
+                title: "The Truth About Death",
+                text: "For the living know that they will die, but the dead know nothing... Their love, their hatred, and their envy have now perished; nevermore will they have a share in anything done under the sun. - Ecclesiastes 9:5-6\n\nThis scripture teaches us that the dead are not conscious and cannot communicate with the living."
+            },
+            {
+                title: "Warning Against Mediums",
+                text: "Give no regard to mediums and familiar spirits; do not seek after them, to be defiled by them: I am the LORD your God. - Leviticus 19:31\n\nGod explicitly warns against seeking communication with the dead through mediums or psychics."
+            },
+            {
+                title: "Origin of Deceptive Spirits",
+                text: "For they are spirits of demons, performing signs, which go out to the kings of the earth and of the whole world... - Revelation 16:14\n\nThe Bible reveals that deceiving spirits are actually demons, fallen angels who work with Satan."
+            },
+            {
+                title: "Satan's Deceptive Power",
+                text: "And no wonder! For Satan himself transforms himself into an angel of light. - 2 Corinthians 11:14\n\nSatan has the ability to appear as something good and pure, making his deceptions extremely dangerous."
+            },
+            {
+                title: "Hope in Christ",
+                text: "Jesus said to her, 'I am the resurrection and the life. He who believes in Me, though he may die, he shall live.' - John 11:25\n\nThe true hope for life after death comes through Jesus Christ, who conquered death and promises resurrection to those who believe in Him."
+            }
+        ];
+
+        // Bible Questions (remain the same)
+        const bibleQuestions = [
+            { question: "According to Ecclesiastes 9:5, what do the dead know?", options: ["Everything", "Secrets of the universe", "Nothing", "The future"], answer: 2 },
+            { question: "Leviticus 19:31 warns against seeking whom?", options: ["Prophets", "Mediums and familiar spirits", "Wise men", "Angels"], answer: 1 },
+            { question: "According to 2 Corinthians 11:14, who can transform into an angel of light?", options: ["Michael", "Gabriel", "Satan", "A righteous person"], answer: 2 },
+            { question: "What did King Saul consult that was forbidden, contributing to his downfall (1 Chronicles 10:13-14)?", options: ["A sorcerer", "A medium", "An idol", "A false prophet"], answer: 1 },
+            { question: "Who holds 'the keys of Hades and of Death' according to Revelation 1:18?", options: ["Satan", "Death itself", "An angel", "Jesus Christ"], answer: 3 },
+            { question: "What is described as an 'abomination to the LORD' in Deuteronomy 18:10-12?", options: ["Eating pork", "Consulting mediums or spiritists", "Not observing a festival", "Arguing with a priest"], answer: 1 },
+            { question: "Jesus said in John 11:25, 'I am the resurrection and the...'", options: ["Way", "Truth", "Life", "Light"], answer: 2 },
+            { question: "Revelation 16:14 describes 'spirits of demons' doing what?", options: ["Healing the sick", "Performing signs", "Teaching truth", "Building cities"], answer: 1 },
+            { question: "In John 14:6, Jesus said, 'I am the way, the truth, and the life. No one comes to the Father except through...'", options: ["Good works", "The Law of Moses", "Me (Jesus)", "The Church"], answer: 2 },
+            { question: "According to the Bible, when a person dies, where does their conscious self go immediately if they are not saved?", options: ["Heaven as a spirit", "They roam the earth", "They cease to exist until resurrection", "They are in a state of unconscious sleep awaiting judgment"], answer: 3 }
+        ];
+
+        // Tutorial Steps (remain the same)
+        const tutorialSteps = [
+            "Welcome to Path of Truth! Use ARROW KEYS to move your character (blue light).",
+            "Red circles are enemies representing deception. Touching them reduces your 'Truth' meter.",
+            "Collect Bibles (gold rectangles) to increase your Bible count. They are your defense.",
+            "Press SPACE to activate your Bible shield (uses 1 Bible). It protects you temporarily.",
+            "Press B to shoot Truth Beams (uses 1 Bible). They can destroy deceiving spirits.",
+            "Cyan orbs are Scripture Orbs. Collect them to learn Biblical truths and progress.",
+            "Your goal: Collect all 5 Scripture Orbs across the levels while keeping Truth > 0%.",
+            "Dialogues will appear at the bottom. Press SPACE to continue them.",
+            "Remember: 'You shall know the truth, and the truth shall make you free.' (John 8:32). Good luck!"
+        ];
+
+        // Game Initialization
+        function initGame() {
+            resetGameState();
+            updateDisplays();
+            positionPlayer(gameState.gameContainer.offsetWidth / 2, gameState.gameContainer.offsetHeight / 2);
+
+            document.addEventListener('keydown', handleKeyDown);
+            document.addEventListener('keyup', handleKeyUp);
+
+            // Event listeners for buttons (remain the same)
+            document.getElementById('start-button').addEventListener('click', startGame);
+            document.getElementById('restart-button').addEventListener('click', restartGame);
+            document.getElementById('play-again-button').addEventListener('click', restartGame);
+            document.getElementById('continue-game-button').addEventListener('click', closeScriptureScreen);
+            document.getElementById('begin-level-button').addEventListener('click', startLevel);
+            document.getElementById('prev-tutorial').addEventListener('click', prevTutorialStep);
+            document.getElementById('next-tutorial').addEventListener('click', nextTutorialStep);
+            gameElements.settingsButton.addEventListener('click', toggleSettings);
+            gameElements.musicVolume.addEventListener('input', updateMusicVolume);
+            gameElements.sfxVolume.addEventListener('input', updateSfxVolume);
+
+            initAudio(); // Initialize audio context
+
+            // ADDED: Fade in return button after delay
+            if (gameElements.returnButton) {
+                setTimeout(() => {
+                    gameElements.returnButton.classList.add('visible');
+                }, 1500); // 1.5 second delay
+            }
+        }
+
+        // --- Most other functions remain identical: ---
+        // resetGameState, updateDisplays, positionPlayer, handleKeyDown, handleKeyUp,
+        // startGame, restartGame, showTutorial, updateTutorialContent, nextTutorialStep, prevTutorialStep,
+        // showLevelTransition, startLevel, clearEntities, createObstacles, createEnemies, createEnemy,
+        // createBibles, createScriptureOrbs, isOverlappingObstacle, fireTruthBeam, activateShield,
+        // createEffect, showMessage, queueDialog, showNextDialog, advanceDialog, showScriptureScreen,
+        // closeScriptureScreen, showQuiz, handleQuizAnswer, gameLoop, updatePlayer, updateEnemies,
+        // updateBibles, updateScriptures, updateTruthBeams, updateCooldowns, checkLevelCompletion,
+        // gameOver, victory, toggleSettings, updateMusicVolume, updateSfxVolume
+
+        // --- (Include all the unchanged functions from your original script here) ---
+        // Example:
+        function resetGameState() {
+            gameState.running = false;
+            gameState.level = 1;
+            gameState.truth = 100;
+            gameState.bibleCount = 0;
+            gameState.scripturesCollectedThisGame = 0;
+            gameState.playerVelocity = { x: 0, y: 0 };
+            gameState.shieldActive = false;
+            gameState.shieldCooldown = 0;
+            gameState.beamCooldown = 0;
+            gameState.dialogQueue = [];
+            gameState.lastDialogTime = 0;
+            gameState.currentDialog = null;
+
+            clearEntities();
+
+            positionPlayer(gameState.gameContainer.offsetWidth / 2, gameState.gameContainer.offsetHeight / 2);
+            gameState.player.querySelector('.shield').classList.remove('active');
+
+            gameElements.gameOverScreen.style.display = 'none';
+            gameElements.victoryScreen.style.display = 'none';
+            gameElements.levelTransition.style.display = 'none';
+            gameElements.scriptureScreen.style.display = 'none';
+            gameElements.quizOverlay.style.display = 'none';
+            gameElements.tutorialOverlay.style.display = 'none';
+            gameElements.dialogBox.style.display = 'none';
+            gameElements.startScreen.style.display = 'block'; // Show start screen on reset
+        }
+
+        function updateDisplays() {
+            gameElements.levelDisplay.textContent = gameState.level;
+            gameElements.truthDisplay.textContent = Math.max(0, Math.round(gameState.truth));
+            gameElements.scriptureDisplay.textContent = gameState.scripturesCollectedThisGame + '/' + gameState.requiredScripturesTotal;
+            gameElements.bibleCount.textContent = gameState.bibleCount;
+        }
+
+        function positionPlayer(x, y) {
+            gameState.playerPos.x = x;
+            gameState.playerPos.y = y;
+            gameState.player.style.left = x - (gameState.player.offsetWidth / 2) + 'px';
+            gameState.player.style.top = y - (gameState.player.offsetHeight / 2) + 'px';
+        }
+
+        function handleKeyDown(e) {
+            // Resume AudioContext on first user interaction
+            if (audioContext && audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+
+            if (gameState.keys.hasOwnProperty(e.code)) {
+                gameState.keys[e.code] = true;
+
+                if (e.code === 'Space') {
+                    if (gameElements.dialogBox.style.display === 'block' && gameState.running) {
+                        advanceDialog();
+                        e.preventDefault();
+                    }
+                    // Shield activation handled in updatePlayer or activateShield directly now
+                }
+                // Prevent default browser behavior for arrow keys, space, etc. if game is running
+                if (gameState.running && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Space'].includes(e.code)) {
+                    e.preventDefault();
+                }
+            }
+        }
+
+        function handleKeyUp(e) {
+            if (gameState.keys.hasOwnProperty(e.code)) {
+                gameState.keys[e.code] = false;
+            }
+        }
+
+        function startGame() {
+            if (audioContext && audioContext.state === 'suspended') {
+                audioContext.resume(); // Try resuming audio context on start
+            }
+            gameElements.startScreen.style.display = 'none';
+            showTutorial();
+        }
+
+        function restartGame() {
+            if (gameState.animationFrameId) {
+                cancelAnimationFrame(gameState.animationFrameId);
+                gameState.animationFrameId = null;
+            }
+            resetGameState(); // This now shows the start screen
+            updateDisplays();
+            // Explicitly hide other screens just in case
+            gameElements.gameOverScreen.style.display = 'none';
+            gameElements.victoryScreen.style.display = 'none';
+        }
+
+
+        function showTutorial() {
+            gameState.showingTutorial = true;
+            gameState.tutorialStep = 0;
+            gameElements.tutorialOverlay.style.display = 'flex';
+            updateTutorialContent();
+        }
+
+        function updateTutorialContent() {
+            gameElements.tutorialText.textContent = tutorialSteps[gameState.tutorialStep];
+            document.getElementById('prev-tutorial').style.visibility = gameState.tutorialStep > 0 ? 'visible' : 'hidden';
+            const nextButton = document.getElementById('next-tutorial');
+            nextButton.textContent = gameState.tutorialStep === tutorialSteps.length - 1 ? 'Start Game' : 'Next';
+        }
+
+        function nextTutorialStep() {
+            if (gameState.tutorialStep < tutorialSteps.length - 1) {
+                gameState.tutorialStep++;
+                updateTutorialContent();
+            } else {
+                gameElements.tutorialOverlay.style.display = 'none';
+                gameState.showingTutorial = false;
+                positionPlayer(gameState.gameContainer.offsetWidth / 2, gameState.gameContainer.offsetHeight / 2);
+                showLevelTransition();
+            }
+        }
+
+        function prevTutorialStep() {
+            if (gameState.tutorialStep > 0) {
+                gameState.tutorialStep--;
+                updateTutorialContent();
+            }
+        }
+
+        function showLevelTransition() {
+            gameState.running = false;
+            const currentLevelData = levels[gameState.level - 1];
+            if (!currentLevelData) {
+                console.error("Level data not found for level: " + gameState.level);
+                victory();
+                return;
+            }
+            gameElements.levelTitle.textContent = `Level ${gameState.level}: ${currentLevelData.title}`;
+            gameElements.levelDescription.textContent = currentLevelData.description;
+            gameElements.levelTransition.style.display = 'flex';
+        }
+
+        function startLevel() {
+            gameElements.levelTransition.style.display = 'none';
+            clearEntities();
+            positionPlayer(gameState.gameContainer.offsetWidth / 2, gameState.gameContainer.offsetHeight / 2);
+
+            const currentLevelData = levels[gameState.level - 1];
+            createObstacles(currentLevelData.obstacles);
+            createEnemies(currentLevelData.enemies, currentLevelData.spirits, currentLevelData.familiarSpirits, currentLevelData.enemySpeed);
+            createBibles(currentLevelData.bibles);
+            createScriptureOrbs(currentLevelData.scripturesToSpawn);
+            queueDialog(currentLevelData.dialog);
+
+            gameState.running = true;
+            if (!gameState.animationFrameId) {
+                gameState.animationFrameId = requestAnimationFrame(gameLoop);
+            }
+        }
+
+        function clearEntities() {
+            ['enemies', 'bibles', 'scriptureOrbs', 'obstacles', 'truthBeams', 'effects'].forEach(type => {
+                gameState[type].forEach(entity => {
+                    if (entity.element && entity.element.parentNode) {
+                        entity.element.parentNode.removeChild(entity.element);
+                    }
+                });
+                gameState[type] = [];
+            });
+        }
+
+        function createObstacles(count) {
+            const containerWidth = gameState.gameContainer.offsetWidth;
+            const containerHeight = gameState.gameContainer.offsetHeight;
+            const playerSafeZone = 150;
+
+            for (let i = 0; i < count; i++) {
+                const width = 40 + Math.random() * 60;
+                const height = 40 + Math.random() * 60;
+                let x, y;
+                let attempts = 0;
+                do {
+                    x = Math.random() * (containerWidth - width);
+                    y = Math.random() * (containerHeight - height);
+                    attempts++;
+                    if (attempts > 50) { console.warn("Could not place obstacle without overlap"); break; } // Avoid infinite loop
+                } while (
+                    (Math.abs(x + width / 2 - containerWidth / 2) < playerSafeZone &&
+                        Math.abs(y + height / 2 - containerHeight / 2) < playerSafeZone) ||
+                    isOverlappingAnything(x, y, width, height) // Check against existing obstacles
+                );
+
+                if (attempts > 50) continue; // Skip if placement failed
+
+                const obstacleEl = document.createElement('div');
+                obstacleEl.className = 'obstacle';
+                obstacleEl.style.width = width + 'px';
+                obstacleEl.style.height = height + 'px';
+                obstacleEl.style.left = x + 'px';
+                obstacleEl.style.top = y + 'px';
+                gameState.gameContainer.appendChild(obstacleEl);
+                gameState.obstacles.push({ element: obstacleEl, x, y, width, height });
+            }
+        }
+        // Helper function to check overlap against existing obstacles
+        function isOverlappingAnything(x, y, width, height) {
+            const buffer = 5; // Add a small buffer
+            for (const obs of gameState.obstacles) {
+                if (x < obs.x + obs.width + buffer && x + width + buffer > obs.x &&
+                    y < obs.y + obs.height + buffer && y + height + buffer > obs.y) {
+                    return true;
+                }
+            }
+            // Can add checks for other entities if needed
+            return false;
+        }
+
+
+        function createEnemies(regularCount, spiritCount, familiarCount, speed) {
+            const containerWidth = gameState.gameContainer.offsetWidth;
+            const containerHeight = gameState.gameContainer.offsetHeight;
+            const playerSafeZone = 200;
+
+            const spawnEnemy = (className, baseSpeed) => {
+                let x, y;
+                let attempts = 0;
+                do {
+                    x = Math.random() * containerWidth;
+                    y = Math.random() * containerHeight;
+                    attempts++;
+                    if (attempts > 50) { console.warn("Could not place enemy safely"); break; }
+                } while (
+                    (Math.abs(x - containerWidth / 2) < playerSafeZone &&
+                        Math.abs(y - containerHeight / 2) < playerSafeZone) ||
+                    isOverlappingAnything(x, y, 30, 30) // Assuming enemy size 30x30
+                );
+                if (attempts > 50) return; // Skip if placement failed
+                createEnemy(x, y, className, baseSpeed);
+            };
+
+            for (let i = 0; i < regularCount; i++) spawnEnemy('enemy', speed);
+            for (let i = 0; i < spiritCount; i++) spawnEnemy('enemy spirit-enemy', speed * 1.2);
+            for (let i = 0; i < familiarCount; i++) spawnEnemy('enemy familiar-spirit', speed * 0.9);
+        }
+
+        function createEnemy(x, y, className, speed) {
+            const enemyEl = document.createElement('div');
+            enemyEl.className = className;
+            const size = 30; // Enemy size
+            enemyEl.style.width = size + 'px';
+            enemyEl.style.height = size + 'px';
+            enemyEl.style.left = x + 'px';
+            enemyEl.style.top = y + 'px';
+            gameState.gameContainer.appendChild(enemyEl);
+
+            const direction = Math.random() * Math.PI * 2;
+            gameState.enemies.push({
+                element: enemyEl, x, y, width: size, height: size,
+                velocityX: Math.cos(direction) * speed,
+                velocityY: Math.sin(direction) * speed,
+                speed: speed,
+                isFamiliar: className.includes('familiar-spirit'),
+                isSpirit: className.includes('spirit-enemy')
+            });
+        }
+
+        function createBibles(count) {
+            const containerWidth = gameState.gameContainer.offsetWidth;
+            const containerHeight = gameState.gameContainer.offsetHeight;
+            const bibleW = 25, bibleH = 20;
+            for (let i = 0; i < count; i++) {
+                let x, y;
+                let attempts = 0;
+                do {
+                    x = Math.random() * (containerWidth - bibleW);
+                    y = Math.random() * (containerHeight - bibleH);
+                    attempts++;
+                    if (attempts > 50) { console.warn("Could not place bible"); break; }
+                } while (isOverlappingAnything(x, y, bibleW, bibleH));
+                if (attempts > 50) continue;
+
+                const bibleEl = document.createElement('div');
+                bibleEl.className = 'bible';
+                bibleEl.style.left = x + 'px';
+                bibleEl.style.top = y + 'px';
+                gameState.gameContainer.appendChild(bibleEl);
+                gameState.bibles.push({ element: bibleEl, x, y, width: bibleW, height: bibleH });
+            }
+        }
+
+        function createScriptureOrbs(count) {
+            const containerWidth = gameState.gameContainer.offsetWidth;
+            const containerHeight = gameState.gameContainer.offsetHeight;
+            const orbSize = 30;
+            const scripturesAvailableToAssign = scriptures.length - gameState.scripturesCollectedThisGame;
+            const orbsToCreate = Math.min(count, scripturesAvailableToAssign);
+
+            for (let i = 0; i < orbsToCreate; i++) {
+                let x, y;
+                let attempts = 0;
+                do {
+                    x = Math.random() * (containerWidth - orbSize);
+                    y = Math.random() * (containerHeight - orbSize);
+                    attempts++;
+                    if (attempts > 50) { console.warn("Could not place scripture orb"); break; }
+                } while (isOverlappingAnything(x, y, orbSize, orbSize));
+                if (attempts > 50) continue;
+
+                const scriptureEl = document.createElement('div');
+                scriptureEl.className = 'scripture';
+                scriptureEl.style.left = x + 'px';
+                scriptureEl.style.top = y + 'px';
+                gameState.gameContainer.appendChild(scriptureEl);
+                gameState.scriptureOrbs.push({
+                    element: scriptureEl, x, y, width: orbSize, height: orbSize,
+                    scriptureIndex: gameState.scripturesCollectedThisGame + i
+                });
+            }
+        }
+
+
+        function fireTruthBeam() {
+            if (gameState.beamCooldown > 0 || gameState.bibleCount <= 0) return;
+
+            gameState.bibleCount--;
+            updateDisplays();
+            gameState.beamCooldown = gameState.beamMaxCooldown;
+            playSound('beam');
+            createEffect(gameState.playerPos.x, gameState.playerPos.y);
+
+            let dirX = 0, dirY = 0;
+            if (gameState.keys.ArrowUp) dirY = -1;
+            if (gameState.keys.ArrowDown) dirY = 1;
+            if (gameState.keys.ArrowLeft) dirX = -1;
+            if (gameState.keys.ArrowRight) dirX = 1;
+
+            // Determine last non-zero velocity if standing still
+            if (dirX === 0 && dirY === 0) {
+                if (gameState.lastPlayerVelX !== 0 || gameState.lastPlayerVelY !== 0) {
+                    dirX = gameState.lastPlayerVelX > 0 ? 1 : (gameState.lastPlayerVelX < 0 ? -1 : 0);
+                    dirY = gameState.lastPlayerVelY > 0 ? 1 : (gameState.lastPlayerVelY < 0 ? -1 : 0);
+                }
+                if (dirX === 0 && dirY === 0) dirX = 1; // Default right if truly still
+            }
+
+
+            const magnitude = Math.sqrt(dirX * dirX + dirY * dirY) || 1; // Avoid division by zero
+            const beamVelX = (dirX / magnitude) * 8;
+            const beamVelY = (dirY / magnitude) * 8;
+
+            const beamEl = document.createElement('div');
+            beamEl.className = 'truth-beam';
+            const beamW = 10, beamH = 15;
+            const beamX = gameState.playerPos.x - beamW / 2;
+            const beamY = gameState.playerPos.y - beamH / 2;
+            beamEl.style.left = beamX + 'px';
+            beamEl.style.top = beamY + 'px';
+            gameState.gameContainer.appendChild(beamEl);
+
+            gameState.truthBeams.push({
+                element: beamEl, x: beamX, y: beamY, width: beamW, height: beamH,
+                velocityX: beamVelX, velocityY: beamVelY
+            });
+        }
+
+        function activateShield() {
+            if (gameState.shieldCooldown > 0 || gameState.bibleCount <= 0 || gameState.shieldActive) return;
+
+            gameState.shieldActive = true;
+            gameState.bibleCount--;
+            updateDisplays();
+            gameState.player.querySelector('.shield').classList.add('active');
+            gameState.shieldCooldown = gameState.shieldMaxCooldown;
+            playSound('shield');
+
+            setTimeout(() => {
+                gameState.shieldActive = false;
+                // Check if player element still exists before trying to access it
+                if (gameState.player && gameState.player.querySelector('.shield')) {
+                    gameState.player.querySelector('.shield').classList.remove('active');
+                }
+            }, 3000); // Shield duration 3 seconds
+        }
+
+        function createEffect(x, y) {
+            const effectEl = document.createElement('div');
+            effectEl.className = 'effect';
+            effectEl.style.left = (x - 25) + 'px';
+            effectEl.style.top = (y - 25) + 'px';
+            gameState.gameContainer.appendChild(effectEl);
+            // No need to add to gameState.effects array if removal is handled by timeout
+
+            setTimeout(() => {
+                if (effectEl.parentNode) {
+                    effectEl.parentNode.removeChild(effectEl);
+                }
+            }, 500); // Matches CSS animation duration
+        }
+
+        function showMessage(message, duration = 2000) {
+            gameElements.messagePopup.textContent = message;
+            gameElements.messagePopup.style.left = '50%';
+            gameElements.messagePopup.style.top = '40px'; // Position near top-center
+            gameElements.messagePopup.style.transform = 'translateX(-50%)'; // Center horizontally
+            gameElements.messagePopup.classList.add('show');
+
+            setTimeout(() => gameElements.messagePopup.classList.remove('show'), duration);
+        }
+
+        function queueDialog(dialogLines) {
+            if (dialogLines && dialogLines.length > 0) {
+                gameState.dialogQueue = [...dialogLines];
+                if (!gameState.currentDialog && gameElements.dialogBox.style.display !== 'block') {
+                    showNextDialog();
+                }
+            }
+        }
+
+        function showNextDialog() {
+            if (gameState.dialogQueue.length === 0) {
+                gameState.currentDialog = null;
+                gameElements.dialogBox.style.display = 'none';
+                return;
+            }
+            gameState.currentDialog = gameState.dialogQueue.shift();
+            gameElements.dialogText.textContent = gameState.currentDialog;
+            gameElements.dialogBox.style.display = 'block';
+        }
+
+        function advanceDialog() {
+            const now = Date.now();
+            if (now - gameState.lastDialogTime < 300) return;
+            gameState.lastDialogTime = now;
+            showNextDialog();
+        }
+
+        function showScriptureScreen(scriptureIndex) {
+            gameState.running = false;
+            const scriptureData = scriptures[scriptureIndex];
+            if (!scriptureData) {
+                console.error("Invalid scripture index:", scriptureIndex);
+                closeScriptureScreen();
+                return;
+            }
+            gameElements.scriptureTitle.textContent = scriptureData.title;
+            gameElements.scriptureText.textContent = scriptureData.text.replace(/\n/g, '<br>'); // Replace newline chars with <br> for HTML
+            gameElements.scriptureScreen.style.display = 'flex';
+            // Scroll to top when showing new scripture
+            gameElements.scriptureScreen.scrollTop = 0;
+        }
+
+        function closeScriptureScreen() {
+            gameElements.scriptureScreen.style.display = 'none';
+            // Only resume if game hasn't ended for another reason
+            if (gameState.truth > 0 && gameState.scripturesCollectedThisGame < gameState.requiredScripturesTotal) {
+                gameState.running = true;
+                checkLevelCompletion(); // Check completion status immediately
+            } else if (gameState.scripturesCollectedThisGame >= gameState.requiredScripturesTotal) {
+                victory(); // Trigger victory if all required scriptures collected
+            }
+        }
+
+
+        function showQuiz() {
+            gameState.running = false;
+            // Prevent quiz if another overlay is showing
+            if (gameElements.scriptureScreen.style.display === 'flex' ||
+                gameElements.levelTransition.style.display === 'flex' ||
+                gameElements.tutorialOverlay.style.display === 'flex') {
+                gameState.running = true; // Resume immediately if blocked
+                return;
+            }
+
+            const questionIndex = Math.floor(Math.random() * bibleQuestions.length);
+            const question = bibleQuestions[questionIndex];
+
+            gameElements.quizQuestion.textContent = question.question;
+            gameElements.quizOptions.innerHTML = '';
+
+            question.options.forEach((optionText, index) => {
+                const optionEl = document.createElement('div');
+                optionEl.className = 'quiz-option';
+                optionEl.textContent = optionText;
+                // Use a closure or dataset to pass parameters
+                optionEl.onclick = () => handleQuizAnswer(index, question.answer, questionIndex);
+                gameElements.quizOptions.appendChild(optionEl);
+            });
+            gameElements.quizOverlay.style.display = 'flex';
+        }
+
+
+        function handleQuizAnswer(selectedIndex, correctIndex, questionIndex) {
+            const options = gameElements.quizOptions.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.onclick = null); // Disable clicks
+
+            options.forEach((option, i) => {
+                if (i === correctIndex) option.style.backgroundColor = '#4caf50';
+                else if (i === selectedIndex) option.style.backgroundColor = '#f44336';
+            });
+
+            if (selectedIndex === correctIndex) {
+                showMessage('Correct! Your Biblical knowledge protects you!', 2000);
+                gameState.bibleCount = Math.min(gameState.bibleCount + 3, 99);
+                updateDisplays();
+            } else {
+                showMessage('Incorrect. Be careful of false teachings.', 2000);
+                gameState.truth -= 15;
+                updateDisplays();
+                if (gameState.truth <= 0) {
+                    // Delay game over slightly to show message
+                    setTimeout(() => gameOver('Deceived by false doctrine during a quiz.'), 1500);
+                    setTimeout(() => { // Ensure overlay hides *after* game over screen shows
+                        gameElements.quizOverlay.style.display = 'none';
+                    }, 1600);
+                    return; // Stop further execution
+                }
+            }
+
+            setTimeout(() => {
+                gameElements.quizOverlay.style.display = 'none';
+                if (gameState.truth > 0) { // Resume only if not game over
+                    gameState.running = true;
+                    // Restart game loop if it was stopped
+                    if (!gameState.animationFrameId && gameState.running) {
+                        gameState.animationFrameId = requestAnimationFrame(gameLoop);
+                    }
+                }
+            }, 2000);
+        }
+
+
+        function gameLoop() {
+            if (gameState.running) {
+                updatePlayer();
+                updateEnemies();
+                updateBibles();
+                updateScriptures(); // This handles collection, leads to checkLevelCompletion via closeScriptureScreen
+                updateTruthBeams();
+                updateCooldowns();
+
+                // Random Quiz Trigger
+                if (Math.random() < 0.00025 &&
+                    gameElements.quizOverlay.style.display !== 'flex' &&
+                    gameElements.scriptureScreen.style.display !== 'flex' && // Don't trigger during scripture
+                    gameElements.levelTransition.style.display !== 'flex' && // Don't trigger during transition
+                    !gameState.showingTutorial) { // Don't trigger during tutorial
+                    showQuiz();
+                }
+            }
+            // Request next frame only if game is supposed to be running or paused (not fully stopped)
+            if (gameState.running ||
+                gameElements.scriptureScreen.style.display === 'flex' ||
+                gameElements.quizOverlay.style.display === 'flex' ||
+                gameElements.levelTransition.style.display === 'flex' ||
+                gameState.showingTutorial) {
+                gameState.animationFrameId = requestAnimationFrame(gameLoop);
+            } else {
+                gameState.animationFrameId = null; // Ensure loop stops if game truly ends
+            }
+        }
+
+        // Store last non-zero velocity for firing direction when stopped
+        gameState.lastPlayerVelX = 0;
+        gameState.lastPlayerVelY = 0;
+
+        function updatePlayer() {
+            const prevVelX = gameState.playerVelocity.x;
+            const prevVelY = gameState.playerVelocity.y;
+
+            gameState.playerVelocity.x = 0;
+            gameState.playerVelocity.y = 0;
+
+            if (gameState.keys.ArrowUp) gameState.playerVelocity.y = -gameState.playerSpeed;
+            if (gameState.keys.ArrowDown) gameState.playerVelocity.y = gameState.playerSpeed;
+            if (gameState.keys.ArrowLeft) gameState.playerVelocity.x = -gameState.playerSpeed;
+            if (gameState.keys.ArrowRight) gameState.playerVelocity.x = gameState.playerSpeed;
+
+            // Store last non-zero velocity
+            if (gameState.playerVelocity.x !== 0 || gameState.playerVelocity.y !== 0) {
+                gameState.lastPlayerVelX = gameState.playerVelocity.x;
+                gameState.lastPlayerVelY = gameState.playerVelocity.y;
+            }
+
+            // Handle actions
+            if (gameState.keys.Space) activateShield();
+            if (gameState.keys.KeyB) fireTruthBeam();
+
+            let newX = gameState.playerPos.x + gameState.playerVelocity.x;
+            let newY = gameState.playerPos.y + gameState.playerVelocity.y;
+
+            const playerRadius = gameState.player.offsetWidth / 2;
+
+            // --- Collision Detection & Resolution ---
+            let collisionX = false;
+            let collisionY = false;
+
+            // Obstacle Collision Check BEFORE moving
+            for (const obs of gameState.obstacles) {
+                // Check X movement collision
+                if (checkCollision(newX - playerRadius, gameState.playerPos.y - playerRadius, playerRadius * 2, playerRadius * 2, obs.x, obs.y, obs.width, obs.height)) {
+                    collisionX = true;
+                    newX = gameState.playerPos.x; // Prevent X movement
+                }
+                // Check Y movement collision (using the potentially corrected X)
+                if (checkCollision(gameState.playerPos.x - playerRadius, newY - playerRadius, playerRadius * 2, playerRadius * 2, obs.x, obs.y, obs.width, obs.height)) {
+                    collisionY = true;
+                    newY = gameState.playerPos.y; // Prevent Y movement
+                }
+                // If both were true initially, this prevents diagonal clipping through corners
+                if (collisionX && collisionY) {
+                    newX = gameState.playerPos.x;
+                    newY = gameState.playerPos.y;
+                }
+            }
+
+
+            // Boundary checks AFTER collision adjustments
+            newX = Math.max(playerRadius, Math.min(gameState.gameContainer.offsetWidth - playerRadius, newX));
+            newY = Math.max(playerRadius, Math.min(gameState.gameContainer.offsetHeight - playerRadius, newY));
+
+            // Apply final position
+            gameState.playerPos.x = newX;
+            gameState.playerPos.y = newY;
+
+            gameState.player.style.left = (newX - playerRadius) + 'px';
+            gameState.player.style.top = (newY - playerRadius) + 'px';
+        }
+
+        // Simple AABB Collision Check Helper
+        function checkCollision(x1, y1, w1, h1, x2, y2, w2, h2) {
+            return x1 < x2 + w2 && x1 + w1 > x2 && y1 < y2 + h2 && y1 + h1 > y2;
+        }
+
+
+        function updateEnemies() {
+            const playerRadius = gameState.player.offsetWidth / 2;
+            const enemyRadius = 15;
+
+            for (let i = gameState.enemies.length - 1; i >= 0; i--) {
+                const enemy = gameState.enemies[i];
+
+                // --- Enemy AI / Movement ---
+                if (Math.random() < 0.01 && !enemy.isFamiliar) {
+                    const dir = Math.random() * Math.PI * 2;
+                    enemy.velocityX = Math.cos(dir) * enemy.speed;
+                    enemy.velocityY = Math.sin(dir) * enemy.speed;
+                } else if (enemy.isFamiliar && Math.random() < 0.03) {
+                    const dx = gameState.playerPos.x - (enemy.x + enemyRadius);
+                    const dy = gameState.playerPos.y - (enemy.y + enemyRadius);
+                    const distToPlayer = Math.sqrt(dx * dx + dy * dy);
+                    if (distToPlayer > 0) {
+                        enemy.velocityX = (dx / distToPlayer) * enemy.speed;
+                        enemy.velocityY = (dy / distToPlayer) * enemy.speed;
+                    }
+                }
+
+                let newX = enemy.x + enemy.velocityX;
+                let newY = enemy.y + enemy.velocityY;
+
+                // --- Collision Detection & Resolution ---
+                let bouncedX = false;
+                let bouncedY = false;
+
+                // Wall bounce
+                if (newX < 0 || newX > gameState.gameContainer.offsetWidth - enemy.width) {
+                    enemy.velocityX *= -1; newX = enemy.x + enemy.velocityX; bouncedX = true;
+                }
+                if (newY < 0 || newY > gameState.gameContainer.offsetHeight - enemy.height) {
+                    enemy.velocityY *= -1; newY = enemy.y + enemy.velocityY; bouncedY = true;
+                }
+
+                // Obstacle bounce
+                for (const obs of gameState.obstacles) {
+                    if (checkCollision(newX, newY, enemy.width, enemy.height, obs.x, obs.y, obs.width, obs.height)) {
+                        // Determine bounce direction: check overlap on each axis separately
+                        // Check X collision first
+                        if (!bouncedX && checkCollision(newX, enemy.y, enemy.width, enemy.height, obs.x, obs.y, obs.width, obs.height)) {
+                            enemy.velocityX *= -1;
+                            newX = enemy.x + enemy.velocityX; // Recalculate X based on bounce
+                            bouncedX = true;
+                        }
+                        // Check Y collision (using potentially new X)
+                        if (!bouncedY && checkCollision(newX, newY, enemy.width, enemy.height, obs.x, obs.y, obs.width, obs.height)) {
+                            enemy.velocityY *= -1;
+                            newY = enemy.y + enemy.velocityY; // Recalculate Y based on bounce
+                            bouncedY = true;
+                        }
+                        // If still colliding after potential bounces (e.g., stuck in corner), just stop movement for this frame
+                        if (checkCollision(newX, newY, enemy.width, enemy.height, obs.x, obs.y, obs.width, obs.height)) {
+                            newX = enemy.x;
+                            newY = enemy.y;
+                        }
+                        break; // Handle only one obstacle per frame
+                    }
+                }
+
+
+                enemy.x = newX; enemy.y = newY;
+                enemy.element.style.left = enemy.x + 'px';
+                enemy.element.style.top = enemy.y + 'px';
+
+                // Player collision (Circle-Circle)
+                const dxPlayer = (enemy.x + enemyRadius) - gameState.playerPos.x;
+                const dyPlayer = (enemy.y + enemyRadius) - gameState.playerPos.y;
+                const distSquared = dxPlayer * dxPlayer + dyPlayer * dyPlayer;
+
+                if (distSquared < (playerRadius + enemyRadius) * (playerRadius + enemyRadius)) {
+                    if (gameState.shieldActive) {
+                        // Stronger pushback effect for shield
+                        const pushForce = 5;
+                        enemy.velocityX = dxPlayer / (Math.sqrt(distSquared) || 1) * pushForce;
+                        enemy.velocityY = dyPlayer / (Math.sqrt(distSquared) || 1) * pushForce;
+                        // Apply push briefly
+                        enemy.x += enemy.velocityX;
+                        enemy.y += enemy.velocityY;
+                        // Clamp position after push
+                        enemy.x = Math.max(0, Math.min(gameState.gameContainer.offsetWidth - enemy.width, enemy.x));
+                        enemy.y = Math.max(0, Math.min(gameState.gameContainer.offsetHeight - enemy.height, enemy.y));
+
+                        createEffect(enemy.x + enemyRadius, enemy.y + enemyRadius); // Shield impact effect
+                    } else {
+                        gameState.truth -= enemy.isFamiliar ? 15 : 10;
+                        updateDisplays();
+                        playSound('hit');
+                        createEffect(gameState.playerPos.x, gameState.playerPos.y);
+
+                        // Remove enemy after collision
+                        enemy.element.parentNode.removeChild(enemy.element);
+                        gameState.enemies.splice(i, 1);
+
+                        if (gameState.truth <= 0) {
+                            gameOver(enemy.isFamiliar ? 'Deceived by a familiar spirit.' : 'Overcome by deceiving spirits.');
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        function updateBibles() {
+            const playerRadius = gameState.player.offsetWidth / 2;
+            for (let i = gameState.bibles.length - 1; i >= 0; i--) {
+                const bible = gameState.bibles[i];
+                if (checkCollision(gameState.playerPos.x - playerRadius, gameState.playerPos.y - playerRadius, playerRadius * 2, playerRadius * 2,
+                    bible.x, bible.y, bible.width, bible.height)) {
+                    gameState.bibleCount = Math.min(gameState.bibleCount + 1, 99);
+                    updateDisplays();
+                    playSound('collect');
+                    createEffect(bible.x + bible.width / 2, bible.y + bible.height / 2);
+                    bible.element.parentNode.removeChild(bible.element);
+                    gameState.bibles.splice(i, 1);
+                }
+            }
+        }
+
+        function updateScriptures() {
+            const playerRadius = gameState.player.offsetWidth / 2;
+            const orbRadius = 15; // Half of orb size 30
+
+            for (let i = gameState.scriptureOrbs.length - 1; i >= 0; i--) {
+                const orb = gameState.scriptureOrbs[i];
+                const dx = (orb.x + orbRadius) - gameState.playerPos.x;
+                const dy = (orb.y + orbRadius) - gameState.playerPos.y;
+                const distSquared = dx * dx + dy * dy;
+
+                if (distSquared < (playerRadius + orbRadius) * (playerRadius + orbRadius)) {
+                    gameState.scripturesCollectedThisGame++;
+                    updateDisplays();
+                    playSound('scripture');
+                    createEffect(orb.x + orbRadius, orb.y + orbRadius);
+
+                    // IMPORTANT: Pause game *before* showing scripture, remove orb, then show
+                    gameState.running = false; // Pause immediately
+                    orb.element.parentNode.removeChild(orb.element);
+                    const collectedIndex = orb.scriptureIndex;
+                    gameState.scriptureOrbs.splice(i, 1);
+                    showScriptureScreen(collectedIndex); // Show screen *after* pausing and removing
+                }
+            }
+        }
+
+
+        function updateTruthBeams() {
+            for (let i = gameState.truthBeams.length - 1; i >= 0; i--) {
+                const beam = gameState.truthBeams[i];
+                beam.x += beam.velocityX;
+                beam.y += beam.velocityY;
+                beam.element.style.left = beam.x + 'px';
+                beam.element.style.top = beam.y + 'px';
+
+                let hit = false;
+                // Check enemy collision
+                for (let j = gameState.enemies.length - 1; j >= 0; j--) {
+                    const enemy = gameState.enemies[j];
+                    if (checkCollision(beam.x, beam.y, beam.width, beam.height, enemy.x, enemy.y, enemy.width, enemy.height)) {
+                        playSound('enemy_destroy');
+                        createEffect(enemy.x + enemy.width / 2, enemy.y + enemy.height / 2);
+                        enemy.element.parentNode.removeChild(enemy.element);
+                        gameState.enemies.splice(j, 1);
+                        hit = true;
+                        break; // Beam hits one enemy
+                    }
+                }
+
+                // Check obstacle collision
+                if (!hit) { // Only check obstacles if no enemy hit
+                    for (const obs of gameState.obstacles) {
+                        if (checkCollision(beam.x, beam.y, beam.width, beam.height, obs.x, obs.y, obs.width, obs.height)) {
+                            hit = true; // Beam hits obstacle
+                            createEffect(beam.x + beam.width / 2, beam.y + beam.height / 2); // Effect at hit location
+                            break;
+                        }
+                    }
+                }
+
+
+                // Remove beam if hit or out of bounds
+                if (hit || beam.x < -beam.width || beam.x > gameState.gameContainer.offsetWidth ||
+                    beam.y < -beam.height || beam.y > gameState.gameContainer.offsetHeight) {
+                    beam.element.parentNode.removeChild(beam.element);
+                    gameState.truthBeams.splice(i, 1);
+                }
+            }
+        }
+
+        function updateCooldowns() {
+            if (gameState.shieldCooldown > 0) gameState.shieldCooldown--;
+            if (gameState.beamCooldown > 0) gameState.beamCooldown--;
+        }
+
+        function checkLevelCompletion() {
+            // Only proceed if game is running (prevents check during transitions etc.)
+            if (!gameState.running) return;
+
+            // Check if all scripture orbs intended for this level have been collected
+            const currentLevelData = levels[gameState.level - 1];
+            // We track collection via gameState.scripturesCollectedThisGame and compare with the expected total *after* this level
+            const expectedScripturesAfterLevel = levels.slice(0, gameState.level).reduce((sum, lvl) => sum + lvl.scripturesToSpawn, 0);
+
+            // Level is complete if all orbs are gone *and* the collected count matches expectation
+            if (gameState.scriptureOrbs.length === 0 && gameState.scripturesCollectedThisGame >= expectedScripturesAfterLevel) {
+
+                if (gameState.scripturesCollectedThisGame >= gameState.requiredScripturesTotal) {
+                    victory(); // Overall victory
+                } else if (gameState.level < levels.length) {
+                    // Advance level
+                    gameState.running = false; // Pause for transition
+                    gameState.level++;
+                    playSound('levelup');
+                    showMessage(`Level ${gameState.level - 1} Cleared! Preparing for Level ${gameState.level}...`, 2500);
+                    setTimeout(showLevelTransition, 2600);
+                } else {
+                    // All levels done, but not enough total scriptures? Should indicate victory.
+                    victory();
+                }
+            }
+        }
+
+
+        function gameOver(reason) {
+            if (!gameState.running && gameElements.gameOverScreen.style.display === 'flex') return;
+
+            gameState.running = false;
+            if (gameState.animationFrameId) {
+                cancelAnimationFrame(gameState.animationFrameId);
+                gameState.animationFrameId = null;
+            }
+            playSound('gameover');
+            gameElements.gameOverReason.textContent = reason;
+            // Hide other potential overlays
+            gameElements.quizOverlay.style.display = 'none';
+            gameElements.scriptureScreen.style.display = 'none';
+            gameElements.levelTransition.style.display = 'none';
+            gameElements.tutorialOverlay.style.display = 'none';
+            // Show game over screen
+            gameElements.gameOverScreen.style.display = 'flex';
+        }
+
+        function victory() {
+            if (gameState.victoryTriggered) return; // Prevent multiple triggers
+            gameState.victoryTriggered = true; // Flag that victory sequence has started
+            gameState.running = false;
+            if (gameState.animationFrameId) {
+                cancelAnimationFrame(gameState.animationFrameId);
+                gameState.animationFrameId = null;
+            }
+            playSound('victory');
+            gameElements.finalStats.textContent = `Final Truth: ${Math.max(0, Math.round(gameState.truth))}%, Bibles Remaining: ${gameState.bibleCount}`;
+            // Hide other potential overlays
+            gameElements.quizOverlay.style.display = 'none';
+            gameElements.scriptureScreen.style.display = 'none';
+            gameElements.levelTransition.style.display = 'none';
+            gameElements.tutorialOverlay.style.display = 'none';
+            gameElements.gameOverScreen.style.display = 'none'; // Ensure game over is hidden
+            // Show victory screen
+            gameElements.victoryScreen.style.display = 'flex';
+        }
+
+
+        function toggleSettings() {
+            const menu = gameElements.settingsMenu;
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function updateMusicVolume(event) {
+            gameState.settings.musicVolume = parseInt(event.target.value) / 100;
+            // Apply volume to background music player if implemented
+        }
+
+        function updateSfxVolume(event) {
+            gameState.settings.sfxVolume = parseInt(event.target.value) / 100;
+            // Volume applied dynamically in playSound
+        }
+
+
+        // Initialize the game when the DOM is ready
+        document.addEventListener('DOMContentLoaded', initGame);
+
+    </script>
+</body>
+
+</html>
