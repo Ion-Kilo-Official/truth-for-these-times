@@ -1,0 +1,1962 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Guide: Voices From Beyond The Grave</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+            <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K503J5DBRJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-K503J5DBRJ');
+    </script>
+    <!-- END Google tag (gtag.js) -->
+    <style>
+        :root {
+            --bg-primary: #F8F1E9;
+            --text-primary: #1A2A44;
+            --text-secondary-on-dark: #F8F1E9;
+            --accent-color: #D4A017;
+            --accent-color-rgb: 212, 160, 23;
+            --message-blue-dark: #2E4A7B;
+            --message-blue-dark-rgb: 46, 74, 123;
+            --message-blue-medium: #406EAF;
+            --forest-brown-dark: #4A3B31;
+            --key-takeaway-bg: rgba(var(--accent-color-rgb), 0.08);
+            --container-bg: #ffffff;
+            --border-light: #e7e7e7;
+            --border-medium: #cccccc;
+            --font-body: 'Lora', serif;
+            --font-heading: 'Poppins', sans-serif;
+            --hover-highlight: rgba(var(--accent-color-rgb), 0.15);
+            --soft-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+            --element-reveal-duration: 0.7s;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.75;
+            margin: 0;
+            padding: 0 25px 25px 25px;
+            /* Base padding, JS will adjust top */
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 17px;
+            overflow-x: hidden;
+            position: relative;
+            /* padding-top will be set by JS */
+        }
+
+        @keyframes subtlePulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.04);
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 25px auto;
+            background: var(--container-bg);
+            padding: 35px 50px;
+            border-radius: 12px;
+            box-shadow: var(--soft-shadow);
+            opacity: 0;
+            animation: fadeInPage var(--element-reveal-duration) ease-out forwards 0.2s;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes fadeInPage {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .scroll-down-indicator {
+            text-align: center;
+            padding: 10px 0 20px;
+            font-family: var(--font-heading);
+            color: var(--message-blue-medium);
+            animation: slideDownFadeIn 0.8s ease-out forwards 0.1s;
+        }
+
+        .scroll-down-indicator .arrow {
+            font-size: 1.8em;
+            display: block;
+            line-height: 1;
+            margin-bottom: 5px;
+            animation: bounceArrow 1.5s infinite ease-in-out;
+        }
+
+        @keyframes bounceArrow {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-8px);
+            }
+
+            60% {
+                transform: translateY(-4px);
+            }
+        }
+
+        .header-image-container {
+            width: 100%;
+            margin-bottom: 15px;
+            animation: slideDownFadeIn 0.8s ease-out forwards 0.3s;
+            position: relative;
+        }
+
+        .header-image {
+            width: 100%;
+            aspect-ratio: 3 / 2;
+            object-fit: cover;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .game-link-button {
+            /* This style is from Signs, kept for structural consistency if needed elsewhere */
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 10;
+            background-color: var(--message-blue-medium);
+            color: var(--text-secondary-on-dark);
+            padding: 10px 20px;
+            text-decoration: none;
+            font-family: var(--font-heading);
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.25s ease, transform 0.2s ease-out, box-shadow 0.25s ease;
+            animation: pulseShadow 2s infinite ease-in-out;
+        }
+
+        .game-link-button:hover {
+            background-color: var(--message-blue-dark);
+            transform: scale(1.05);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+            animation-play-state: paused;
+        }
+
+        .game-link-button:focus {
+            outline: 2px solid var(--message-blue-dark);
+            outline-offset: 3px;
+        }
+
+        @keyframes pulseShadow {
+            0% {
+                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2), 0 0 0 0px rgba(var(--message-blue-dark-rgb), 0.5);
+            }
+
+            50% {
+                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2), 0 0 0 8px rgba(var(--message-blue-dark-rgb), 0);
+            }
+
+            100% {
+                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2), 0 0 0 0px rgba(var(--message-blue-dark-rgb), 0);
+            }
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: var(--font-heading);
+            color: var(--text-primary);
+            margin-top: 1.6em;
+            margin-bottom: 0.9em;
+            font-weight: 600;
+        }
+
+        h1 {
+            text-align: center;
+            border-bottom: 4px solid var(--accent-color);
+            padding-bottom: 25px;
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 2.6em;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            animation: slideDownFadeIn 0.8s ease-out forwards 0.5s;
+        }
+
+        h2 {
+            /* General H2 style */
+            font-size: 2em;
+            color: var(--message-blue-dark);
+            border-bottom: 2px solid var(--border-light);
+            padding-bottom: 12px;
+            font-weight: 700;
+            margin-top: 2.2em;
+        }
+
+        /* Specific H2 for podcast area */
+        .embedded-podcast-player-area h2 {
+            margin-top: 1em;
+            margin-bottom: 0.8em;
+            text-align: center;
+            border-bottom: none;
+            /* Override general H2 border */
+            padding-bottom: 0.5em;
+            font-size: 1.8em;
+            color: var(--message-blue-dark);
+            transition: color 0.3s ease;
+        }
+
+        .embedded-podcast-player-area h2::before {
+            content: "🎙️";
+            margin-right: 8px;
+            font-size: 0.9em;
+            vertical-align: middle;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        h3 {
+            font-size: 1.7em;
+            color: var(--message-blue-medium);
+            font-weight: 700;
+            margin-top: 2em;
+        }
+
+        h4 {
+            font-size: 1.25em;
+            color: var(--text-primary);
+            font-weight: 700;
+            margin-top: 1.6em;
+            margin-bottom: 0.7em;
+        }
+
+        h5 {
+            font-size: 1.15em;
+            color: var(--text-primary);
+            font-weight: 700;
+            margin-top: 1.4em;
+            margin-bottom: 0.6em;
+        }
+
+        p {
+            margin-bottom: 1.3em;
+        }
+
+        .section {
+            margin-bottom: 45px;
+            padding-bottom: 35px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        /* Paragraph styling for intro, how-to-use, and podcast intro text */
+        .intro-section p,
+        .how-to-use p,
+        .embedded-podcast-player-area>p:first-of-type {
+            /* Target only the first descriptive p in podcast area */
+            font-size: 1.08em;
+            margin-bottom: 1.1em;
+            color: #383838;
+            text-align: center;
+        }
+
+        /* Styles specific to the embedded-podcast-player-area, matching SignsYouCantIgnore */
+        .embedded-podcast-player-area {
+            padding: 25px 20px;
+            background-color: rgba(var(--message-blue-dark-rgb), 0.05);
+            border-radius: 10px;
+            margin-bottom: 45px;
+            /* Consistent with other sections */
+            border: 1px solid rgba(var(--message-blue-dark-rgb), 0.1);
+            transition: border-color 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+        }
+
+        .embedded-podcast-player-area audio {
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            /* Limit player width */
+            margin: 20px auto;
+            /* Center player */
+            display: block;
+        }
+
+        .embedded-podcast-player-area .simple-playback-controls {
+            font-family: var(--font-heading);
+            color: var(--text-primary);
+            text-align: center;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        /* YouTube fallback specific styles from SignsYouCantIgnore */
+        .youtube-fallback {
+            text-align: center;
+            margin-top: 12px;
+            margin-bottom: 12px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .youtube-fallback p {
+            margin-bottom: 5px !important;
+            /* Important to override general p */
+            font-size: inherit !important;
+            color: inherit !important;
+            text-align: center !important;
+            line-height: 1.4;
+        }
+
+        .youtube-inline-link {
+            color: var(--message-blue-medium);
+            text-decoration: underline;
+            font-weight: 500;
+        }
+
+        .youtube-inline-link:hover {
+            color: var(--message-blue-dark);
+            text-decoration: none;
+        }
+
+
+        .embedded-podcast-player-area .simple-playback-controls select {
+            font-family: var(--font-body);
+            border: 1px solid var(--border-medium);
+            background-color: #fff;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            margin-left: 5px;
+            cursor: pointer;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .embedded-podcast-player-area .simple-playback-controls select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(var(--accent-color-rgb), 0.3);
+        }
+
+        .embedded-podcast-player-area .simple-playback-controls label {
+            margin-right: 5px;
+            font-weight: 600;
+        }
+
+        .audio-error-message {
+            /* From SignsYouCantIgnore */
+            color: #c0392b;
+            font-weight: bold;
+            margin-top: 10px;
+            /* Adjusted from 15px to match source */
+            text-align: center;
+            font-family: var(--font-heading);
+            font-size: 0.95em;
+        }
+
+        /* Playing/Paused states from SignsYouCantIgnore */
+        .embedded-podcast-player-area.is-playing {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 12px 3px rgba(var(--accent-color-rgb), 0.35);
+        }
+
+        .embedded-podcast-player-area.is-playing h2 {
+            color: var(--accent-color);
+        }
+
+        .embedded-podcast-player-area.is-playing h2::before {
+            animation: pulseIcon 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulseIcon {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: scale(1.2) rotate(5deg);
+                opacity: 1;
+            }
+        }
+
+        .now-playing-indicator {
+            display: none;
+            font-family: var(--font-heading);
+            font-size: 0.95em;
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-top: 10px;
+            /* Adjusted from 12px to match source */
+            margin-bottom: 5px;
+            text-align: center;
+            height: 1.2em;
+        }
+
+        .embedded-podcast-player-area.is-playing .now-playing-indicator {
+            display: block;
+            animation: fadeInIndicator 0.5s ease-out;
+        }
+
+        .embedded-podcast-player-area.is-paused .now-playing-indicator {
+            display: block;
+            opacity: 0.7;
+        }
+
+        @keyframes fadeInIndicator {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .embedded-podcast-player-area .simple-playback-controls select.speed-changed {
+            animation: speedSelectFeedback 0.5s ease-out;
+        }
+
+        @keyframes speedSelectFeedback {
+            0% {
+                box-shadow: 0 0 0 0 rgba(var(--accent-color-rgb), 0.5);
+                transform: scale(1);
+            }
+
+            50% {
+                box-shadow: 0 0 0 5px rgba(var(--accent-color-rgb), 0.25);
+                transform: scale(1.05);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(var(--accent-color-rgb), 0.5);
+                transform: scale(1);
+            }
+        }
+
+        .how-to-use {
+            /* Styles from Voices, consistent with Signs */
+            background-color: rgba(var(--message-blue-dark-rgb), 0.04);
+            padding: 25px 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(var(--message-blue-dark-rgb), 0.1);
+            animation: slideUpFadeIn 0.8s ease-out forwards 0.3s;
+            /* Animation from Voices, similar to Signs */
+        }
+
+        .how-to-use h3 {
+            margin-top: 0;
+            color: var(--message-blue-dark);
+            font-size: 1.5em;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .how-to-use ul {
+            margin-top: 15px;
+        }
+
+        .how-to-use li::before {
+            content: '✨';
+            color: var(--message-blue-medium);
+            font-size: 1.1em;
+        }
+
+        .scripture-ref {
+            /* Styles from Voices, consistent with Signs */
+            font-style: italic;
+            color: var(--forest-brown-dark);
+            margin-left: 5px;
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            padding: 15px 20px;
+            background-color: rgba(var(--accent-color-rgb), 0.05);
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-color);
+            position: relative;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .scripture-ref::before {
+            content: "📖";
+            margin-right: 10px;
+            font-style: normal;
+            font-size: 1.1em;
+            color: var(--accent-color);
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .scripture-ref span {
+            display: block;
+            padding-left: 30px;
+        }
+
+        .scripture-ref:hover {
+            background-color: var(--hover-highlight);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(var(--accent-color-rgb), 0.2);
+        }
+
+        .scripture-ref:hover::before {
+            opacity: 1;
+        }
+
+
+        ul {
+            /* General ul from Voices, similar to Signs */
+            padding-left: 10px;
+            list-style: none;
+            margin-bottom: 1.3em;
+        }
+
+        li {
+            /* General li from Voices, similar to Signs */
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        li::before {
+            /* Default li bullet, used in how-to-use and general lists */
+            content: '✝️';
+            /* Voices default, Signs also uses this style for scripture lists */
+            position: absolute;
+            left: 0;
+            top: 2px;
+            /* Align with text */
+            color: var(--accent-color);
+            font-size: 1em;
+            /* Adjust as needed */
+            transition: transform 0.2s ease-out;
+        }
+
+        .how-to-use li::before {
+            /* Specific for how-to-use, overrides general li::before */
+            content: '✨';
+            color: var(--message-blue-medium);
+            font-size: 1.1em;
+            /* position, left, top inherited or default */
+        }
+
+
+        li:hover::before {
+            transform: scale(1.3) rotate(15deg);
+        }
+
+        .reflection ul {
+            /* Specific to reflection questions */
+            padding-left: 10px;
+            /* Voices style */
+        }
+
+        .reflection li.question {
+            /* From Voices, consistent with Signs */
+            margin-bottom: 18px;
+            padding: 15px 20px 15px 55px;
+            position: relative;
+            background-color: rgba(var(--message-blue-dark-rgb), 0.06);
+            border-left: 5px solid var(--message-blue-medium);
+            border-radius: 6px;
+            font-style: normal;
+            list-style-type: none !important;
+            /* Ensure no other bullets */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .reflection li.question:hover {
+            background-color: rgba(var(--message-blue-dark-rgb), 0.1);
+            box-shadow: 0 3px 10px rgba(var(--message-blue-dark-rgb), 0.15);
+        }
+
+        .reflection li.question::before {
+            /* Emoji bullet for reflection questions */
+            content: "🤔";
+            position: absolute;
+            left: 18px;
+            top: 15px;
+            /* Adjusted for vertical centering */
+            font-weight: normal;
+            /* Not bold */
+            color: var(--message-blue-medium);
+            font-style: normal;
+            /* Not italic */
+            font-size: 1.4em;
+            /* Larger emoji */
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .reflection li.question:hover::before {
+            transform: translateY(-3px) scale(1.1);
+        }
+
+
+        .key-takeaway {
+            /* From Voices, consistent with Signs */
+            background-color: var(--key-takeaway-bg);
+            padding: 20px 25px;
+            border-left: 6px solid var(--accent-color);
+            margin: 30px 0;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(var(--accent-color-rgb), 0.1);
+            position: relative;
+            overflow: hidden;
+            /* For shine animation */
+        }
+
+        .key-takeaway::before {
+            /* Shine animation from Signs */
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(var(--accent-color-rgb), 0.15), transparent);
+            animation: shineTakeaway 4s infinite linear 1s;
+            pointer-events: none;
+        }
+
+        .key-takeaway .takeaway-title {
+            display: block;
+            font-weight: bold;
+            font-family: var(--font-heading);
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .key-takeaway .takeaway-title::before {
+            content: "📌 ";
+        }
+
+
+        blockquote {
+            /* From Voices, standard blockquote */
+            background: #f9f9f9;
+            border-left: 6px solid var(--border-medium);
+            margin: 2em 0;
+            padding: 18px 25px;
+            font-style: italic;
+            color: #444;
+            border-radius: 0 6px 6px 0;
+            /* Voices style */
+        }
+
+        blockquote footer {
+            font-style: normal;
+            font-size: 0.9em;
+            text-align: right;
+            color: #666;
+            margin-top: 12px;
+        }
+
+        .page-break {
+            /* For printing */
+            page-break-before: always;
+        }
+
+        .navigation-links {
+            /* Bottom nav links, from Voices, styled like Signs */
+            text-align: center;
+            margin: 45px 0 25px 0;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .nav-button,
+        .print-button {
+            display: inline-block;
+            background: var(--accent-color);
+            color: var(--text-primary);
+            padding: 14px 28px;
+            text-decoration: none;
+            font-family: var(--font-heading);
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 1.05em;
+            font-weight: 600;
+            transition: background-color 0.25s ease, transform 0.2s ease-out, box-shadow 0.25s ease;
+            margin: 10px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            /* For click effect */
+        }
+
+        /* Click effect for buttons from Signs */
+        .nav-button:before,
+        .print-button:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease, opacity 0.6s ease;
+            opacity: 0;
+        }
+
+        .nav-button:active:before,
+        .print-button:active:before {
+            width: 200%;
+            height: 200%;
+            opacity: 1;
+            transition: width 0s, height 0s, opacity 0s;
+        }
+
+        .nav-button:hover,
+        .print-button:hover {
+            background-color: #e7af27;
+            /* Darker accent */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-button.secondary {
+            background-color: var(--message-blue-medium);
+            color: var(--text-secondary-on-dark);
+        }
+
+        .nav-button.secondary:hover {
+            background-color: var(--message-blue-dark);
+        }
+
+        /* Animations from Signs/Voices */
+        @keyframes slideUpFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDownFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+
+            /* General fade in */
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes shineTakeaway {
+
+            /* For key takeaway bg */
+            0% {
+                left: -100%;
+            }
+
+            50% {
+                left: 100%;
+            }
+
+            100% {
+                left: 100%;
+            }
+
+            /* Hold at end before reset */
+        }
+
+        .animate-on-scroll {
+            /* For scroll-triggered animations */
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity var(--element-reveal-duration) ease-out, transform var(--element-reveal-duration) cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Sticky Navigation Bar Styles (from SignsYouCantIgnore) --- */
+        #sticky-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--message-blue-dark);
+            color: var(--text-secondary-on-dark);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: height 0.3s ease-in-out;
+            /* Smooth height transition for nav */
+        }
+
+        #sticky-nav .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            /* Adjusted padding to rely on item padding */
+            height: 55px;
+            box-sizing: border-box;
+        }
+
+        #sticky-nav .nav-back-button {
+            color: var(--text-secondary-on-dark);
+            font-family: var(--font-heading);
+            font-size: 0.9em;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 7px 14px;
+            border-radius: 20px;
+            background-color: rgba(var(--accent-color-rgb), 0.85);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin-right: 15px;
+            /* Added margin */
+            white-space: nowrap;
+            flex-shrink: 0;
+            /* Prevent shrinking */
+        }
+
+        #sticky-nav .nav-back-button:hover,
+        #sticky-nav .nav-back-button:focus {
+            background-color: rgba(var(--accent-color-rgb), 1);
+            transform: scale(1.03);
+            outline: none;
+        }
+
+        #sticky-nav .nav-title {
+            font-family: var(--font-heading);
+            font-size: 1.1em;
+            font-weight: 600;
+            text-align: center;
+            flex-grow: 1;
+            margin: 0 10px;
+            /* Margin for spacing */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        #nav-toggle-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary-on-dark);
+            font-size: 1.8em;
+            cursor: pointer;
+            padding: 8px 12px;
+            /* Increased padding */
+            display: none;
+            /* Hidden by default, shown in media query */
+            line-height: 1;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            flex-shrink: 0;
+            /* Prevent shrinking */
+        }
+
+        #nav-toggle-btn:hover,
+        #nav-toggle-btn:focus {
+            background-color: rgba(255, 255, 255, 0.1);
+            outline: none;
+        }
+
+
+        #sticky-nav ul#nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            /* Default for desktop, overridden later */
+            background-color: var(--message-blue-dark);
+            /* Same as nav bar */
+            padding-bottom: 5px;
+            /* Reduced padding */
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #sticky-nav ul#nav-links li {
+            padding: 0;
+            /* Reset li padding */
+            margin: 0 3px;
+            /* Slightly reduced margin for desktop */
+        }
+
+        #sticky-nav ul#nav-links li::before {
+            content: "" !important;
+            /* Remove default li bullets */
+        }
+
+        #sticky-nav ul#nav-links a {
+            color: var(--text-secondary-on-dark);
+            text-decoration: none;
+            padding: 8px 12px;
+            /* Adjusted padding */
+            display: block;
+            font-family: var(--font-heading);
+            font-size: 0.85em;
+            /* Slightly smaller for more links */
+            font-weight: 500;
+            transition: color 0.2s ease, background-color 0.2s ease, transform 0.1s ease;
+            border-radius: 6px;
+            white-space: nowrap;
+            text-transform: capitalize;
+            /* From Signs */
+        }
+
+        #sticky-nav ul#nav-links a:hover,
+        #sticky-nav ul#nav-links a:focus {
+            color: var(--accent-color);
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-1px);
+            /* Subtle lift */
+            outline: none;
+        }
+
+        #sticky-nav ul#nav-links a.active-nav-link {
+            background-color: var(--accent-color);
+            color: var(--message-blue-dark);
+            font-weight: 700;
+        }
+
+        #sticky-nav ul#nav-links.nav-links-hidden {
+            display: none;
+        }
+
+        #sticky-nav ul#nav-links.nav-links-visible {
+            display: flex;
+            /* Will be overridden to flex column on mobile */
+        }
+
+        /* Responsive Nav Bar */
+        @media (max-width: 768px) {
+            #nav-toggle-btn {
+                display: block;
+            }
+
+            #sticky-nav .nav-title {
+                font-size: 1em;
+                text-align: left;
+                /* Align title left on mobile if hamburger is right */
+                margin-left: 0;
+            }
+
+            #sticky-nav ul#nav-links {
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 55px;
+                /* Height of .nav-content */
+                left: 0;
+                box-shadow: 0 5px 5px rgba(0, 0, 0, 0.15);
+                max-height: calc(100vh - 55px);
+                /* Prevent overlaying entire screen */
+                overflow-y: auto;
+                border-top: none;
+                /* Top border handled by .nav-content shadow effectively */
+                padding-bottom: 0;
+                /* No bottom padding needed for list */
+            }
+
+            #sticky-nav ul#nav-links.nav-links-visible {
+                display: flex;
+                /* Ensure it shows */
+            }
+
+            #sticky-nav ul#nav-links li {
+                margin: 0;
+                /* Remove horizontal margins */
+                width: 100%;
+            }
+
+            #sticky-nav ul#nav-links a {
+                padding: 14px 20px;
+                /* Touch-friendly padding */
+                font-size: 1em;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                text-align: left;
+                /* Align text left for mobile list items */
+                border-radius: 0;
+                /* Full width links */
+            }
+
+            #sticky-nav ul#nav-links a:hover,
+            #sticky-nav ul#nav-links a:focus {
+                transform: none;
+                /* No lift on mobile hover */
+            }
+
+            #sticky-nav ul#nav-links li:last-child a {
+                border-bottom: none;
+            }
+
+            #sticky-nav ul#nav-links a.active-nav-link {
+                /* Ensure mobile active styles are clear */
+                background-color: var(--accent-color);
+                color: var(--message-blue-dark);
+            }
+        }
+
+        @media (min-width: 769px) {
+            #nav-toggle-btn {
+                display: none;
+                /* Hide hamburger on desktop */
+            }
+
+            #sticky-nav .nav-content {
+                padding: 0 20px;
+                /* Horizontal padding for top bar */
+            }
+
+            #sticky-nav ul#nav-links {
+                display: flex !important;
+                /* Ensure it's flex for desktop */
+                position: static;
+                /* Not absolute */
+                box-shadow: none;
+                max-height: none;
+                overflow-y: visible;
+                flex-direction: row;
+                /* Horizontal layout */
+                justify-content: flex-end;
+                /* Align links to the right */
+                padding-right: 15px;
+                /* Padding on the right of link container */
+                padding-left: 15px;
+                /* Padding on the left of link container */
+                padding-bottom: 5px;
+                /* Consistent with base style */
+            }
+        }
+
+        /* --- End Sticky Navigation Bar Styles --- */
+
+
+        /* Print styles from Signs/Voices */
+        @media print {
+            body {
+                background-color: #fff;
+                color: #000;
+                margin: 0;
+                padding: 0;
+                font-size: 11pt;
+                line-height: 1.45;
+                padding-top: 0 !important;
+                /* Override JS padding */
+            }
+
+            #sticky-nav {
+                display: none !important;
+            }
+
+            /* Hide sticky nav */
+            .back-button,
+            /* Hide original back button if it existed */
+            .header-image-container,
+            .scroll-down-indicator,
+            .game-link-button {
+                display: none !important;
+            }
+
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+                padding: 5mm;
+                max-width: 100%;
+                margin: 0 auto;
+                border: none;
+                opacity: 1 !important;
+                /* Ensure visibility */
+                animation: none !important;
+                /* Disable animations */
+                position: static;
+                /* Reset positioning */
+            }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5 {
+                color: #000 !important;
+                font-family: 'Times New Roman', Times, serif;
+                /* Print-friendly font */
+                animation: none !important;
+            }
+
+            h1 {
+                font-size: 18pt;
+                border-bottom: 2px solid #000;
+                padding-bottom: 8px;
+                margin-bottom: 18px;
+            }
+
+            h2 {
+                font-size: 15pt;
+                border-bottom: 1px solid #333;
+                padding-bottom: 7px;
+                margin-bottom: 14px;
+                margin-top: 22px;
+            }
+
+            .embedded-podcast-player-area h2::before {
+                content: "" !important;
+                animation: none !important;
+            }
+
+            .embedded-podcast-player-area.is-playing h2,
+            .embedded-podcast-player-area.is-playing h2::before {
+                animation: none !important;
+                color: #000 !important;
+            }
+
+            h3 {
+                font-size: 13pt;
+                margin-bottom: 9px;
+                margin-top: 18px;
+            }
+
+            h4 {
+                font-size: 11pt;
+                margin-bottom: 7px;
+                margin-top: 16px;
+            }
+
+            h5 {
+                font-size: 10pt;
+                margin-bottom: 5px;
+                margin-top: 14px;
+            }
+
+            .scripture-ref {
+                color: #111 !important;
+                background-color: #f3f3f3 !important;
+                border: 1px solid #ccc !important;
+                border-left: 3px solid #999 !important;
+                padding: 5px 8px;
+                margin-left: 10px;
+                /* Voices style */
+                font-style: italic;
+                transform: none !important;
+                box-shadow: none !important;
+            }
+
+            .scripture-ref::before {
+                content: "📖 Scripture: ";
+                /* More descriptive for print */
+                font-weight: bold;
+                font-style: normal;
+                opacity: 1;
+                position: static;
+                /* Reset positioning */
+                transform: none;
+                margin-right: 5px;
+            }
+
+            .scripture-ref span {
+                padding-left: 0;
+            }
+
+
+            .reflection li.question {
+                background-color: #f9f9f9 !important;
+                border-left: 3px solid #444 !important;
+                color: #000 !important;
+                padding: 7px 8px 7px 25px !important;
+                /* Simpler padding */
+                list-style-type: none !important;
+                font-style: normal;
+                box-shadow: none !important;
+            }
+
+            .reflection li.question::before {
+                content: "Q: " !important;
+                /* Simpler print prefix */
+                color: #222 !important;
+                font-weight: bold;
+                position: absolute;
+                left: 8px;
+                top: 7px;
+                font-style: normal;
+                font-size: 1em;
+                /* Match text size */
+                transform: none !important;
+            }
+
+            .key-takeaway {
+                background-color: #eaeaea !important;
+                border-left: 4px solid #222 !important;
+                color: #000 !important;
+                box-shadow: none;
+                padding: 8px 12px;
+                margin: 12px 0;
+            }
+
+            .key-takeaway::before {
+                display: none;
+            }
+
+            /* Hide shine effect */
+            .key-takeaway .takeaway-title {
+                color: #000 !important;
+                font-weight: bold;
+            }
+
+            .key-takeaway .takeaway-title::before {
+                content: "📌 ";
+            }
+
+
+            .navigation-links,
+            .how-to-use,
+            /* Hide for print as per Signs/Voices */
+            .embedded-podcast-player-area,
+            /* Hide player for print */
+            .youtube-fallback {
+                display: none !important;
+            }
+
+
+            ul {
+                padding-left: 18px;
+                list-style-type: disc;
+            }
+
+            /* Standard bullets for print */
+            li::before {
+                content: "" !important;
+            }
+
+            /* Remove custom emoji bullets */
+            .how-to-use li::before {
+                content: "" !important;
+            }
+
+            /* Specifically remove how-to-use emoji */
+            .reflection li.question::before {
+                content: "Q: " !important;
+                /* Keep Q: for reflection */
+            }
+
+
+            a {
+                text-decoration: none;
+                color: #000;
+            }
+
+            /* Simple links for print */
+
+            .animate-on-scroll {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+
+            /* Ensure animated content is visible */
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="sticky-nav">
+        <div class="nav-content">
+            <a href="index.html" id="nav-back-button" class="nav-back-button" aria-label="Go to Previous Page">«
+                Back</a>
+            <span class="nav-title">Study Guide Menu</span>
+            <button id="nav-toggle-btn" aria-label="Toggle Navigation" aria-expanded="false"
+                aria-controls="nav-links">☰</button>
+        </div>
+        <ul id="nav-links" class="nav-links-hidden">
+            <li><a href="#section-intro">Introduction</a></li>
+            <li><a href="#podcast-section">Podcast Audio</a></li>
+            <li><a href="#section-theme-spiritism">Spiritism Warning</a></li>
+            <li><a href="#section-theme-death-state">State of the Dead</a></li>
+            <li><a href="#section-theme-demonic-deception">Demonic Deception</a></li>
+            <li><a href="#section-theme-satan-impersonation">Satan's Impersonation</a></li>
+            <li><a href="#section-theme-nde-reincarnation">NDEs & Reincarnation</a></li>
+            <li><a href="#section-theme-hope-new-earth">Christian Hope</a></li>
+            <li><a href="#section-theme-salvation-assurance">Eternal Life</a></li>
+            <li><a href="#section-conclusion">Conclusion</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="scroll-down-indicator">
+            <span class="arrow">⇩</span>
+            Scroll down for Study Guide & Podcast
+        </div>
+        <div class="header-image-container">
+            <img src="Assets/pics/vfbtgwith-text.jpg" alt="Study Guide Header for Voices From Beyond The Grave" class="header-image"
+                id="pageHeaderImage">
+        </div>
+
+        <h1>Study Guide: Voices From Beyond The Grave</h1>
+
+        <div id="podcast-section" class="embedded-podcast-player-area section animate-on-scroll">
+            <h2>Listen to the Podcast</h2>
+            <p>You can listen to the accompanying podcast "Voices From Beyond The Grave" directly below.</p>
+            <audio id="embeddedSermonAudio" controls controlsList="nodownload">
+                <source src="Assets/audio/Voices from Beyond the Grave podcast.mp3" type="audio/mp3">
+                Your browser does not support the audio element. Try using a modern browser like Chrome, Firefox, or
+                Edge.
+            </audio>
+            <div class="simple-playback-controls">
+                <label for="embeddedPlaybackSpeed">Speed:</label>
+                <select id="embeddedPlaybackSpeed" aria-label="Playback speed">
+                    <option value="0.75">0.75x</option>
+                    <option value="1" selected>1x (Normal)</option>
+                    <option value="1.25">1.25x</option>
+                    <option value="1.5">1.5x</option>
+                    <option value="2">2x</option>
+                </select>
+            </div>
+            <div id="youtubeFallback" class="youtube-fallback">
+                <!-- Included for JS compatibility from Signs. Link is placeholder. -->
+                <p>Also available on <a href="https://www.youtube.com/watch?v=K6vhPq8Y3zs" target="_blank"
+                        class="youtube-inline-link">YouTube</a>.</p>
+                <p style="font-size: 0.8em; color: #777 !important; margin-top: 3px;">
+                </p>
+            </div>
+            <!-- JS will insert .now-playing-indicator and .audio-error-message after this div -->
+        </div>
+
+
+        <div class="how-to-use"> <!-- Content from VoicesFromTheGrave.html -->
+            <h3>How to Use This Study Guide</h3>
+            <p>This guide is designed to help you delve deeper into the themes presented in the sermon "Voices From
+                Beyond The Grave." As you go through each section:</p>
+            <ul>
+                <li><strong>Read</strong> the summary points and key scriptures.</li>
+                <li><strong>Reflect</strong> on the questions provided. Consider writing down your thoughts or
+                    discussing them with others.</li>
+                <li><strong>Note</strong> the "Key Takeaways" which highlight crucial biblical principles.</li>
+                <li><strong>Pray</strong> for understanding and wisdom as you study God's Word.</li>
+                <li>Consider listening to the accompanying <strong>podcast audio</strong> using the player above for a
+                    richer experience.</li>
+            </ul>
+        </div>
+
+        <div class="section intro-section" id="section-intro"> <!-- Content from VoicesFromTheGrave.html, ID added -->
+            <h2 class="animate-on-scroll">Introduction: The Search for Answers</h2>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">This study guide accompanies the sermon "Voices
+                From Beyond The Grave." The sermon addresses the common fascination with communicating with the dead and
+                the dangers of spiritual deception. It emphasizes that our eternal salvation can be at stake, making it
+                crucial to find solid answers based on a reliable source: God's Word, the Bible.</p>
+            <p class="animate-on-scroll" style="animation-delay: 0.2s;"><strong>Key Question from Sermon:</strong> How
+                can we know for absolute certainty whether supposed communications with the dead are genuine, unreal, or
+                false and dangerous?</p>
+        </div>
+
+        <div class="section theme-spiritism animate-on-scroll" id="section-theme-spiritism">
+            <!-- Content from Voices..., ID added, animate-on-scroll on main div -->
+            <h3 class="animate-on-scroll">1. The Bible's Clear Warning Against Spiritism</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">The sermon highlights that the Bible uniquely
+                and strongly condemns spiritism and any attempts to communicate with the dead. Such practices are called
+                an "abomination" to the Lord.</p>
+            <h4 class="animate-on-scroll" style="animation-delay: 0.2s;">Key Scriptures:</h4>
+            <ul class="animate-on-scroll" style="animation-delay: 0.3s;">
+                <li>Leviticus 19:31: <div class="scripture-ref"><span>"Give no regard to mediums and familiar spirits;
+                            do not seek after them, to be defiled by them: I am the Lord your God."</span></div>
+                </li>
+                <li>Deuteronomy 18:10-12: <div class="scripture-ref"><span>"There shall not be found among you anyone
+                            who... practices witchcraft, or a soothsayer, or one who interprets omens, or a sorcerer, or
+                            one who conjures spells, or a medium, or a spiritist, or one who calls up the dead. For all
+                            who do these things are an abomination to the Lord..."</span></div>
+                </li>
+                <li>(Reference to Exodus 22:18 mentioned as: "You shall not permit a sorcerer or a witch to live.")</li>
+            </ul>
+            <div class="reflection animate-on-scroll" style="animation-delay: 0.4s;">
+                <h4>Reflection:</h4>
+                <ul>
+                    <li class="question">Why do you think God gives such strong warnings against these practices?</li>
+                    <li class="question">The sermon mentions King Saul's experience. How does his story (see 1 Samuel
+                        28) illustrate the folly of seeking guidance from mediums?</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section theme-death-state animate-on-scroll" id="section-theme-death-state">
+            <!-- Content from Voices..., ID added, animate-on-scroll on main div -->
+            <h3 class="animate-on-scroll">2. What the Bible Teaches About Death</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">A core teaching is that communication with the
+                dead is prohibited because it is, according to the Bible, impossible. Jesus Christ holds the keys to
+                death and Hades and is the ultimate authority on life and death.</p>
+            <h4 class="animate-on-scroll" style="animation-delay: 0.2s;">Key Scriptures:</h4>
+            <ul class="animate-on-scroll" style="animation-delay: 0.3s;">
+                <li>Revelation 1:17-18: <div class="scripture-ref"><span>"...I am the First and the Last. I am He who
+                            lives, and was dead, and behold, I am alive forevermore. Amen. And I have the keys of Hades
+                            and of Death."</span></div>
+                </li>
+                <li>Job 7:9-10: <div class="scripture-ref"><span>"As the cloud disappears and vanishes away, So he who
+                            goes down to the grave does not come up. He shall never return to his house, Nor shall his
+                            place know him anymore."</span></div>
+                </li>
+                <li>Ecclesiastes 9:5: <div class="scripture-ref"><span>"For the living know that they will die; But the
+                            dead know nothing, And they have no more reward, For the memory of them is
+                            forgotten."</span></div>
+                </li>
+            </ul>
+            <div class="key-takeaway animate-on-scroll" style="animation-delay: 0.4s;"><span class="takeaway-title">Key
+                    Takeaway:</span>The Bible teaches that the dead are not conscious and do not communicate with the
+                living. They "know nothing."</div>
+            <div class="reflection animate-on-scroll" style="animation-delay: 0.5s;">
+                <h4>Reflection:</h4>
+                <ul>
+                    <li class="question">How do these verses challenge popular ideas about ghosts or spirits of the
+                        deceased interacting with the living?</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="page-break section theme-demonic-deception animate-on-scroll" id="section-theme-demonic-deception">
+            <!-- Content from Voices..., ID added, animate-on-scroll on main div -->
+            <h3 class="animate-on-scroll">3. If Not the Dead, Then Who? The Source of "Spiritual" Communications</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">If the dead are unconscious, then who or what
+                are the entities that people claim to communicate with through mediums or psychics? The Bible identifies
+                them as demonic spirits (fallen angels).</p>
+            <h4 class="animate-on-scroll" style="animation-delay: 0.2s;">Key Scriptures:</h4>
+            <ul class="animate-on-scroll" style="animation-delay: 0.3s;">
+                <li>Revelation 16:13-14: <div class="scripture-ref"><span>"And I saw three unclean spirits like frogs
+                            coming out of the mouth of the dragon... For they are spirits of demons, performing
+                            signs..."</span></div>
+                </li>
+                <li>Revelation 12:7-9: <div class="scripture-ref"><span>"And war broke out in heaven... So the great
+                            dragon was cast out, that serpent of old, called the Devil and Satan, who deceives the whole
+                            world; he was cast to the earth, and his angels were cast out with him."</span></div>
+                </li>
+                <li>2 Corinthians 11:14: <div class="scripture-ref"><span>"And no wonder! For Satan himself transforms
+                            himself into an angel of light."</span></div>
+                </li>
+            </ul>
+            <div class="key-takeaway animate-on-scroll" style="animation-delay: 0.4s;"><span class="takeaway-title">Key
+                    Takeaway:</span>Entities claiming to be spirits of the dead are, according to the Bible, demons in
+                disguise, led by Satan, with the aim to deceive.</div>
+            <div class="reflection animate-on-scroll" style="animation-delay: 0.5s;">
+                <h4>Reflection:</h4>
+                <ul>
+                    <li class="question">The sermon states these demons can "impersonate perfectly every person who has
+                        ever lived." Why is this ability so dangerous?</li>
+                    <li class="question">How does Satan appearing as an "angel of light" make his deceptions even more
+                        effective?</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section theme-satan-impersonation animate-on-scroll" id="section-theme-satan-impersonation">
+            <!-- Content from Voices..., ID added, animate-on-scroll on main div -->
+            <h3 class="animate-on-scroll">4. Satan's Ultimate Deceptions</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">The deception can go beyond impersonating loved
+                ones. The Bible warns that Satan will even seek to impersonate Christ himself, performing great signs
+                and wonders.</p>
+            <h4 class="animate-on-scroll" style="animation-delay: 0.2s;">Key Scripture:</h4>
+            <ul class="animate-on-scroll" style="animation-delay: 0.3s;">
+                <li>Matthew 24:23-25: <div class="scripture-ref"><span>"Then if anyone says to you, ‘Look, here is the
+                            Christ!’ or ‘There!’ do not believe it. For false christs and false prophets will rise and
+                            show great signs and wonders to deceive, if possible, even the elect. See, I have told you
+                            beforehand."</span></div>
+                </li>
+            </ul>
+            <div class="key-takeaway animate-on-scroll" style="animation-delay: 0.4s;"><span class="takeaway-title">Key
+                    Takeaway:</span>Our only safety from profound deception is to base our beliefs firmly on what God's
+                Word teaches, even if it contradicts our senses or feelings.</div>
+            <div class="reflection animate-on-scroll" style="animation-delay: 0.5s;">
+                <h4>Reflection:</h4>
+                <ul>
+                    <li class="question">What does it mean to "fortify their minds with the words of the Bible"? How can
+                        one do this practically?</li>
+                    <li class="question">Discuss the challenge of relying on the Bible over personal experiences or
+                        feelings, especially when those experiences seem very real or comforting.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="page-break section theme-nde-reincarnation animate-on-scroll" id="section-theme-nde-reincarnation">
+            <!-- Content from Voices..., ID added, animate-on-scroll on main div -->
+            <h3 class="animate-on-scroll">5. Addressing Near-Death Experiences (NDEs) and Reincarnation</h3>
+
+            <h4 class="animate-on-scroll" style="animation-delay: 0.1s;">Near-Death Experiences:</h4>
+            <p class="animate-on-scroll" style="animation-delay: 0.15s;">The sermon acknowledges reports of NDEs but
+                suggests they can have natural explanations (medication, oxygen deprivation) and, critically, that they
+                cannot be reconciled with the Bible's teachings about the state of the dead.</p>
+
+            <h4 class="animate-on-scroll" style="animation-delay: 0.2s;">Reincarnation:</h4>
+            <p class="animate-on-scroll" style="animation-delay: 0.25s;">The teaching of reincarnation (prominent in
+                Hinduism and Buddhism) is contrasted with biblical truth. Reincarnation involves cycles of rebirth,
+                karma, and an ultimate goal of nirvana (a state of nothingness). The Bible, instead, speaks of a single
+                life, judgment, and a personal, conscious eternal life with God.</p>
+
+            <h5 class="animate-on-scroll" style="animation-delay: 0.3s;">Key Scriptures (for contrast):</h5>
+            <ul class="animate-on-scroll" style="animation-delay: 0.35s;">
+                <li>John 10:10b: <div class="scripture-ref"><span>"I have come that they may have life, and that they
+                            may have it more abundantly."</span></div> (Contrast to nirvana)</li>
+                <li>1 Corinthians 13:12: <div class="scripture-ref"><span>"For now we see in a mirror, dimly, but then
+                            face to face. Now I know in part, but then I shall know just as I also am known."</span>
+                    </div> (Describing a personal, enhanced future existence)</li>
+            </ul>
+            <div class="reflection animate-on-scroll" style="animation-delay: 0.4s;">
+                <h4>Reflection:</h4>
+                <ul>
+                    <li class="question">Why is it important, according to the sermon, to evaluate all spiritual
+                        experiences and beliefs through the lens of Scripture?</li>
+                    <li class="question">How does the biblical concept of a personal, abundant eternal life differ from
+                        the concept of nirvana?</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section theme-hope-new-earth animate-on-scroll" id="section-theme-hope-new-earth">
+            <!-- Content from Voices..., ID added, animate-on-scroll on main div -->
+            <h3 class="animate-on-scroll">6. The Christian's Hope: Resurrection and a New Earth</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">The Bible offers a powerful and hopeful
+                alternative to spiritual confusion and the finality of death as commonly perceived. It speaks of
+                resurrection and a future new heaven and new earth, free from sin, suffering, and death.</p>
+            <h4 class="animate-on-scroll" style="animation-delay: 0.2s;">Key Scriptures:</h4>
+            <ul class="animate-on-scroll" style="animation-delay: 0.3s;">
+                <li>Revelation 21:1, 3-4: <div class="scripture-ref"><span>"Now I saw a new heaven and a new earth...
+                            ‘Behold, the tabernacle of God is with men... And God will wipe away every tear from their
+                            eyes; there shall be no more death, nor sorrow, nor crying. There shall be no more pain, for
+                            the former things have passed away.’"</span></div>
+                </li>
+                <li>1 Peter 1:3-4: <div class="scripture-ref"><span>"Blessed be the God and Father of our Lord Jesus
+                            Christ, who according to His abundant mercy has begotten us again to a living hope through
+                            the resurrection of Jesus Christ from the dead, to an inheritance incorruptible and
+                            undefiled and that does not fade away, reserved in heaven for you."</span></div>
+                </li>
+            </ul>
+            <div class="key-takeaway animate-on-scroll" style="animation-delay: 0.4s;"><span class="takeaway-title">Key
+                    Takeaway:</span>The ultimate hope for believers is not in contacting spirits but in the resurrection
+                to eternal life in God's renewed creation.</div>
+        </div>
+
+        <div class="section theme-salvation-assurance animate-on-scroll" id="section-theme-salvation-assurance">
+            <!-- Content from Voices..., ID added, animate-on-scroll on main div -->
+            <h3 class="animate-on-scroll">7. Securing Eternal Life: The Path to God's Kingdom</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">Access to this future hope is through being
+                "born again" by faith in Jesus Christ, which can happen now, today.</p>
+            <h4 class="animate-on-scroll" style="animation-delay: 0.2s;">Key Scriptures:</h4>
+            <ul class="animate-on-scroll" style="animation-delay: 0.3s;">
+                <li>1 John 5:11-13: <div class="scripture-ref"><span>"And this is the testimony: that God has given us
+                            eternal life, and this life is in His Son. He who has the Son has life; he who does not have
+                            the Son of God does not have life. These things I have written to you who believe in the
+                            name of the Son of God, that you may know that you have eternal life."</span></div>
+                </li>
+                <li>Revelation 3:20: <div class="scripture-ref"><span>"Behold, I stand at the door and knock. If anyone
+                            hears My voice and opens the door, I will come in to him and dine with him, and he with
+                            Me."</span></div>
+                </li>
+            </ul>
+            <div class="reflection animate-on-scroll" style="animation-delay: 0.4s;">
+                <h4>Reflection:</h4>
+                <ul>
+                    <li class="question">According to these verses, what is the condition for receiving eternal life?
+                    </li>
+                    <li class="question">The sermon emphasizes that "there is one voice beyond the grave that is
+                        speaking to us... the voice of Jesus." How does one hear and respond to this voice today?</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section conclusion animate-on-scroll" id="section-conclusion">
+            <!-- Content from Voices..., ID added, animate-on-scroll on main div -->
+            <h2 class="animate-on-scroll">Conclusion: Choosing Truth Over Deception</h2>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">The central message urges listeners to trust the
+                voice of Jesus as revealed in the Bible, rather than deceptive spiritual experiences or popular
+                misconceptions about death. By opening our hearts to Christ, we can find true comfort, guidance, and the
+                assurance of eternal life.</p>
+            <h4 class="animate-on-scroll" style="animation-delay: 0.2s;">Final Thought:</h4>
+            <p class="animate-on-scroll" style="animation-delay: 0.3s;">Are you fortifying your mind with the Word of
+                God to stand against deception? Will you choose to listen to the voice of Jesus today?</p>
+        </div>
+
+
+        <div class="navigation-links"> <!-- Content from VoicesFromTheGrave.html -->
+            <button class="print-button" onclick="window.print()">Print Study Guide</button>
+            <a href="index.html" class="nav-button secondary">Return to Main Site (Livestream)</a>
+        </div>
+    </div> <!-- End .container -->
+
+    <img id="visualizerBgImg" src="" alt="Visualizer Background" style="display:none;">
+    <!-- From Signs, src set by JS -->
+
+    <script>
+        const HEADER_IMAGE_URL = 'Assets/pics/vfbtgwith-text.jpg'; // Updated for Voices...
+
+        // Simple throttle function (from Signs...)
+        function throttle(func, limit) {
+            let lastFunc;
+            let lastRan;
+            return function () {
+                const context = this;
+                const args = arguments;
+                if (!lastRan) {
+                    func.apply(context, args);
+                    lastRan = Date.now();
+                } else {
+                    clearTimeout(lastFunc);
+                    lastFunc = setTimeout(function () {
+                        if ((Date.now() - lastRan) >= limit) {
+                            func.apply(context, args);
+                            lastRan = Date.now();
+                        }
+                    }, limit - (Date.now() - lastRan));
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Back button from original Voices is removed, sticky nav has its own.
+            // const backButton = document.getElementById('back-button');
+            // if (backButton) {
+            //     setTimeout(() => {
+            //         backButton.classList.add('visible');
+            //     }, 500);
+            // }
+
+            const pageHeaderImage = document.getElementById('pageHeaderImage');
+            if (pageHeaderImage) pageHeaderImage.src = HEADER_IMAGE_URL;
+
+            const visualizerBgImg = document.getElementById('visualizerBgImg');
+            if (visualizerBgImg) visualizerBgImg.src = HEADER_IMAGE_URL;
+
+
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            if ("IntersectionObserver" in window) {
+                let observer = new IntersectionObserver((entries, observerInstance) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observerInstance.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                animatedElements.forEach(el => observer.observe(el));
+            } else {
+                animatedElements.forEach(el => el.classList.add('is-visible'));
+            }
+
+            // --- Enhanced Podcast Player JS (from Signs..., adapted) ---
+            const embeddedSermonAudio = document.getElementById('embeddedSermonAudio');
+            const embeddedPlaybackSpeed = document.getElementById('embeddedPlaybackSpeed');
+            const podcastArea = document.querySelector('.embedded-podcast-player-area');
+            const youtubeFallbackDiv = document.getElementById('youtubeFallback'); // Keep for structure
+
+            if (embeddedSermonAudio && podcastArea) { // Check podcastArea as well
+                const nowPlayingIndicator = document.createElement('p');
+                nowPlayingIndicator.className = 'now-playing-indicator';
+
+                // Insert after youtubeFallbackDiv if it exists, otherwise after controls or audio element
+                if (youtubeFallbackDiv && youtubeFallbackDiv.parentNode === podcastArea) { // Ensure it's a child of podcastArea
+                    youtubeFallbackDiv.insertAdjacentElement('afterend', nowPlayingIndicator);
+                } else {
+                    const controlsDiv = podcastArea.querySelector('.simple-playback-controls');
+                    if (controlsDiv) {
+                        controlsDiv.insertAdjacentElement('afterend', nowPlayingIndicator);
+                    } else {
+                        embeddedSermonAudio.insertAdjacentElement('afterend', nowPlayingIndicator);
+                    }
+                }
+
+
+                embeddedSermonAudio.addEventListener('play', () => {
+                    podcastArea.classList.remove('is-paused');
+                    podcastArea.classList.add('is-playing');
+                    nowPlayingIndicator.textContent = '▶ Now Playing';
+                });
+                embeddedSermonAudio.addEventListener('pause', () => {
+                    podcastArea.classList.remove('is-playing');
+                    podcastArea.classList.add('is-paused');
+                    nowPlayingIndicator.textContent = '❚❚ Paused';
+                });
+                embeddedSermonAudio.addEventListener('ended', () => {
+                    podcastArea.classList.remove('is-playing');
+                    podcastArea.classList.remove('is-paused');
+                    nowPlayingIndicator.textContent = 'Playback Ended';
+                });
+
+                if (embeddedPlaybackSpeed) { // Check if speed control exists
+                    embeddedPlaybackSpeed.addEventListener('change', (e) => {
+                        embeddedSermonAudio.playbackRate = parseFloat(e.target.value);
+                        embeddedPlaybackSpeed.classList.add('speed-changed');
+                        setTimeout(() => {
+                            embeddedPlaybackSpeed.classList.remove('speed-changed');
+                        }, 500);
+                    });
+                    const normalSpeedOption = embeddedPlaybackSpeed.querySelector('option[value="1"]');
+                    if (normalSpeedOption && normalSpeedOption.textContent === "1x") {
+                        normalSpeedOption.textContent = "1x (Normal)";
+                    }
+                }
+
+                embeddedSermonAudio.addEventListener('error', (e) => {
+                    console.error("Embedded Sermon Audio Element Error Event:", e);
+                    let errorMsgText = "Error loading embedded audio: ";
+                    const sourceElement = embeddedSermonAudio.querySelector('source');
+                    const srcPath = sourceElement ? sourceElement.getAttribute('src') : 'N/A';
+                    if (embeddedSermonAudio.error) {
+                        switch (embeddedSermonAudio.error.code) {
+                            case MediaError.MEDIA_ERR_ABORTED: errorMsgText += "Playback aborted."; break;
+                            case MediaError.MEDIA_ERR_NETWORK: errorMsgText += "Network error. Check file path ('" + srcPath + "')."; break;
+                            case MediaError.MEDIA_ERR_DECODE: errorMsgText += "Decoding error. Path: " + srcPath; break;
+                            case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED: errorMsgText += "Format not supported or server/network error. Path: '" + srcPath + "'."; break;
+                            default: errorMsgText += "Unknown error. Code: " + embeddedSermonAudio.error.code; break;
+                        }
+                    } else { errorMsgText += "Unknown audio error."; }
+                    console.error(errorMsgText, "File:", srcPath, "CurrentSrc:", embeddedSermonAudio.currentSrc);
+
+                    let errorPara = podcastArea.querySelector('.audio-error-message');
+                    if (!errorPara) {
+                        errorPara = document.createElement('p');
+                        errorPara.className = 'audio-error-message';
+                        // Insert error message logically
+                        const targetForError = (youtubeFallbackDiv && youtubeFallbackDiv.parentNode === podcastArea) ? youtubeFallbackDiv :
+                            (podcastArea.querySelector('.simple-playback-controls') || embeddedSermonAudio);
+                        targetForError.insertAdjacentElement('afterend', errorPara); // Error after indicator or fallback
+                    }
+                    errorPara.textContent = "Sorry, the sermon audio could not be loaded. Please check your internet connection or try refreshing the page. You can also use the YouTube link above.";
+                });
+                embeddedSermonAudio.addEventListener('canplay', () => {
+                    const errorPara = podcastArea.querySelector('.audio-error-message');
+                    if (errorPara) errorPara.remove();
+                });
+            } else {
+                console.warn("Embedded sermon audio player or podcast area not found. Some JS enhancements may not apply.");
+            }
+            // --- END Enhanced Podcast Player JS ---
+
+
+            // --- Sticky Navigation Bar JS (from Signs...) ---
+            const stickyNav = document.getElementById('sticky-nav');
+            const navToggleBtn = document.getElementById('nav-toggle-btn');
+            const navLinks = document.getElementById('nav-links');
+            const navContentBar = stickyNav ? stickyNav.querySelector('.nav-content') : null;
+
+            function adjustBodyPadding() {
+                if (!stickyNav || !document.body || !navContentBar) return;
+                let navHeight = 0;
+                if (window.getComputedStyle(stickyNav).position === 'fixed' && window.getComputedStyle(stickyNav).display !== 'none') {
+                    if (window.innerWidth <= 768) { // Mobile: padding for top bar only, as menu overlays
+                        navHeight = navContentBar.offsetHeight;
+                    } else { // Desktop: padding for full nav bar height
+                        navHeight = stickyNav.offsetHeight;
+                    }
+                }
+                document.body.style.paddingTop = navHeight + 'px';
+            }
+
+            function updateActiveNavLink() {
+                if (!stickyNav || !navLinks || !navContentBar) return;
+
+                let currentActiveFound = false;
+                const navHeight = (window.innerWidth <= 768) ? navContentBar.offsetHeight : stickyNav.offsetHeight;
+                const detectionLine = navHeight + 5; // 5px below the nav bar for sensitivity
+
+                const linksToIterate = Array.from(navLinks.querySelectorAll('a[href^="#"]')).reverse();
+
+                for (const link of linksToIterate) {
+                    const sectionId = link.getAttribute('href');
+                    const section = document.querySelector(sectionId);
+
+                    if (section) {
+                        const rect = section.getBoundingClientRect();
+                        if (rect.top <= detectionLine && !currentActiveFound) {
+                            link.classList.add('active-nav-link');
+                            currentActiveFound = true;
+                        } else {
+                            link.classList.remove('active-nav-link');
+                        }
+                    } else {
+                        link.classList.remove('active-nav-link');
+                    }
+                }
+                // Fallback for top of page or if no section is "active"
+                if (!currentActiveFound) {
+                    const firstLink = navLinks.querySelector('a[href^="#"]');
+                    if (firstLink) {
+                        const firstSection = document.querySelector(firstLink.getAttribute('href'));
+                        if (firstSection) {
+                            if (window.pageYOffset < navHeight || (firstSection.getBoundingClientRect().top < window.innerHeight * 0.5 && firstSection.getBoundingClientRect().bottom > detectionLine)) {
+                                firstLink.classList.add('active-nav-link');
+                                linksToIterate.forEach(l => { if (l !== firstLink) l.classList.remove('active-nav-link'); });
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            if (stickyNav && navToggleBtn && navLinks && navContentBar) {
+                function initializeNavState() {
+                    if (window.innerWidth <= 768) {
+                        navLinks.classList.add('nav-links-hidden');
+                        navLinks.classList.remove('nav-links-visible');
+                        navToggleBtn.setAttribute('aria-expanded', 'false');
+                    } else {
+                        navLinks.classList.remove('nav-links-hidden');
+                        navLinks.classList.add('nav-links-visible');
+                        navToggleBtn.setAttribute('aria-expanded', 'true'); // Should be false if hidden by default logic
+                    }
+                    adjustBodyPadding();
+                }
+                initializeNavState();
+
+                navToggleBtn.addEventListener('click', () => {
+                    const isVisible = navLinks.classList.toggle('nav-links-visible');
+                    navLinks.classList.toggle('nav-links-hidden', !isVisible);
+                    navToggleBtn.setAttribute('aria-expanded', isVisible.toString());
+                    adjustBodyPadding();
+                });
+
+                window.addEventListener('resize', throttle(() => {
+                    initializeNavState();
+                    updateActiveNavLink();
+                }, 100));
+
+
+                navLinks.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+
+                        if (targetElement) {
+                            let headerOffset = 0;
+                            if (window.getComputedStyle(stickyNav).position === 'fixed') {
+                                if (window.innerWidth <= 768) {
+                                    headerOffset = navContentBar.offsetHeight;
+                                } else {
+                                    headerOffset = stickyNav.offsetHeight;
+                                }
+                            }
+                            const elementPosition = targetElement.getBoundingClientRect().top;
+                            const offsetPosition = window.pageYOffset + elementPosition - headerOffset;
+
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: "smooth"
+                            });
+
+                            if (window.innerWidth <= 768 && navLinks.classList.contains('nav-links-visible')) {
+                                navLinks.classList.remove('nav-links-visible');
+                                navLinks.classList.add('nav-links-hidden');
+                                navToggleBtn.setAttribute('aria-expanded', 'false');
+                                adjustBodyPadding();
+                            }
+                            navLinks.querySelectorAll('a').forEach(link => link.classList.remove('active-nav-link'));
+                            this.classList.add('active-nav-link');
+                        }
+                    });
+                });
+                window.addEventListener('scroll', throttle(updateActiveNavLink, 100));
+                updateActiveNavLink();
+            }
+
+            // Updated sectionClassesToIds for Voices From The Grave content
+            const sectionClassesToIds = {
+                "intro-section": "section-intro",
+                "embedded-podcast-player-area": "podcast-section",
+                "theme-spiritism": "section-theme-spiritism",
+                "theme-death-state": "section-theme-death-state",
+                "theme-demonic-deception": "section-theme-demonic-deception",
+                "theme-satan-impersonation": "section-theme-satan-impersonation",
+                "theme-nde-reincarnation": "section-theme-nde-reincarnation",
+                "theme-hope-new-earth": "section-theme-hope-new-earth",
+                "theme-salvation-assurance": "section-theme-salvation-assurance",
+                "conclusion": "section-conclusion"
+            };
+
+            for (const className in sectionClassesToIds) {
+                const elements = document.querySelectorAll(`div.${className.replace(/\s+/g, '.')}`); // Handle multiple classes if needed
+                elements.forEach(element => {
+                    // Check if it's a main content block we care about (typically a direct child of .container or .section)
+                    if (element.classList.contains('section') ||
+                        className === 'embedded-podcast-player-area' ||
+                        className === 'conclusion' ||
+                        className === 'intro-section') {
+
+                        if (!element.id && sectionClassesToIds[className]) { // Only set ID if not already present
+                            element.id = sectionClassesToIds[className];
+                        }
+                    }
+                });
+            }
+            // Explicitly ensure podcast section ID if auto-assignment might miss it due to complex selectors
+            const podcastDiv = document.querySelector('.embedded-podcast-player-area');
+            if (podcastDiv && !podcastDiv.id) { // If the JS above didn't catch it
+                podcastDiv.id = 'podcast-section';
+            }
+
+
+            if (stickyNav) { // Initial calls after all DOM manipulations
+                adjustBodyPadding();
+                updateActiveNavLink();
+            }
+            // --- END Sticky Navigation Bar JS ---
+        });
+    </script>
+</body>
+
+</html>

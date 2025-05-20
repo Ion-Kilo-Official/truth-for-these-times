@@ -1,0 +1,1678 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Guide: Making a New Start</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+            <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TSHS5G8P82"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-TSHS5G8P82');
+    </script>
+    <!-- END Google tag (gtag.js) -->
+    <style>
+        :root {
+            --bg-primary: #F8F1E9;
+            --text-primary: #1A2A44;
+            --text-secondary-on-dark: #F8F1E9;
+            --accent-color: #D4A017;
+            --accent-color-rgb: 212, 160, 23;
+            --message-blue-dark: #2E4A7B;
+            --message-blue-dark-rgb: 46, 74, 123;
+            --message-blue-medium: #406EAF;
+            --forest-brown-dark: #4A3B31;
+            --key-takeaway-bg: rgba(var(--accent-color-rgb), 0.08);
+            --container-bg: #ffffff;
+            --border-light: #e7e7e7;
+            --border-medium: #cccccc;
+            --font-body: 'Lora', serif;
+            --font-heading: 'Poppins', sans-serif;
+            --hover-highlight: rgba(var(--accent-color-rgb), 0.15);
+            --soft-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+            --element-reveal-duration: 0.7s;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.75;
+            margin: 0;
+            padding: 0 25px 25px 25px; /* Base padding, JS will adjust top */
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 17px;
+            overflow-x: hidden;
+            position: relative;
+            /* padding-top will be set by JS */
+        }
+
+        @keyframes subtlePulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.04);
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 25px auto;
+            background: var(--container-bg);
+            padding: 35px 50px;
+            border-radius: 12px;
+            box-shadow: var(--soft-shadow);
+            opacity: 0;
+            animation: fadeInPage var(--element-reveal-duration) ease-out forwards 0.2s;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes fadeInPage {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .scroll-down-indicator {
+            text-align: center;
+            padding: 10px 0 20px;
+            font-family: var(--font-heading);
+            color: var(--message-blue-medium);
+            animation: slideDownFadeIn 0.8s ease-out forwards 0.1s;
+        }
+
+        .scroll-down-indicator .arrow {
+            font-size: 1.8em;
+            display: block;
+            line-height: 1;
+            margin-bottom: 5px;
+            animation: bounceArrow 1.5s infinite ease-in-out;
+        }
+
+        @keyframes bounceArrow {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-8px);
+            }
+
+            60% {
+                transform: translateY(-4px);
+            }
+        }
+
+        .header-image-container {
+            width: 100%;
+            margin-bottom: 15px;
+            animation: slideDownFadeIn 0.8s ease-out forwards 0.3s;
+            position: relative;
+        }
+
+        .header-image {
+            width: 100%;
+            aspect-ratio: 3 / 2;
+            object-fit: cover;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .game-link-button { 
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 10;
+            background-color: var(--message-blue-medium);
+            color: var(--text-secondary-on-dark);
+            padding: 10px 20px;
+            text-decoration: none;
+            font-family: var(--font-heading);
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.25s ease, transform 0.2s ease-out, box-shadow 0.25s ease;
+            animation: pulseShadow 2s infinite ease-in-out;
+        }
+
+        .game-link-button:hover {
+            background-color: var(--message-blue-dark);
+            transform: scale(1.05);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+            animation-play-state: paused;
+        }
+
+        .game-link-button:focus {
+            outline: 2px solid var(--message-blue-dark);
+            outline-offset: 3px;
+        }
+
+        @keyframes pulseShadow {
+            0% {
+                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2), 0 0 0 0px rgba(var(--message-blue-dark-rgb), 0.5);
+            }
+
+            50% {
+                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2), 0 0 0 8px rgba(var(--message-blue-dark-rgb), 0);
+            }
+
+            100% {
+                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2), 0 0 0 0px rgba(var(--message-blue-dark-rgb), 0);
+            }
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: var(--font-heading);
+            color: var(--text-primary);
+            margin-top: 1.6em;
+            margin-bottom: 0.9em;
+            font-weight: 600;
+        }
+
+        h1 {
+            text-align: center;
+            border-bottom: 4px solid var(--accent-color);
+            padding-bottom: 25px;
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 2.6em;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            animation: slideDownFadeIn 0.8s ease-out forwards 0.5s;
+        }
+
+        h2 { /* General H2 style */
+            font-size: 2em;
+            color: var(--message-blue-dark);
+            border-bottom: 2px solid var(--border-light);
+            padding-bottom: 12px;
+            font-weight: 700;
+            margin-top: 2.2em;
+        }
+
+        .embedded-podcast-player-area h2 {
+            margin-top: 1em;
+            margin-bottom: 0.8em;
+            text-align: center;
+            border-bottom: none; 
+            padding-bottom: 0.5em;
+            font-size: 1.8em;
+            color: var(--message-blue-dark);
+            transition: color 0.3s ease;
+        }
+
+        .embedded-podcast-player-area h2::before {
+            content: "🎙️";
+            margin-right: 8px;
+            font-size: 0.9em;
+            vertical-align: middle;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        h3 {
+            font-size: 1.7em;
+            color: var(--message-blue-medium);
+            font-weight: 700;
+            margin-top: 2em;
+        }
+
+        h4 {
+            font-size: 1.25em;
+            color: var(--text-primary);
+            font-weight: 700;
+            margin-top: 1.6em;
+            margin-bottom: 0.7em;
+        }
+
+        h5 {
+            font-size: 1.15em;
+            color: var(--text-primary);
+            font-weight: 700;
+            margin-top: 1.4em;
+            margin-bottom: 0.6em;
+        }
+
+        p {
+            margin-bottom: 1.3em;
+        }
+
+        .section {
+            margin-bottom: 45px;
+            padding-bottom: 35px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .intro-section p,
+        .how-to-use p,
+        .embedded-podcast-player-area > p:first-of-type { 
+            font-size: 1.08em;
+            margin-bottom: 1.1em;
+            color: #383838;
+            text-align: center;
+        }
+        
+        .embedded-podcast-player-area {
+            padding: 25px 20px;
+            background-color: rgba(var(--message-blue-dark-rgb), 0.05);
+            border-radius: 10px;
+            margin-bottom: 45px; 
+            border: 1px solid rgba(var(--message-blue-dark-rgb), 0.1);
+            transition: border-color 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+        }
+
+        .embedded-podcast-player-area audio {
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 600px; 
+            margin: 20px auto; 
+            display: block;
+        }
+
+        .embedded-podcast-player-area .simple-playback-controls {
+            font-family: var(--font-heading);
+            color: var(--text-primary);
+            text-align: center;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .youtube-fallback {
+            text-align: center;
+            margin-top: 12px;
+            margin-bottom: 12px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .youtube-fallback p {
+            margin-bottom: 5px !important; 
+            font-size: inherit !important;
+            color: inherit !important;
+            text-align: center !important;
+            line-height: 1.4;
+        }
+        
+        .youtube-inline-link {
+            color: var(--message-blue-medium);
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        .youtube-inline-link:hover {
+            color: var(--message-blue-dark);
+            text-decoration: none;
+        }
+
+        .embedded-podcast-player-area .simple-playback-controls select {
+            font-family: var(--font-body);
+            border: 1px solid var(--border-medium);
+            background-color: #fff;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            margin-left: 5px;
+            cursor: pointer;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .embedded-podcast-player-area .simple-playback-controls select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(var(--accent-color-rgb), 0.3);
+        }
+
+        .embedded-podcast-player-area .simple-playback-controls label {
+            margin-right: 5px;
+            font-weight: 600;
+        }
+        
+        .audio-error-message { 
+            color: #c0392b;
+            font-weight: bold;
+            margin-top: 10px; 
+            text-align: center;
+            font-family: var(--font-heading);
+            font-size: 0.95em;
+        }
+
+        .embedded-podcast-player-area.is-playing {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 12px 3px rgba(var(--accent-color-rgb), 0.35);
+        }
+
+        .embedded-podcast-player-area.is-playing h2 {
+            color: var(--accent-color);
+        }
+
+        .embedded-podcast-player-area.is-playing h2::before {
+            animation: pulseIcon 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulseIcon {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.2) rotate(5deg); opacity: 1; }
+        }
+
+        .now-playing-indicator {
+            display: none;
+            font-family: var(--font-heading);
+            font-size: 0.95em;
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-top: 10px; 
+            margin-bottom: 5px;
+            text-align: center;
+            height: 1.2em;
+        }
+
+        .embedded-podcast-player-area.is-playing .now-playing-indicator {
+            display: block;
+            animation: fadeInIndicator 0.5s ease-out;
+        }
+        .embedded-podcast-player-area.is-paused .now-playing-indicator {
+            display: block;
+            opacity: 0.7;
+        }
+
+        @keyframes fadeInIndicator {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .embedded-podcast-player-area .simple-playback-controls select.speed-changed {
+            animation: speedSelectFeedback 0.5s ease-out;
+        }
+
+        @keyframes speedSelectFeedback {
+            0% { box-shadow: 0 0 0 0 rgba(var(--accent-color-rgb), 0.5); transform: scale(1); }
+            50% { box-shadow: 0 0 0 5px rgba(var(--accent-color-rgb), 0.25); transform: scale(1.05); }
+            100% { box-shadow: 0 0 0 0 rgba(var(--accent-color-rgb), 0.5); transform: scale(1); }
+        }
+
+        .how-to-use { 
+            background-color: rgba(var(--message-blue-dark-rgb), 0.04);
+            padding: 25px 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(var(--message-blue-dark-rgb), 0.1);
+            animation: slideUpFadeIn 0.8s ease-out forwards 0.3s; 
+        }
+
+        .how-to-use h3 {
+            margin-top: 0;
+            color: var(--message-blue-dark);
+            font-size: 1.5em;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .how-to-use ul {
+            margin-top: 15px;
+        }
+
+        .how-to-use li::before { /* Specific for how-to-use, overrides general li::before */
+            content: '✨';
+            color: var(--message-blue-medium);
+            font-size: 1.1em;
+            /* position, left, top inherited or default */
+        }
+
+
+        .scripture-ref { 
+            font-style: italic;
+            color: var(--forest-brown-dark);
+            margin-left: 5px;
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            padding: 15px 20px;
+            background-color: rgba(var(--accent-color-rgb), 0.05);
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-color);
+            position: relative;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .scripture-ref::before {
+            content: "📖";
+            margin-right: 10px;
+            font-style: normal;
+            font-size: 1.1em;
+            color: var(--accent-color);
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .scripture-ref span {
+            display: block;
+            padding-left: 30px;
+        }
+
+        .scripture-ref:hover {
+            background-color: var(--hover-highlight);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(var(--accent-color-rgb), 0.2);
+        }
+
+        .scripture-ref:hover::before {
+            opacity: 1;
+        }
+
+        ul { 
+            padding-left: 10px;
+            list-style: none;
+            margin-bottom: 1.3em;
+        }
+
+        li { 
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        li::before { 
+            content: '✝️'; 
+            position: absolute;
+            left: 0;
+            top: 2px; 
+            color: var(--accent-color);
+            font-size: 1em; 
+            transition: transform 0.2s ease-out;
+        }
+        /* Ensure .how-to-use li::before defined above takes precedence for its lists */
+
+        li:hover::before {
+            transform: scale(1.3) rotate(15deg);
+        }
+
+        .reflection ul { 
+            padding-left: 10px; 
+        }
+
+        .reflection li.question { 
+            margin-bottom: 18px;
+            padding: 15px 20px 15px 55px;
+            position: relative;
+            background-color: rgba(var(--message-blue-dark-rgb), 0.06);
+            border-left: 5px solid var(--message-blue-medium);
+            border-radius: 6px;
+            font-style: normal;
+            list-style-type: none !important; 
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .reflection li.question:hover {
+            background-color: rgba(var(--message-blue-dark-rgb), 0.1);
+            box-shadow: 0 3px 10px rgba(var(--message-blue-dark-rgb), 0.15);
+        }
+
+        .reflection li.question::before { 
+            content: "🤔";
+            position: absolute;
+            left: 18px;
+            top: 15px; 
+            font-weight: normal; 
+            color: var(--message-blue-medium);
+            font-style: normal; 
+            font-size: 1.4em; 
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .reflection li.question:hover::before {
+            transform: translateY(-3px) scale(1.1);
+        }
+
+        .key-takeaway { 
+            background-color: var(--key-takeaway-bg);
+            padding: 20px 25px;
+            border-left: 6px solid var(--accent-color);
+            margin: 30px 0;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(var(--accent-color-rgb), 0.1);
+            position: relative;
+            overflow: hidden; 
+        }
+
+        .key-takeaway::before { 
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(var(--accent-color-rgb),0.15), transparent);
+            animation: shineTakeaway 4s infinite linear 1s;
+            pointer-events: none;
+        }
+
+        .key-takeaway .takeaway-title {
+            display: block;
+            font-weight: bold;
+            font-family: var(--font-heading);
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .key-takeaway .takeaway-title::before {
+            content: "📌 ";
+        }
+
+        blockquote { 
+            background: #f9f9f9;
+            border-left: 6px solid var(--border-medium);
+            margin: 2em 0;
+            padding: 18px 25px;
+            font-style: italic;
+            color: #444;
+            border-radius: 0 6px 6px 0; 
+        }
+
+        blockquote footer {
+            font-style: normal;
+            font-size: 0.9em;
+            text-align: right;
+            color: #666;
+            margin-top: 12px;
+        }
+
+        .page-break { 
+            page-break-before: always;
+        }
+
+        .navigation-links { 
+            text-align: center;
+            margin: 45px 0 25px 0;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .nav-button,
+        .print-button {
+            display: inline-block;
+            background: var(--accent-color);
+            color: var(--text-primary);
+            padding: 14px 28px;
+            text-decoration: none;
+            font-family: var(--font-heading);
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 1.05em;
+            font-weight: 600;
+            transition: background-color 0.25s ease, transform 0.2s ease-out, box-shadow 0.25s ease;
+            margin: 10px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden; 
+        }
+        
+        .nav-button:before, .print-button:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background-color: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease, opacity 0.6s ease;
+            opacity: 0;
+        }
+
+        .nav-button:active:before, .print-button:active:before {
+            width: 200%;
+            height: 200%;
+            opacity: 1;
+            transition: width 0s, height 0s, opacity 0s;
+        }
+
+        .nav-button:hover,
+        .print-button:hover {
+            background-color: #e7af27; 
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .nav-button.secondary {
+            background-color: var(--message-blue-medium);
+            color: var(--text-secondary-on-dark);
+        }
+
+        .nav-button.secondary:hover {
+            background-color: var(--message-blue-dark);
+        }
+
+        @keyframes slideUpFadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideDownFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn { 
+            to { opacity: 1; }
+        }
+        
+        @keyframes shineTakeaway { 
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: 100%; } 
+        }
+
+        .animate-on-scroll { 
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity var(--element-reveal-duration) ease-out, transform var(--element-reveal-duration) cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #sticky-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--message-blue-dark);
+            color: var(--text-secondary-on-dark);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: height 0.3s ease-in-out; 
+        }
+
+        #sticky-nav .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px; 
+            height: 55px;
+            box-sizing: border-box;
+        }
+
+        #sticky-nav .nav-back-button {
+            color: var(--text-secondary-on-dark);
+            font-family: var(--font-heading);
+            font-size: 0.9em;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 7px 14px;
+            border-radius: 20px;
+            background-color: rgba(var(--accent-color-rgb),0.85);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin-right: 15px; 
+            white-space: nowrap;
+            flex-shrink: 0; 
+        }
+        #sticky-nav .nav-back-button:hover,
+        #sticky-nav .nav-back-button:focus {
+            background-color: rgba(var(--accent-color-rgb),1);
+            transform: scale(1.03);
+            outline: none;
+        }
+
+        #sticky-nav .nav-title {
+            font-family: var(--font-heading);
+            font-size: 1.1em;
+            font-weight: 600;
+            text-align: center;
+            flex-grow: 1;
+            margin: 0 10px; 
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        #nav-toggle-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary-on-dark);
+            font-size: 1.8em;
+            cursor: pointer;
+            padding: 8px 12px; 
+            display: none; 
+            line-height: 1;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            flex-shrink: 0; 
+        }
+        #nav-toggle-btn:hover,
+        #nav-toggle-btn:focus {
+            background-color: rgba(255,255,255,0.1);
+            outline: none;
+        }
+
+        #sticky-nav ul#nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; 
+            background-color: var(--message-blue-dark); 
+            padding-bottom: 5px; 
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        #sticky-nav ul#nav-links li {
+            padding: 0; 
+            margin: 0 3px; 
+        }
+        #sticky-nav ul#nav-links li::before {
+            content: "" !important; 
+        }
+
+        #sticky-nav ul#nav-links a {
+            color: var(--text-secondary-on-dark);
+            text-decoration: none;
+            padding: 8px 12px; 
+            display: block;
+            font-family: var(--font-heading);
+            font-size: 0.85em; 
+            font-weight: 500;
+            transition: color 0.2s ease, background-color 0.2s ease, transform 0.1s ease;
+            border-radius: 6px;
+            white-space: nowrap;
+            text-transform: capitalize; 
+        }
+
+        #sticky-nav ul#nav-links a:hover,
+        #sticky-nav ul#nav-links a:focus {
+            color: var(--accent-color);
+            background-color: rgba(255,255,255,0.15);
+            transform: translateY(-1px); 
+            outline: none;
+        }
+        #sticky-nav ul#nav-links a.active-nav-link {
+            background-color: var(--accent-color);
+            color: var(--message-blue-dark);
+            font-weight: 700;
+        }
+
+        #sticky-nav ul#nav-links.nav-links-hidden {
+            display: none;
+        }
+        #sticky-nav ul#nav-links.nav-links-visible {
+            display: flex; 
+        }
+
+        @media (max-width: 768px) {
+            #nav-toggle-btn {
+                display: block;
+            }
+            #sticky-nav .nav-title {
+                font-size: 1em;
+                text-align: left; 
+                margin-left: 0;
+            }
+            #sticky-nav ul#nav-links {
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 55px; 
+                left: 0;
+                box-shadow: 0 5px 5px rgba(0,0,0,0.15);
+                max-height: calc(100vh - 55px); 
+                overflow-y: auto;
+                border-top: none; 
+                padding-bottom: 0; 
+            }
+            #sticky-nav ul#nav-links.nav-links-visible {
+                display: flex; 
+            }
+            #sticky-nav ul#nav-links li {
+                margin: 0; 
+                width: 100%;
+            }
+            #sticky-nav ul#nav-links a {
+                padding: 14px 20px; 
+                font-size: 1em;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                text-align: left; 
+                border-radius: 0; 
+            }
+            #sticky-nav ul#nav-links a:hover,
+            #sticky-nav ul#nav-links a:focus {
+                transform: none; 
+            }
+            #sticky-nav ul#nav-links li:last-child a {
+                border-bottom: none;
+            }
+            #sticky-nav ul#nav-links a.active-nav-link {
+                background-color: var(--accent-color);
+                color: var(--message-blue-dark);
+            }
+        }
+
+        @media (min-width: 769px) {
+            #nav-toggle-btn {
+                display: none; 
+            }
+             #sticky-nav .nav-content {
+                padding: 0 20px; 
+            }
+            #sticky-nav ul#nav-links {
+                display: flex !important; 
+                position: static; 
+                box-shadow: none;
+                max-height: none;
+                overflow-y: visible;
+                flex-direction: row; 
+                justify-content: flex-end; 
+                padding-right: 15px; 
+                padding-left: 15px; 
+                padding-bottom: 5px; 
+            }
+        }
+
+        @media print {
+            body {
+                background-color: #fff;
+                color: #000;
+                margin: 0;
+                padding: 0;
+                font-size: 11pt;
+                line-height: 1.45;
+                padding-top: 0 !important; 
+            }
+
+            #sticky-nav { display: none !important; } 
+            .back-button, 
+            .header-image-container,
+            .scroll-down-indicator,
+            .game-link-button {
+                display: none !important;
+            }
+
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+                padding: 5mm;
+                max-width: 100%;
+                margin: 0 auto;
+                border: none;
+                opacity: 1 !important; 
+                animation: none !important; 
+                position: static; 
+            }
+
+            h1, h2, h3, h4, h5 {
+                color: #000 !important;
+                font-family: 'Times New Roman', Times, serif; 
+                animation: none !important;
+            }
+
+            h1 { font-size: 18pt; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 18px; }
+            h2 { font-size: 15pt; border-bottom: 1px solid #333; padding-bottom: 7px; margin-bottom: 14px; margin-top: 22px;}
+            
+            .embedded-podcast-player-area h2::before { content: "" !important; animation: none !important; }
+            .embedded-podcast-player-area.is-playing h2,
+            .embedded-podcast-player-area.is-playing h2::before { animation: none !important; color: #000 !important; }
+
+            h3 { font-size: 13pt; margin-bottom: 9px; margin-top: 18px; }
+            h4 { font-size: 11pt; margin-bottom: 7px; margin-top: 16px; }
+            h5 { font-size: 10pt; margin-bottom: 5px; margin-top: 14px; }
+
+            .scripture-ref {
+                color: #111 !important;
+                background-color: #f3f3f3 !important;
+                border: 1px solid #ccc !important;
+                border-left: 3px solid #999 !important;
+                padding: 5px 8px;
+                margin-left: 10px; 
+                font-style: italic;
+                transform: none !important;
+                box-shadow: none !important;
+            }
+            .scripture-ref::before {
+                content: "📖 Scripture: "; 
+                font-weight: bold;
+                font-style: normal;
+                opacity: 1;
+                position: static; 
+                transform: none;
+                margin-right: 5px;
+            }
+            .scripture-ref span { padding-left: 0; }
+
+            .reflection li.question {
+                background-color: #f9f9f9 !important;
+                border-left: 3px solid #444 !important;
+                color: #000 !important;
+                padding: 7px 8px 7px 25px !important; 
+                list-style-type: none !important;
+                font-style: normal;
+                box-shadow: none !important;
+            }
+            .reflection li.question::before {
+                content: "Q: " !important; 
+                color: #222 !important;
+                font-weight: bold;
+                position: absolute;
+                left: 8px;
+                top: 7px;
+                font-style: normal;
+                font-size: 1em; 
+                transform: none !important;
+            }
+
+            .key-takeaway {
+                background-color: #eaeaea !important;
+                border-left: 4px solid #222 !important;
+                color: #000 !important;
+                box-shadow: none;
+                padding: 8px 12px;
+                margin: 12px 0;
+            }
+            .key-takeaway::before { display: none; } 
+            .key-takeaway .takeaway-title { color: #000 !important; font-weight: bold; }
+            .key-takeaway .takeaway-title::before { content: "📌 "; }
+
+            .navigation-links,
+            .how-to-use, 
+            .embedded-podcast-player-area, 
+            .youtube-fallback { display: none !important; }
+
+            ul { padding-left: 18px; list-style-type: disc; } 
+            li::before { content: "" !important; } 
+            .how-to-use li::before { content: "" !important; } 
+            .reflection li.question::before { content: "Q: " !important; }
+
+            a { text-decoration: none; color: #000; } 
+            
+            .animate-on-scroll { opacity: 1 !important; transform: none !important; } 
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="sticky-nav">
+        <div class="nav-content">
+            <a href="index.html" id="nav-back-button" class="nav-back-button" aria-label="Go to Previous Page">« Back</a>
+            <span class="nav-title">Study Guide Menu</span>
+            <button id="nav-toggle-btn" aria-label="Toggle Navigation" aria-expanded="false" aria-controls="nav-links">☰</button>
+        </div>
+        <ul id="nav-links" class="nav-links-hidden">
+            <li><a href="#section-intro">Introduction</a></li>
+            <li><a href="#podcast-section">Podcast Audio</a></li>
+            <li><a href="#section-theme-transformation">Transformation</a></li>
+            <li><a href="#section-theme-baptism-origin">Baptism's Origin</a></li>
+            <li><a href="#section-theme-baptism-mandate">Baptism Mandate</a></li>
+            <li><a href="#section-theme-mode-immersion">Mode: Immersion</a></li>
+            <li><a href="#section-theme-meaning-necessity">Meaning & Necessity</a></li>
+            <li><a href="#section-theme-preparation">Preparation</a></li>
+            <li><a href="#section-theme-church-fellowship">Church Fellowship</a></li>
+            <li><a href="#section-conclusion">Conclusion</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="scroll-down-indicator">
+            <span class="arrow">⇩</span>
+            Scroll down for Study Guide & Podcast
+        </div>
+        <div class="header-image-container">
+            <img src="Assets/pics/watery-0making-a-new-start.png" alt="Making a New Start Header" class="header-image" id="pageHeaderImage">
+        </div>
+
+        <h1>Study Guide: Making a New Start</h1>
+
+        <div id="podcast-section" class="embedded-podcast-player-area section animate-on-scroll">
+            <h2>Listen to the Podcast</h2>
+            <p>You can listen to the accompanying podcast "Making a New Start" directly below.</p>
+            <audio id="embeddedSermonAudio" controls controlsList="nodownload">
+                <source src="Assets/audio/making-a-new-start-with-god-through-baptism.mp3" type="audio/mp3">
+                Your browser does not support the audio element. Try using a modern browser like Chrome, Firefox, or Edge.
+            </audio>
+            <div class="simple-playback-controls">
+                <label for="embeddedPlaybackSpeed">Speed:</label>
+                <select id="embeddedPlaybackSpeed" aria-label="Playback speed">
+                    <option value="0.75">0.75x</option>
+                    <option value="1" selected>1x (Normal)</option>
+                    <option value="1.25">1.25x</option>
+                    <option value="1.5">1.5x</option>
+                    <option value="2">2x</option>
+                </select>
+            </div>
+            <div id="youtubeFallback" class="youtube-fallback"> 
+                <p>Also available on <a href="https://www.youtube.com/watch?v=NrXPNcejILI" target="_blank"
+                        class="youtube-inline-link">YouTube</a>.</p>
+                <p style="font-size: 0.8em; color: #777 !important; margin-top: 3px;"></p>
+            </div>
+            <!-- JS will insert .now-playing-indicator and .audio-error-message after this div -->
+        </div>
+
+        <div class="how-to-use"> 
+            <h3>How to Use This Study Guide</h3>
+            <p>This guide is designed to help you delve deeper into the themes presented in the sermon "Making a New
+                Start." As you go through each section:</p>
+            <ul>
+                <li><strong>Read</strong> the summary points and key scriptures.</li>
+                <li><strong>Reflect</strong> on the questions provided. Consider writing down your thoughts or
+                    discussing them with others.</li>
+                <li><strong>Note</strong> the "Key Takeaways" which highlight crucial biblical principles.</li>
+                <li><strong>Pray</strong> for understanding and wisdom as you study God's Word.</li>
+            </ul>
+        </div>
+
+        <div class="section intro-section animate-on-scroll" id="section-intro"> 
+            <h2 class="animate-on-scroll">Introduction: The Longing for a Fresh Beginning</h2>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">Have you ever wished you could take back
+                something you said or did? Do you long for a way to erase past mistakes and start over? This study
+                explores the biblical concept of "Making a New Start" with God, focusing on the transformative power of
+                His grace and the significance of baptism.</p>
+            <p class="animate-on-scroll" style="animation-delay: 0.2s;">The sermon uses powerful stories, like that of a
+                notorious Moscow criminal and the Apostle Paul, to illustrate how God offers forgiveness, deliverance,
+                and a completely new life to anyone willing to accept it.</p>
+        </div>
+
+        <div class="section theme-transformation animate-on-scroll" id="section-theme-transformation"> 
+            <h3 class="animate-on-scroll">1. God's Power to Transform Lives</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">The sermon highlights dramatic transformations
+                possible through faith in Jesus. From a hardened criminal in Moscow finding peace and joining a church
+                choir, to Saul the persecutor becoming Paul the apostle, God specializes in radical life changes.</p>
+            <p class="animate-on-scroll" style="animation-delay: 0.2s;">God's love reaches us where we are, but it
+                doesn't leave us there. He offers forgiveness and a path to a new identity in Him.</p>
+            <h4 class="animate-on-scroll" style="animation-delay: 0.3s;">Key Scriptures:</h4>
+            <ul class="animate-on-scroll" style="animation-delay: 0.4s;">
+                <li>1 John 1:9: <div class="scripture-ref"><span>"If we confess our sins, He is faithful and just to
+                            forgive us our sins and to cleanse us from all unrighteousness."</span></div>
+                </li>
+                <li>Acts 22:16 (Ananias' words to Saul): <div class="scripture-ref"><span>"And now
+                            why are you waiting? Arise and be baptized, and wash away your sins, calling on the name of
+                            the Lord."</span></div>
+                </li>
+            </ul>
+            <div class="reflection animate-on-scroll" style="animation-delay: 0.5s;">
+                <h4>Reflection:</h4>
+                <ul>
+                    <li class="question">Think about the stories of the Moscow criminal and Saul/Paul. What do these
+                        examples teach you about the extent of God's forgiveness and power to change?</li>
+                    <li class="question">Where in your own life do you desire God's transforming power for a new start?
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section theme-baptism-origin animate-on-scroll" id="section-theme-baptism-origin"> 
+            <h3 class="animate-on-scroll">2. The Origin and Example of Baptism</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">Christian baptism finds its roots in the
+                ministry of John the Baptist, who preached repentance and baptized crowds in the Jordan River. Jesus
+                Himself, though sinless, came to be baptized by John.</p>
+            <p class="animate-on-scroll" style="animation-delay: 0.2s;">Jesus insisted on being baptized "to fulfill all
+                righteousness," setting a perfect example for His followers. His baptism marked the beginning of His
+                public ministry, accompanied by the descent of the Holy Spirit and the Father's affirmation.</p>
+            <h4 class="animate-on-scroll" style="animation-delay: 0.3s;">Key Scriptures:</h4>
+            <ul class="animate-on-scroll" style="animation-delay: 0.4s;">
+                <li>Matthew 3:5-6: <div class="scripture-ref"><span>"Then Jerusalem, all Judea, and all the region
+                            around the Jordan went out to him and were baptized by him in the Jordan, confessing their
+                            sins."</span></div>
+                </li>
+                <li>Matthew 3:15: <div class="scripture-ref"><span>But Jesus answered and said to him, “Permit it to be
+                            so now, for thus it is fitting for us to fulfill all righteousness.” Then he allowed
+                            Him.</span></div>
+                </li>
+                <li>Matthew 3:16-17: <div class="scripture-ref"><span>"When He had been baptized, Jesus came up
+                            immediately from the water; and behold, the heavens were opened to Him, and He saw the
+                            Spirit of God descending like a dove and alighting upon Him. And suddenly a voice came from
+                            heaven, saying, “This is My beloved Son, in whom I am well pleased.”"</span></div>
+                </li>
+                <li>Acts 10:38 (Referenced by Peter): <div class="scripture-ref"><span>"...how God anointed Jesus of
+                            Nazareth with the Holy Spirit and with power, who went about doing good and healing all who
+                            were oppressed by the devil, for God was with Him."</span></div>
+                </li>
+            </ul>
+            <div class="reflection animate-on-scroll" style="animation-delay: 0.5s;">
+                <h4>Reflection:</h4>
+                <ul>
+                    <li class="question">Why is it significant that Jesus, who had no sin to confess, chose to be
+                        baptized? What does His example teach us?</li>
+                    <li class="question">What happened immediately after Jesus' baptism? What does this suggest about
+                        the connection between baptism and the Holy Spirit?</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="page-break section theme-baptism-mandate animate-on-scroll" id="section-theme-baptism-mandate"> 
+            <h3 class="animate-on-scroll">3. Baptism: A Command for All Believers</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">Baptism wasn't just for Jesus or the early
+                crowds; it became a standard practice for His disciples. Before ascending to heaven, Jesus gave the
+                Great Commission, explicitly instructing His followers to make disciples and baptize them.</p>
+            <p class="animate-on-scroll" style="animation-delay: 0.2s;">The New Testament church faithfully followed
+                this command, with thousands being baptized as they came to faith in Christ.</p>
+            <h4 class="animate-on-scroll" style="animation-delay: 0.3s;">Key Scriptures:</h4>
+            <ul class="animate-on-scroll" style="animation-delay: 0.4s;">
+                <li>John 4:1-2: <div class="scripture-ref"><span>"Therefore, when the Lord knew that the Pharisees had
+                            heard that Jesus made and baptized more disciples than John (though Jesus Himself did not
+                            baptize, but His disciples)..."</span></div>
+                </li>
+                <li>Matthew 28:19-20: <div class="scripture-ref"><span>"Go therefore and make disciples of all the
+                            nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit,
+                            teaching them to observe all things that I have commanded you; and lo, I am with you always,
+                            even to the end of the age.” Amen.</span></div>
+                </li>
+                <li>Acts 2:41: <div class="scripture-ref"><span>"Then those who gladly received his word were baptized;
+                            and that day about three thousand souls were added to them."</span></div>
+                </li>
+            </ul>
+            <div class="key-takeaway animate-on-scroll" style="animation-delay: 0.5s;"><span class="takeaway-title">Key
+                    Takeaway:</span>Baptism is not merely an optional ritual but a direct command from Jesus for all who
+                become His disciples.</div>
+        </div>
+
+        <div class="section theme-mode-immersion animate-on-scroll" id="section-theme-mode-immersion"> 
+            <h3 class="animate-on-scroll">4. How Should Baptism Be Performed? The Mode of Immersion</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">The sermon strongly emphasizes that the biblical
+                mode of baptism practiced by Jesus, John, and the early church was immersion (being dipped under the
+                water). The detailed account of Philip baptizing the Ethiopian eunuch clearly depicts them going "down
+                into the water" and coming "up out of the water."</p>
+            <p class="animate-on-scroll" style="animation-delay: 0.2s;">Historical evidence, including ancient
+                baptistries, supports immersion as the practice for centuries. The Greek word "baptizo" itself means "to
+                dip under." Alternative methods like sprinkling or pouring (infusion) arose later, often cited for
+                convenience rather than biblical precedent.</p>
+            <h4 class="animate-on-scroll" style="animation-delay: 0.3s;">Key Scriptures:</h4>
+            <ul class="animate-on-scroll" style="animation-delay: 0.4s;">
+                <li>Ephesians 4:5: <div class="scripture-ref"><span>"one Lord, one faith, one baptism;"</span></div>
+                </li>
+                <li>Acts 8:36-39: <div class="scripture-ref"><span>"Now as they went down the road, they came to some
+                            water. And the eunuch said, “See, here is water. What hinders me from being baptized?” ...So
+                            he commanded the chariot to stand still. And both Philip and the eunuch went down into the
+                            water, and he baptized him. Now when they came up out of the water..."</span></div>
+                </li>
+            </ul>
+            <div class="key-takeaway animate-on-scroll" style="animation-delay: 0.5s;"><span class="takeaway-title">Key
+                    Takeaway:</span>The Bible consistently points to immersion as the method of baptism, rich with
+                symbolism representing Christ's death, burial, and resurrection.</div>
+            <div class="reflection animate-on-scroll" style="animation-delay: 0.6s;">
+                <h4>Reflection:</h4>
+                <ul>
+                    <li class="question">According to the sermon, why did alternative modes of baptism arise? How does
+                        this contrast with the biblical examples?</li>
+                    <li class="question">Why is the symbolism of immersion (death, burial, resurrection) considered
+                        significant?</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="page-break section theme-meaning-necessity animate-on-scroll" id="section-theme-meaning-necessity"> 
+            <h3 class="animate-on-scroll">5. Born Again: The Spiritual Meaning and Necessity of Baptism</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">Baptism by immersion powerfully symbolizes the
+                core of the Christian experience: dying to the old self and rising to new life in Christ. We are "buried
+                with Him through baptism into death" and raised to "walk in newness of life."</p>
+            <p class="animate-on-scroll" style="animation-delay: 0.2s;">Jesus emphasized the necessity of this
+                experience when talking to Nicodemus, stating that one must be "born of water and the Spirit" to enter
+                God's kingdom. He also linked belief and baptism directly to salvation.</p>
+            <h4 class="animate-on-scroll" style="animation-delay: 0.3s;">Key Scriptures:</h4>
+            <ul class="animate-on-scroll" style="animation-delay: 0.4s;">
+                <li>Romans 6:3-4: <div class="scripture-ref"><span>"Or do you not know that as many of us as were
+                            baptized into Christ Jesus were baptized into His death? Therefore we were buried with Him
+                            through baptism into death, that just as Christ was raised from the dead by the glory of the
+                            Father, even so we also should walk in newness of life."</span></div>
+                </li>
+                <li>John 3:3, 5: <div class="scripture-ref"><span>"Jesus answered and said to him, “Most assuredly, I
+                            say to you, unless one is born again, he cannot see the kingdom of God.” ...Jesus answered,
+                            “Most assuredly, I say to you, unless one is born of water and the Spirit, he cannot enter
+                            the kingdom of God."</span></div>
+                </li>
+                <li>Mark 16:16: <div class="scripture-ref"><span>"He who believes and is baptized will be saved; but he
+                            who does not believe will be condemned."</span></div>
+                </li>
+            </ul>
+            <div class="reflection animate-on-scroll" style="animation-delay: 0.5s;">
+                <h4>Reflection:</h4>
+                <ul>
+                    <li class="question">How does the imagery of burial and resurrection in baptism connect with your
+                        understanding of becoming a Christian?</li>
+                    <li class="question">Based on Jesus' words to Nicodemus and in Mark 16, how important do you
+                        consider baptism to be in the life of a believer?</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section theme-preparation animate-on-scroll" id="section-theme-preparation"> 
+            <h3 class="animate-on-scroll">6. Preparing Your Heart for Baptism</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">Baptism is not just a ritual; it's an outward
+                expression of an inward commitment. The sermon outlines key prerequisites:</p>
+            <ul class="animate-on-scroll" style="animation-delay: 0.2s;">
+                <li><strong>Belief:</strong> Accepting Jesus Christ as your personal Savior and Lord, believing He died
+                    for your sins (as Philip required of the Ethiopian).</li>
+                <li><strong>Understanding & Willingness:</strong> Being taught Jesus' commands and committing to follow
+                    His teachings (making disciples involves teaching).</li>
+                <li><strong>Repentance & Confession:</strong> Turning away from the old life, confessing sins, and
+                    demonstrating a new direction, prompted by God's love.</li>
+            </ul>
+            <p class="animate-on-scroll" style="animation-delay: 0.3s;">True baptism follows a genuine heart change and
+                a commitment to live for Christ.</p>
+            <h4 class="animate-on-scroll" style="animation-delay: 0.4s;">Key Scriptures (Illustrating Prerequisites):
+            </h4>
+            <ul class="animate-on-scroll" style="animation-delay: 0.5s;">
+                <li>Acts 8:37 (Implied - KJV/NKJV): <div class="scripture-ref"><span>Then Philip said, “If you believe
+                            with all your heart, you may.” And he answered and said, “I believe that Jesus Christ is the
+                            Son of God.”</span></div>
+                </li>
+                <li>Matthew 28:20 (Part of the Commission): <div class="scripture-ref"><span>"...teaching them to
+                            observe all things that I have commanded you..."</span></div>
+                </li>
+                <li>Acts 2:38: <div class="scripture-ref"><span>Then Peter said to them, “Repent, and let every one of
+                            you be baptized in the name of Jesus Christ for the remission of sins..."</span></div>
+                </li>
+            </ul>
+            <div class="reflection animate-on-scroll" style="animation-delay: 0.6s;">
+                <h4>Reflection:</h4>
+                <ul>
+                    <li class="question">Why is commitment described as essential for baptism? How does this guard
+                        against simply "going through the motions"?</li>
+                    <li class="question">Reflect on the three prerequisites (belief, understanding/willingness,
+                        repentance). How do these prepare someone for the "new start" baptism represents?</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section theme-church-fellowship animate-on-scroll" id="section-theme-church-fellowship"> 
+            <h3 class="animate-on-scroll">7. Joining the Family: Baptism and Church Fellowship</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">The sermon clarifies that baptism isn't just an
+                individual act of faith; it's also the way one becomes part of Christ's body, the Church. Those baptized
+                on Pentecost were "added to" the fellowship of believers and continued steadfastly together.</p>
+            <p class="animate-on-scroll" style="animation-delay: 0.2s;">Paul affirms that "by one Spirit we were all
+                baptized into one body." When people commit their lives to Jesus, they naturally desire to worship and
+                grow with fellow believers. The story of the Philippian jailer shows him and his household being
+                baptized immediately after believing, integrating them into the community of faith.</p>
+            <h4 class="animate-on-scroll" style="animation-delay: 0.3s;">Key Scriptures:</h4>
+            <ul class="animate-on-scroll" style="animation-delay: 0.4s;">
+                <li>Acts 2:41-42: <div class="scripture-ref"><span>"Then those who gladly received his word were
+                            baptized; and that day about three thousand souls were added to them. And they continued
+                            steadfastly in the apostles’ doctrine and fellowship, in the breaking of bread, and in
+                            prayers."</span></div>
+                </li>
+                <li>1 Corinthians 12:13: <div class="scripture-ref"><span>"For by one Spirit we were all baptized into
+                            one body—whether Jews or Greeks, whether slaves or free—and have all been made to drink into
+                            one Spirit."</span></div>
+                </li>
+                <li>Acts 16:31-34: <div class="scripture-ref"><span>"So they said, “Believe on the Lord Jesus Christ,
+                            and you will be saved, you and your household.” ...And immediately he and all his family
+                            were baptized... and he rejoiced, having believed in God with all his household."</span>
+                    </div>
+                </li>
+            </ul>
+            <div class="key-takeaway animate-on-scroll" style="animation-delay: 0.5s;"><span class="takeaway-title">Key
+                    Takeaway:</span>Bible baptism incorporates believers into the visible body of Christ, the church,
+                for fellowship, growth, and mutual support.</div>
+            <div class="reflection animate-on-scroll" style="animation-delay: 0.6s;">
+                <h4>Reflection:</h4>
+                <ul>
+                    <li class="question">How does the concept of being "baptized into one body" challenge the idea of
+                        solitary faith without church involvement?</li>
+                    <li class="question">Why is fellowship with other believers important after making a commitment to
+                        Christ through baptism?</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section conclusion animate-on-scroll" id="section-conclusion"> 
+            <h2 class="animate-on-scroll">Conclusion: Your Invitation to a New Start</h2>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">God offers everyone the chance for a completely
+                new beginning. Through faith in Jesus Christ, demonstrated publicly through biblical baptism, past sins
+                can be washed away, and a new life, empowered by the Holy Spirit, can commence.</p>
+            <p class="animate-on-scroll" style="animation-delay: 0.2s;">Just as Ananias urged Saul, the invitation
+                stands today: If you believe in Jesus, understand His call, and are ready to turn from your past and
+                commit your life to Him, don't wait.</p>
+            <h4 class="animate-on-scroll" style="animation-delay: 0.3s;">Final Invitation (Echoing Acts 22:16):</h4>
+            <p class="animate-on-scroll" style="animation-delay: 0.4s;">"And now, why are you waiting? Arise and be
+                baptized, and wash away your sins, calling on the name of the Lord." Will you accept God's offer of a
+                new start today?</p>
+        </div>
+
+        <div class="navigation-links"> 
+            <button class="print-button" onclick="window.print()">Print Study Guide</button>
+            <a href="index.html" class="nav-button secondary">Return to Main Site (Livestream)</a>
+        </div>
+    </div> <!-- End .container -->
+
+    <img id="visualizerBgImg" src="" alt="Visualizer Background" style="display:none;"> 
+
+    <script>
+        const HEADER_IMAGE_URL = 'Assets/pics/watery-0making-a-new-start.png'; 
+
+        function throttle(func, limit) {
+            let lastFunc;
+            let lastRan;
+            return function () {
+                const context = this;
+                const args = arguments;
+                if (!lastRan) {
+                    func.apply(context, args);
+                    lastRan = Date.now();
+                } else {
+                    clearTimeout(lastFunc);
+                    lastFunc = setTimeout(function () {
+                        if ((Date.now() - lastRan) >= limit) {
+                            func.apply(context, args);
+                            lastRan = Date.now();
+                        }
+                    }, limit - (Date.now() - lastRan));
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const pageHeaderImage = document.getElementById('pageHeaderImage');
+            if (pageHeaderImage) pageHeaderImage.src = HEADER_IMAGE_URL;
+
+            const visualizerBgImg = document.getElementById('visualizerBgImg');
+            if (visualizerBgImg) visualizerBgImg.src = HEADER_IMAGE_URL;
+
+
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            if ("IntersectionObserver" in window) {
+                let observer = new IntersectionObserver((entries, observerInstance) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observerInstance.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                animatedElements.forEach(el => observer.observe(el));
+            } else {
+                animatedElements.forEach(el => el.classList.add('is-visible'));
+            }
+
+            const embeddedSermonAudio = document.getElementById('embeddedSermonAudio');
+            const embeddedPlaybackSpeed = document.getElementById('embeddedPlaybackSpeed');
+            const podcastArea = document.querySelector('.embedded-podcast-player-area');
+            const youtubeFallbackDiv = document.getElementById('youtubeFallback'); 
+
+            if (embeddedSermonAudio && podcastArea) { 
+                const nowPlayingIndicator = document.createElement('p');
+                nowPlayingIndicator.className = 'now-playing-indicator';
+                
+                if (youtubeFallbackDiv && youtubeFallbackDiv.parentNode === podcastArea) { 
+                    youtubeFallbackDiv.insertAdjacentElement('afterend', nowPlayingIndicator);
+                } else {
+                    const controlsDiv = podcastArea.querySelector('.simple-playback-controls');
+                    if (controlsDiv) {
+                        controlsDiv.insertAdjacentElement('afterend', nowPlayingIndicator);
+                    } else {
+                        embeddedSermonAudio.insertAdjacentElement('afterend', nowPlayingIndicator);
+                    }
+                }
+
+                embeddedSermonAudio.addEventListener('play', () => {
+                    podcastArea.classList.remove('is-paused');
+                    podcastArea.classList.add('is-playing');
+                    nowPlayingIndicator.textContent = '▶ Now Playing';
+                });
+                embeddedSermonAudio.addEventListener('pause', () => {
+                    podcastArea.classList.remove('is-playing');
+                    podcastArea.classList.add('is-paused');
+                    nowPlayingIndicator.textContent = '❚❚ Paused';
+                });
+                embeddedSermonAudio.addEventListener('ended', () => {
+                    podcastArea.classList.remove('is-playing');
+                    podcastArea.classList.remove('is-paused');
+                    nowPlayingIndicator.textContent = 'Playback Ended';
+                });
+
+                if (embeddedPlaybackSpeed) { 
+                    embeddedPlaybackSpeed.addEventListener('change', (e) => {
+                        embeddedSermonAudio.playbackRate = parseFloat(e.target.value);
+                        embeddedPlaybackSpeed.classList.add('speed-changed');
+                        setTimeout(() => {
+                            embeddedPlaybackSpeed.classList.remove('speed-changed');
+                        }, 500);
+                    });
+                    const normalSpeedOption = embeddedPlaybackSpeed.querySelector('option[value="1"]');
+                    if (normalSpeedOption && normalSpeedOption.textContent === "1x") {
+                        normalSpeedOption.textContent = "1x (Normal)";
+                    }
+                }
+
+                embeddedSermonAudio.addEventListener('error', (e) => {
+                    console.error("Embedded Sermon Audio Element Error Event:", e);
+                    let errorMsgText = "Error loading embedded audio: ";
+                    const sourceElement = embeddedSermonAudio.querySelector('source');
+                    const srcPath = sourceElement ? sourceElement.getAttribute('src') : 'N/A';
+                    if (embeddedSermonAudio.error) {
+                        switch (embeddedSermonAudio.error.code) {
+                            case MediaError.MEDIA_ERR_ABORTED: errorMsgText += "Playback aborted."; break;
+                            case MediaError.MEDIA_ERR_NETWORK: errorMsgText += "Network error. Check file path ('" + srcPath + "')."; break;
+                            case MediaError.MEDIA_ERR_DECODE: errorMsgText += "Decoding error. Path: " + srcPath; break;
+                            case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED: errorMsgText += "Format not supported or server/network error. Path: '" + srcPath + "'."; break;
+                            default: errorMsgText += "Unknown error. Code: " + embeddedSermonAudio.error.code; break;
+                        }
+                    } else { errorMsgText += "Unknown audio error."; }
+                    console.error(errorMsgText, "File:", srcPath, "CurrentSrc:", embeddedSermonAudio.currentSrc);
+
+                    let errorPara = podcastArea.querySelector('.audio-error-message');
+                    if (!errorPara) {
+                        errorPara = document.createElement('p');
+                        errorPara.className = 'audio-error-message';
+                        const targetForError = (youtubeFallbackDiv && youtubeFallbackDiv.parentNode === podcastArea) ? youtubeFallbackDiv :
+                                               (podcastArea.querySelector('.simple-playback-controls') || embeddedSermonAudio);
+                        targetForError.insertAdjacentElement('afterend', errorPara); 
+                    }
+                    errorPara.textContent = "Sorry, the sermon audio could not be loaded. Please check your internet connection or try refreshing the page. You can also use the YouTube link above.";
+                });
+                embeddedSermonAudio.addEventListener('canplay', () => {
+                    const errorPara = podcastArea.querySelector('.audio-error-message');
+                    if (errorPara) errorPara.remove();
+                });
+            } else {
+                console.warn("Embedded sermon audio player or podcast area not found. Some JS enhancements may not apply.");
+            }
+
+            const stickyNav = document.getElementById('sticky-nav');
+            const navToggleBtn = document.getElementById('nav-toggle-btn');
+            const navLinks = document.getElementById('nav-links');
+            const navContentBar = stickyNav ? stickyNav.querySelector('.nav-content') : null;
+
+            function adjustBodyPadding() {
+                if (!stickyNav || !document.body || !navContentBar) return;
+                let navHeight = 0;
+                if (window.getComputedStyle(stickyNav).position === 'fixed' && window.getComputedStyle(stickyNav).display !== 'none') {
+                    if (window.innerWidth <= 768) { 
+                        navHeight = navContentBar.offsetHeight;
+                    } else { 
+                        navHeight = stickyNav.offsetHeight;
+                    }
+                }
+                document.body.style.paddingTop = navHeight + 'px';
+            }
+
+            function updateActiveNavLink() {
+                if (!stickyNav || !navLinks || !navContentBar) return;
+
+                let currentActiveFound = false;
+                const navHeight = (window.innerWidth <= 768) ? navContentBar.offsetHeight : stickyNav.offsetHeight;
+                const detectionLine = navHeight + 5; 
+
+                const linksToIterate = Array.from(navLinks.querySelectorAll('a[href^="#"]')).reverse();
+
+                for (const link of linksToIterate) {
+                    const sectionId = link.getAttribute('href');
+                    const section = document.querySelector(sectionId);
+
+                    if (section) {
+                        const rect = section.getBoundingClientRect();
+                        if (rect.top <= detectionLine && !currentActiveFound) {
+                            link.classList.add('active-nav-link');
+                            currentActiveFound = true;
+                        } else {
+                            link.classList.remove('active-nav-link');
+                        }
+                    } else {
+                        link.classList.remove('active-nav-link');
+                    }
+                }
+                if (!currentActiveFound) {
+                    const firstLink = navLinks.querySelector('a[href^="#"]');
+                    if (firstLink) {
+                        const firstSection = document.querySelector(firstLink.getAttribute('href'));
+                        if (firstSection) {
+                            if (window.pageYOffset < navHeight || (firstSection.getBoundingClientRect().top < window.innerHeight * 0.5 && firstSection.getBoundingClientRect().bottom > detectionLine)) {
+                                firstLink.classList.add('active-nav-link');
+                                linksToIterate.forEach(l => { if (l !== firstLink) l.classList.remove('active-nav-link'); });
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (stickyNav && navToggleBtn && navLinks && navContentBar) {
+                function initializeNavState() {
+                    if (window.innerWidth <= 768) {
+                        navLinks.classList.add('nav-links-hidden');
+                        navLinks.classList.remove('nav-links-visible');
+                        navToggleBtn.setAttribute('aria-expanded', 'false');
+                    } else {
+                        navLinks.classList.remove('nav-links-hidden');
+                        navLinks.classList.add('nav-links-visible');
+                        navToggleBtn.setAttribute('aria-expanded', 'true'); 
+                    }
+                    adjustBodyPadding();
+                }
+                initializeNavState(); 
+
+                navToggleBtn.addEventListener('click', () => {
+                    const isVisible = navLinks.classList.toggle('nav-links-visible');
+                    navLinks.classList.toggle('nav-links-hidden', !isVisible);
+                    navToggleBtn.setAttribute('aria-expanded', isVisible.toString());
+                    adjustBodyPadding(); 
+                });
+
+                window.addEventListener('resize', throttle(() => {
+                    initializeNavState();
+                    updateActiveNavLink();
+                }, 100));
+
+                navLinks.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+
+                        if (targetElement) {
+                            let headerOffset = 0;
+                            if (window.getComputedStyle(stickyNav).position === 'fixed') {
+                                if (window.innerWidth <= 768) { 
+                                    headerOffset = navContentBar.offsetHeight;
+                                } else { 
+                                    headerOffset = stickyNav.offsetHeight;
+                                }
+                            }
+                            const elementPosition = targetElement.getBoundingClientRect().top;
+                            const offsetPosition = window.pageYOffset + elementPosition - headerOffset;
+
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: "smooth"
+                            });
+
+                            if (window.innerWidth <= 768 && navLinks.classList.contains('nav-links-visible')) {
+                                navLinks.classList.remove('nav-links-visible');
+                                navLinks.classList.add('nav-links-hidden');
+                                navToggleBtn.setAttribute('aria-expanded', 'false');
+                                adjustBodyPadding(); 
+                            }
+                            navLinks.querySelectorAll('a').forEach(link => link.classList.remove('active-nav-link'));
+                            this.classList.add('active-nav-link');
+                        }
+                    });
+                });
+                window.addEventListener('scroll', throttle(updateActiveNavLink, 100));
+                updateActiveNavLink(); 
+            }
+
+            const sectionClassesToIds = {
+                "intro-section": "section-intro",
+                "embedded-podcast-player-area": "podcast-section",
+                "theme-transformation": "section-theme-transformation",
+                "theme-baptism-origin": "section-theme-baptism-origin",
+                "theme-baptism-mandate": "section-theme-baptism-mandate",
+                "theme-mode-immersion": "section-theme-mode-immersion",
+                "theme-meaning-necessity": "section-theme-meaning-necessity",
+                "theme-preparation": "section-theme-preparation",
+                "theme-church-fellowship": "section-theme-church-fellowship",
+                "conclusion": "section-conclusion"
+            };
+
+            for (const className in sectionClassesToIds) {
+                const elements = document.querySelectorAll(`div.${className.replace(/\s+/g, '.')}`); 
+                elements.forEach(element => {
+                     if (element.classList.contains('section') || 
+                        className === 'embedded-podcast-player-area' || 
+                        className === 'conclusion' || 
+                        className === 'intro-section') {
+                        
+                        if (!element.id && sectionClassesToIds[className]) { 
+                            element.id = sectionClassesToIds[className];
+                        }
+                    }
+                });
+            }
+            const podcastDiv = document.querySelector('.embedded-podcast-player-area');
+            if (podcastDiv && !podcastDiv.id) { 
+                podcastDiv.id = 'podcast-section';
+            }
+
+            if (stickyNav) { 
+                adjustBodyPadding();
+                updateActiveNavLink();
+            }
+        });
+    </script>
+</body>
+</html>

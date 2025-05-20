@@ -1,0 +1,2082 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Guide: What Happened to Right and Wrong?</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K503J5DBRJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-K503J5DBRJ');
+    </script>
+    <!-- END Google tag (gtag.js) -->
+    <style>
+        :root {
+            --bg-primary: #F8F1E9;
+            --text-primary: #1A2A44;
+            --text-secondary-on-dark: #F8F1E9;
+            --accent-color: #D4A017;
+            --accent-color-rgb: 212, 160, 23;
+            --message-blue-dark: #2E4A7B;
+            --message-blue-dark-rgb: 46, 74, 123;
+            --message-blue-medium: #406EAF;
+            --forest-brown-dark: #4A3B31;
+            --key-takeaway-bg: rgba(var(--accent-color-rgb), 0.08);
+            --container-bg: #ffffff;
+            --border-light: #e7e7e7;
+            --border-medium: #cccccc;
+            --font-body: 'Lora', serif;
+            --font-heading: 'Poppins', sans-serif;
+            --hover-highlight: rgba(var(--accent-color-rgb), 0.15);
+            --soft-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+            --element-reveal-duration: 0.7s;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.75;
+            margin: 0;
+            padding: 0 25px 25px 25px;
+            /* Base padding, JS will adjust top */
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 17px;
+            overflow-x: hidden;
+            position: relative;
+            /* padding-top will be set by JS */
+        }
+
+        @keyframes subtlePulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.04);
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 25px auto;
+            background: var(--container-bg);
+            padding: 35px 50px;
+            border-radius: 12px;
+            box-shadow: var(--soft-shadow);
+            opacity: 0;
+            animation: fadeInPage var(--element-reveal-duration) ease-out forwards 0.2s;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes fadeInPage {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .scroll-down-indicator {
+            text-align: center;
+            padding: 10px 0 20px;
+            font-family: var(--font-heading);
+            color: var(--message-blue-medium);
+            animation: slideDownFadeIn 0.8s ease-out forwards 0.1s;
+            font-size: 15px;
+            /* << MODIFIED: Font size for scroll down indicator */
+        }
+
+        .scroll-down-indicator .arrow {
+            font-size: 1.8em;
+            display: block;
+            line-height: 1;
+            margin-bottom: 5px;
+            animation: bounceArrow 1.5s infinite ease-in-out;
+        }
+
+        @keyframes bounceArrow {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-8px);
+            }
+
+            60% {
+                transform: translateY(-4px);
+            }
+        }
+
+        .header-image-container {
+            width: 100%;
+            margin-bottom: 15px;
+            animation: slideDownFadeIn 0.8s ease-out forwards 0.3s;
+            position: relative;
+        }
+
+        .header-image {
+            width: 100%;
+            aspect-ratio: 3 / 2;
+            object-fit: cover;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .game-link-button {
+            /* This style is from Signs, kept for structural consistency if needed elsewhere */
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 10;
+            background-color: var(--message-blue-medium);
+            color: var(--text-secondary-on-dark);
+            padding: 10px 20px;
+            text-decoration: none;
+            font-family: var(--font-heading);
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.25s ease, transform 0.2s ease-out, box-shadow 0.25s ease;
+            animation: pulseShadow 2s infinite ease-in-out;
+        }
+
+        .game-link-button:hover {
+            background-color: var(--message-blue-dark);
+            transform: scale(1.05);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+            animation-play-state: paused;
+        }
+
+        .game-link-button:focus {
+            outline: 2px solid var(--message-blue-dark);
+            outline-offset: 3px;
+        }
+
+        @keyframes pulseShadow {
+            0% {
+                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2), 0 0 0 0px rgba(var(--message-blue-dark-rgb), 0.5);
+            }
+
+            50% {
+                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2), 0 0 0 8px rgba(var(--message-blue-dark-rgb), 0);
+            }
+
+            100% {
+                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2), 0 0 0 0px rgba(var(--message-blue-dark-rgb), 0);
+            }
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: var(--font-heading);
+            color: var(--text-primary);
+            margin-top: 1.6em;
+            margin-bottom: 0.9em;
+            font-weight: 600;
+        }
+
+        h1 {
+            text-align: center;
+            border-bottom: 4px solid var(--accent-color);
+            padding-bottom: 25px;
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 2.6em;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            animation: slideDownFadeIn 0.8s ease-out forwards 0.5s;
+        }
+
+        h2 {
+            /* General H2 style */
+            font-size: 2em;
+            color: var(--message-blue-dark);
+            border-bottom: 2px solid var(--border-light);
+            padding-bottom: 12px;
+            font-weight: 700;
+            margin-top: 2.2em;
+        }
+
+        /* Specific H2 for podcast area */
+        .embedded-podcast-player-area h2 {
+            margin-top: 1em;
+            margin-bottom: 0.8em;
+            text-align: center;
+            border-bottom: none;
+            /* Override general H2 border */
+            padding-bottom: 0.5em;
+            font-size: 1.8em;
+            color: var(--message-blue-dark);
+            transition: color 0.3s ease;
+        }
+
+        .embedded-podcast-player-area h2::before {
+            content: "🎙️";
+            margin-right: 8px;
+            font-size: 0.9em;
+            vertical-align: middle;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        h3 {
+            font-size: 1.7em;
+            color: var(--message-blue-medium);
+            font-weight: 700;
+            margin-top: 2em;
+        }
+
+        h4 {
+            font-size: 1.25em;
+            color: var(--text-primary);
+            font-weight: 700;
+            margin-top: 1.6em;
+            margin-bottom: 0.7em;
+        }
+
+        h5 {
+            font-size: 1.15em;
+            color: var(--text-primary);
+            font-weight: 700;
+            margin-top: 1.4em;
+            margin-bottom: 0.6em;
+        }
+
+        p {
+            margin-bottom: 1.3em;
+        }
+
+        .section {
+            margin-bottom: 45px;
+            padding-bottom: 35px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        /* Paragraph styling for intro, how-to-use, and podcast intro text */
+        .intro-section p,
+        .how-to-use p,
+        .embedded-podcast-player-area>p:first-of-type {
+            /* Target only the first descriptive p in podcast area */
+            font-size: 1.08em;
+            margin-bottom: 1.1em;
+            color: #383838;
+            text-align: center;
+        }
+
+        /* Styles specific to the embedded-podcast-player-area, matching SignsYouCantIgnore */
+        .embedded-podcast-player-area {
+            padding: 25px 20px;
+            background-color: rgba(var(--message-blue-dark-rgb), 0.05);
+            border-radius: 10px;
+            margin-bottom: 45px;
+            /* Consistent with other sections */
+            border: 1px solid rgba(var(--message-blue-dark-rgb), 0.1);
+            transition: border-color 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+        }
+
+        .embedded-podcast-player-area audio {
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            /* Limit player width */
+            margin: 20px auto;
+            /* Center player */
+            display: block;
+        }
+
+        .embedded-podcast-player-area .simple-playback-controls {
+            font-family: var(--font-heading);
+            color: var(--text-primary);
+            text-align: center;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        /* YouTube fallback specific styles from SignsYouCantIgnore */
+        .youtube-fallback {
+            text-align: center;
+            margin-top: 12px;
+            margin-bottom: 12px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .youtube-fallback p {
+            margin-bottom: 5px !important;
+            /* Important to override general p */
+            font-size: inherit !important;
+            color: inherit !important;
+            text-align: center !important;
+            line-height: 1.4;
+        }
+
+        .youtube-inline-link {
+            color: var(--message-blue-medium);
+            text-decoration: underline;
+            font-weight: 500;
+        }
+
+        .youtube-inline-link:hover {
+            color: var(--message-blue-dark);
+            text-decoration: none;
+        }
+
+
+        .embedded-podcast-player-area .simple-playback-controls select {
+            font-family: var(--font-body);
+            border: 1px solid var(--border-medium);
+            background-color: #fff;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            margin-left: 5px;
+            cursor: pointer;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .embedded-podcast-player-area .simple-playback-controls select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(var(--accent-color-rgb), 0.3);
+        }
+
+        .embedded-podcast-player-area .simple-playback-controls label {
+            margin-right: 5px;
+            font-weight: 600;
+        }
+
+        .audio-error-message {
+            /* From SignsYouCantIgnore */
+            color: #c0392b;
+            font-weight: bold;
+            margin-top: 10px;
+            /* Adjusted from 15px to match source */
+            text-align: center;
+            font-family: var(--font-heading);
+            font-size: 0.95em;
+        }
+
+        /* Playing/Paused states from SignsYouCantIgnore */
+        .embedded-podcast-player-area.is-playing {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 12px 3px rgba(var(--accent-color-rgb), 0.35);
+        }
+
+        .embedded-podcast-player-area.is-playing h2 {
+            color: var(--accent-color);
+        }
+
+        .embedded-podcast-player-area.is-playing h2::before {
+            animation: pulseIcon 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulseIcon {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: scale(1.2) rotate(5deg);
+                opacity: 1;
+            }
+        }
+
+        .now-playing-indicator {
+            display: none;
+            font-family: var(--font-heading);
+            font-size: 0.95em;
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-top: 10px;
+            /* Adjusted from 12px to match source */
+            margin-bottom: 5px;
+            text-align: center;
+            height: 1.2em;
+        }
+
+        .embedded-podcast-player-area.is-playing .now-playing-indicator {
+            display: block;
+            animation: fadeInIndicator 0.5s ease-out;
+        }
+
+        .embedded-podcast-player-area.is-paused .now-playing-indicator {
+            display: block;
+            opacity: 0.7;
+        }
+
+        @keyframes fadeInIndicator {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .embedded-podcast-player-area .simple-playback-controls select.speed-changed {
+            animation: speedSelectFeedback 0.5s ease-out;
+        }
+
+        @keyframes speedSelectFeedback {
+            0% {
+                box-shadow: 0 0 0 0 rgba(var(--accent-color-rgb), 0.5);
+                transform: scale(1);
+            }
+
+            50% {
+                box-shadow: 0 0 0 5px rgba(var(--accent-color-rgb), 0.25);
+                transform: scale(1.05);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(var(--accent-color-rgb), 0.5);
+                transform: scale(1);
+            }
+        }
+
+        .how-to-use {
+            background-color: rgba(var(--message-blue-dark-rgb), 0.04);
+            padding: 25px 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(var(--message-blue-dark-rgb), 0.1);
+            animation: slideUpFadeIn 0.8s ease-out forwards 0.3s;
+        }
+
+        .how-to-use h3 {
+            margin-top: 0;
+            color: var(--message-blue-dark);
+            font-size: 1.5em;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .how-to-use ul {
+            margin-top: 15px;
+        }
+
+        .how-to-use li::before {
+            content: '✨';
+            color: var(--message-blue-medium);
+            font-size: 1.1em;
+        }
+
+        .scripture-ref {
+            font-style: italic;
+            color: var(--forest-brown-dark);
+            margin-left: 5px;
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            padding: 15px 20px;
+            background-color: rgba(var(--accent-color-rgb), 0.05);
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-color);
+            position: relative;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .scripture-ref::before {
+            content: "📖";
+            margin-right: 10px;
+            font-style: normal;
+            font-size: 1.1em;
+            color: var(--accent-color);
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .scripture-ref span {
+            display: block;
+            padding-left: 30px;
+        }
+
+        .scripture-ref:hover {
+            background-color: var(--hover-highlight);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(var(--accent-color-rgb), 0.2);
+        }
+
+        .scripture-ref:hover::before {
+            opacity: 1;
+        }
+
+
+        ul {
+            padding-left: 10px;
+            list-style: none;
+            margin-bottom: 1.3em;
+        }
+
+        li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        li::before {
+            content: '✝️';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--accent-color);
+            font-size: 1em;
+            transition: transform 0.2s ease-out;
+        }
+
+        .how-to-use li::before {
+            content: '✨';
+            color: var(--message-blue-medium);
+            font-size: 1.1em;
+        }
+
+
+        li:hover::before {
+            transform: scale(1.3) rotate(15deg);
+        }
+
+        .reflection ul {
+            padding-left: 10px;
+        }
+
+        .reflection li.question {
+            margin-bottom: 18px;
+            padding: 15px 20px 15px 55px;
+            position: relative;
+            background-color: rgba(var(--message-blue-dark-rgb), 0.06);
+            border-left: 5px solid var(--message-blue-medium);
+            border-radius: 6px;
+            font-style: normal;
+            list-style-type: none !important;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .reflection li.question:hover {
+            background-color: rgba(var(--message-blue-dark-rgb), 0.1);
+            box-shadow: 0 3px 10px rgba(var(--message-blue-dark-rgb), 0.15);
+        }
+
+        .reflection li.question::before {
+            content: "🤔";
+            position: absolute;
+            left: 18px;
+            top: 15px;
+            font-weight: normal;
+            color: var(--message-blue-medium);
+            font-style: normal;
+            font-size: 1.4em;
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .reflection li.question:hover::before {
+            transform: translateY(-3px) scale(1.1);
+        }
+
+
+        .key-takeaway {
+            background-color: var(--key-takeaway-bg);
+            padding: 20px 25px;
+            border-left: 6px solid var(--accent-color);
+            margin: 30px 0;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(var(--accent-color-rgb), 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .key-takeaway::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(var(--accent-color-rgb), 0.15), transparent);
+            animation: shineTakeaway 4s infinite linear 1s;
+            pointer-events: none;
+        }
+
+        .key-takeaway .takeaway-title {
+            display: block;
+            font-weight: bold;
+            font-family: var(--font-heading);
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .key-takeaway .takeaway-title::before {
+            content: "📌 ";
+        }
+
+
+        blockquote {
+            background: #f9f9f9;
+            border-left: 6px solid var(--border-medium);
+            margin: 2em 0;
+            padding: 18px 25px;
+            font-style: italic;
+            color: #444;
+            border-radius: 0 6px 6px 0;
+        }
+
+        blockquote footer {
+            font-style: normal;
+            font-size: 0.9em;
+            text-align: right;
+            color: #666;
+            margin-top: 12px;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+
+        .navigation-links {
+            text-align: center;
+            margin: 45px 0 25px 0;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .nav-button,
+        .print-button {
+            display: inline-block;
+            background: var(--accent-color);
+            color: var(--text-primary);
+            padding: 14px 28px;
+            text-decoration: none;
+            font-family: var(--font-heading);
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 1.05em;
+            font-weight: 600;
+            transition: background-color 0.25s ease, transform 0.2s ease-out, box-shadow 0.25s ease;
+            margin: 10px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-button:before,
+        .print-button:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease, opacity 0.6s ease;
+            opacity: 0;
+        }
+
+        .nav-button:active:before,
+        .print-button:active:before {
+            width: 200%;
+            height: 200%;
+            opacity: 1;
+            transition: width 0s, height 0s, opacity 0s;
+        }
+
+        .nav-button:hover,
+        .print-button:hover {
+            background-color: #e7af27;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-button.secondary {
+            background-color: var(--message-blue-medium);
+            color: var(--text-secondary-on-dark);
+        }
+
+        .nav-button.secondary:hover {
+            background-color: var(--message-blue-dark);
+        }
+
+        @keyframes slideUpFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDownFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes shineTakeaway {
+            0% {
+                left: -100%;
+            }
+
+            50% {
+                left: 100%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity var(--element-reveal-duration) ease-out, transform var(--element-reveal-duration) cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #sticky-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--message-blue-dark);
+            color: var(--text-secondary-on-dark);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            /* transition: height 0.3s ease-in-out; REMOVED: height change is handled by absolute positioning of menu */
+        }
+
+        #sticky-nav .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            height: 55px;
+            box-sizing: border-box;
+            position: relative;
+            /* Added for z-index context if needed */
+            z-index: 1001;
+            /* Ensure nav content is above expanded menu if overlaps occur, though menu is below */
+        }
+
+        #sticky-nav .nav-back-button {
+            color: var(--text-secondary-on-dark);
+            font-family: var(--font-heading);
+            font-size: 0.9em;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 7px 14px;
+            border-radius: 20px;
+            background-color: rgba(var(--accent-color-rgb), 0.85);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin-right: 15px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        #sticky-nav .nav-back-button:hover,
+        #sticky-nav .nav-back-button:focus {
+            background-color: rgba(var(--accent-color-rgb), 1);
+            transform: scale(1.03);
+            outline: none;
+        }
+
+        #sticky-nav .nav-title {
+            font-family: var(--font-heading);
+            font-size: 1.1em;
+            font-weight: 600;
+            text-align: center;
+            flex-grow: 1;
+            margin: 0 10px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* MODIFIED: Adjust nav-title for desktop when toggle is always visible */
+        @media (min-width: 769px) {
+
+            /* Or any breakpoint you consider desktop */
+            #sticky-nav .nav-title {
+                margin-right: 50px;
+                /* Ensure space for the toggle button. Adjust as needed. */
+                /* If toggle on left, use margin-left */
+            }
+        }
+
+
+        #nav-toggle-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary-on-dark);
+            font-size: 1.8em;
+            cursor: pointer;
+            padding: 8px 12px;
+            display: block;
+            /* MODIFIED: Always display block */
+            line-height: 1;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            flex-shrink: 0;
+            z-index: 1002;
+            /* Ensure toggle button is above title if overlap occurs */
+        }
+
+        #nav-toggle-btn:hover,
+        #nav-toggle-btn:focus {
+            background-color: rgba(255, 255, 255, 0.1);
+            outline: none;
+        }
+
+
+        #sticky-nav ul#nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            /* display: flex;  Controlled by .nav-links-hidden / .nav-links-visible */
+            /* flex-wrap: wrap; Not needed for vertical list */
+            /* justify-content: center; Not needed for vertical list */
+            background-color: var(--message-blue-dark);
+            /* padding-bottom: 5px; Removed, handled by individual items */
+            /* border-top: 1px solid rgba(255, 255, 255, 0.1); Moved to .nav-links-visible */
+        }
+
+        #sticky-nav ul#nav-links li {
+            padding: 0;
+            margin: 0;
+            /* MODIFIED: Reset margins, full width handled by .nav-links-visible styles */
+        }
+
+        #sticky-nav ul#nav-links li::before {
+            content: "" !important;
+        }
+
+        #sticky-nav ul#nav-links a {
+            color: var(--text-secondary-on-dark);
+            text-decoration: none;
+            /* padding: 8px 12px; MODIFIED: Handled by .nav-links-visible styles */
+            display: block;
+            font-family: var(--font-heading);
+            /* font-size: 0.85em; MODIFIED: Handled by .nav-links-visible styles */
+            font-weight: 500;
+            transition: color 0.2s ease, background-color 0.2s ease, transform 0.1s ease;
+            /* border-radius: 6px; MODIFIED: Handled by .nav-links-visible styles */
+            white-space: nowrap;
+            /* MODIFIED: Can be normal if using stacked view, adjust in .nav-links-visible */
+            text-transform: capitalize;
+        }
+
+        #sticky-nav ul#nav-links a:hover,
+        #sticky-nav ul#nav-links a:focus {
+            color: var(--accent-color);
+            background-color: rgba(255, 255, 255, 0.15);
+            /* transform: translateY(-1px); Optional for stacked view */
+            outline: none;
+        }
+
+        #sticky-nav ul#nav-links a.active-nav-link {
+            background-color: var(--accent-color);
+            color: var(--message-blue-dark);
+            font-weight: 700;
+        }
+
+        #sticky-nav ul#nav-links.nav-links-hidden {
+            display: none;
+        }
+
+        /* MODIFIED: Styles for the link list (ul#nav-links) when visible (dropdown style) on ALL screen sizes */
+        #sticky-nav ul#nav-links.nav-links-visible {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            position: absolute;
+            top: 55px;
+            /* Height of .nav-content */
+            left: 0;
+            background-color: var(--message-blue-dark);
+            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.15);
+            max-height: calc(100vh - 55px);
+            /* Prevent it from being too long */
+            overflow-y: auto;
+            z-index: 999;
+            /* Ensure it's above page content but below nav-content bar */
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0;
+        }
+
+        /* MODIFIED: Individual link items and links for all screen sizes when visible */
+        #sticky-nav ul#nav-links.nav-links-visible li {
+            margin: 0;
+            width: 100%;
+        }
+
+        #sticky-nav ul#nav-links.nav-links-visible a {
+            padding: 14px 20px;
+            font-size: 1em;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: left;
+            border-radius: 0;
+            white-space: normal;
+            /* Allow link text to wrap */
+        }
+
+        #sticky-nav ul#nav-links.nav-links-visible a:hover,
+        #sticky-nav ul#nav-links.nav-links-visible a:focus {
+            transform: none;
+            /* Remove any transform specific to horizontal layout */
+        }
+
+        #sticky-nav ul#nav-links.nav-links-visible li:last-child a {
+            border-bottom: none;
+        }
+
+
+        /* Original mobile specific @media query for nav-toggle-btn, nav-title, etc. */
+        @media (max-width: 768px) {
+
+            /* #nav-toggle-btn { display: block; } Already block by default now */
+            #sticky-nav .nav-title {
+                font-size: 1em;
+                text-align: left;
+                /* Retain left align for mobile if back button present */
+                margin-left: 0;
+                /* Reset margin if toggle moves elsewhere or title is main element */
+                margin-right: 10px;
+                /* Space for toggle button if on the right */
+            }
+
+            /* The ul#nav-links.nav-links-visible styles are now global, so this block is less needed for layout
+               but can be used for fine-tuning if mobile needs slight variations */
+            /*
+            #sticky-nav ul#nav-links {
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 55px;
+                left: 0;
+                box-shadow: 0 5px 5px rgba(0,0,0,0.15);
+                max-height: calc(100vh - 55px);
+                overflow-y: auto;
+                border-top: none;
+                padding-bottom: 0;
+            }
+            #sticky-nav ul#nav-links.nav-links-visible { display: flex; }
+            #sticky-nav ul#nav-links li { margin: 0; width: 100%; }
+            #sticky-nav ul#nav-links a {
+                padding: 14px 20px;
+                font-size: 1em;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                text-align: left;
+                border-radius: 0;
+            }
+            #sticky-nav ul#nav-links a:hover,
+            #sticky-nav ul#nav-links a:focus { transform: none; }
+            #sticky-nav ul#nav-links li:last-child a { border-bottom: none; }
+            #sticky-nav ul#nav-links a.active-nav-link {
+                background-color: var(--accent-color);
+                color: var(--message-blue-dark);
+            }
+            */
+        }
+
+        /* REMOVED/COMMENTED OUT: Old desktop specific layout for nav-links as it's now always collapsible */
+        /* @media (min-width: 769px) {
+            #nav-toggle-btn {
+                display: none;
+            }
+            #sticky-nav .nav-content {
+                 padding: 0 20px;
+            }
+            #sticky-nav ul#nav-links {
+                display: flex !important;
+                position: static;
+                box-shadow: none;
+                max-height: none;
+                overflow-y: visible;
+                flex-direction: row;
+                justify-content: flex-end;
+                padding-right: 15px;
+                padding-left: 15px;
+                padding-bottom: 5px;
+            }
+        } */
+
+
+        @media print {
+            body {
+                background-color: #fff;
+                color: #000;
+                margin: 0;
+                padding: 0;
+                font-size: 11pt;
+                line-height: 1.45;
+                padding-top: 0 !important;
+            }
+
+            #sticky-nav,
+            .embedded-podcast-player-area,
+            /* Hide podcast player in print */
+            .youtube-fallback {
+                display: none !important;
+            }
+
+            .back-button,
+            .header-image-container,
+            .scroll-down-indicator,
+            .game-link-button {
+                display: none !important;
+            }
+
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+                padding: 5mm;
+                max-width: 100%;
+                margin: 0 auto;
+                border: none;
+                opacity: 1 !important;
+                animation: none !important;
+                position: static;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5 {
+                color: #000 !important;
+                font-family: 'Times New Roman', Times, serif;
+                animation: none !important;
+            }
+
+            h1 {
+                font-size: 18pt;
+                border-bottom: 2px solid #000;
+                padding-bottom: 8px;
+                margin-bottom: 18px;
+            }
+
+            h2 {
+                font-size: 15pt;
+                border-bottom: 1px solid #333;
+                padding-bottom: 7px;
+                margin-bottom: 14px;
+                margin-top: 22px;
+            }
+
+            /* Remove podcast icon for print */
+            .embedded-podcast-player-area h2::before {
+                content: "" !important;
+                animation: none !important;
+            }
+
+            .embedded-podcast-player-area.is-playing h2,
+            .embedded-podcast-player-area.is-playing h2::before {
+                animation: none !important;
+                color: #000 !important;
+            }
+
+            h3 {
+                font-size: 13pt;
+                margin-bottom: 9px;
+                margin-top: 18px;
+            }
+
+            h4 {
+                font-size: 11pt;
+                margin-bottom: 7px;
+                margin-top: 16px;
+            }
+
+            h5 {
+                font-size: 10pt;
+                margin-bottom: 5px;
+                margin-top: 14px;
+            }
+
+            .scripture-ref {
+                color: #111 !important;
+                background-color: #f3f3f3 !important;
+                border: 1px solid #ccc !important;
+                border-left: 3px solid #999 !important;
+                padding: 5px 8px;
+                margin-left: 10px;
+                font-style: italic;
+                transform: none !important;
+                box-shadow: none !important;
+            }
+
+            .scripture-ref::before {
+                content: "📖 Scripture: ";
+                font-weight: bold;
+                font-style: normal;
+                opacity: 1;
+                position: static;
+                transform: none;
+                margin-right: 5px;
+            }
+
+            .scripture-ref span {
+                padding-left: 0;
+            }
+
+
+            .reflection li.question {
+                background-color: #f9f9f9 !important;
+                border-left: 3px solid #444 !important;
+                color: #000 !important;
+                padding: 7px 8px 7px 25px !important;
+                list-style-type: none !important;
+                font-style: normal;
+                box-shadow: none !important;
+            }
+
+            .reflection li.question::before {
+                content: "Q: " !important;
+                color: #222 !important;
+                font-weight: bold;
+                position: absolute;
+                left: 8px;
+                top: 7px;
+                font-style: normal;
+                font-size: 1em;
+                transform: none !important;
+            }
+
+            .key-takeaway {
+                background-color: #eaeaea !important;
+                border-left: 4px solid #222 !important;
+                color: #000 !important;
+                box-shadow: none;
+                padding: 8px 12px;
+                margin: 12px 0;
+            }
+
+            .key-takeaway::before {
+                display: none;
+            }
+
+            .key-takeaway .takeaway-title {
+                color: #000 !important;
+                font-weight: bold;
+            }
+
+            .key-takeaway .takeaway-title::before {
+                content: "📌 ";
+            }
+
+            .navigation-links,
+            .how-to-use {
+                display: none !important;
+            }
+
+            ul {
+                padding-left: 18px;
+                list-style-type: disc;
+            }
+
+            li::before {
+                content: "" !important;
+            }
+
+            .how-to-use li::before {
+                content: "" !important;
+            }
+
+            .reflection li.question::before {
+                content: "Q: " !important;
+            }
+
+            a {
+                text-decoration: none;
+                color: #000;
+            }
+
+            .animate-on-scroll {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="sticky-nav">
+        <div class="nav-content">
+            <a href="index.html" id="nav-back-button" class="nav-back-button" aria-label="Go to Previous Page">«
+                Back</a>
+            <span class="nav-title">Study Guide: Right & Wrong</span>
+            <button id="nav-toggle-btn" aria-label="Toggle Navigation" aria-expanded="false"
+                aria-controls="nav-links">☰</button>
+        </div>
+        <ul id="nav-links" class="nav-links-hidden">
+            <li><a href="#section-intro">Introduction</a></li>
+            <li><a href="#podcast-section">Podcast Audio</a></li>
+            <li><a href="#section-moral-crisis">A World in Moral Crisis</a></li>
+            <li><a href="#section-divine-standard">God's Unchanging Standard</a></li>
+            <li><a href="#section-ten-commandments">The Ten Commandments</a></li>
+            <li><a href="#section-law-eternal-nature">The Law's Eternal Nature</a></li>
+            <li><a href="#section-law-and-love">The Law and Love</a></li>
+            <li><a href="#section-purpose-of-law">Purpose of the Law</a></li>
+            <li><a href="#section-law-as-mirror">The Law as a Mirror</a></li>
+            <li><a href="#section-law-cannot-save">Why Law Cannot Save</a></li>
+            <li><a href="#section-cross-upholds-law">Cross Upholds Law</a></li>
+            <li><a href="#section-saved-by-grace">Saved by Grace</a></li>
+            <li><a href="#section-grace-and-obedience">Grace & Obedience</a></li>
+            <li><a href="#section-following-example">Christ's Example</a></li>
+            <li><a href="#section-end-time-saints">End Time Saints</a></li>
+            <li><a href="#section-ultimate-obedience">Ultimate Obedience</a></li>
+            <li><a href="#section-conclusion">Conclusion</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="scroll-down-indicator">
+            <span class="arrow">⇩</span>
+            Scroll down for Study Guide & Sermon Audio
+        </div>
+        <div class="header-image-container">
+            <img src="Assets/pics/what-happened-to-right-and-wrong.jpg"
+                alt="Study Guide Header for What Happened to Right and Wrong?" class="header-image"
+                id="pageHeaderImage">
+        </div>
+
+        <h1></h1>
+
+        <div id="podcast-section" class="embedded-podcast-player-area section animate-on-scroll">
+            <h2>Listen to the Podcast</h2>
+            <p>You can listen to the accompanying Podcast "What Happened to Right and Wrong?" directly below.</p>
+            <audio id="embeddedSermonAudio" controls controlsList="nodownload">
+                <source src="Assets/audio/What Happened to Right and Wrong.mp3" type="audio/mp3">
+                <!-- Placeholder: Update this path -->
+                Your browser does not support the audio element. Try using a modern browser like Chrome, Firefox, or
+                Edge.
+            </audio>
+            <div class="simple-playback-controls">
+                <label for="embeddedPlaybackSpeed">Speed:</label>
+                <select id="embeddedPlaybackSpeed" aria-label="Playback speed">
+                    <option value="0.75">0.75x</option>
+                    <option value="1" selected>1x (Normal)</option>
+                    <option value="1.25">1.25x</option>
+                    <option value="1.5">1.5x</option>
+                    <option value="2">2x</option>
+                </select>
+            </div>
+            <!-- JS will insert .now-playing-indicator and .audio-error-message after this div -->
+        </div>
+
+
+        <div class="how-to-use">
+            <h3>How to Use This Study Guide</h3>
+            <p>This guide is designed to help you delve deeper into the biblical principles concerning God's law and
+                morality, alongside the sermon. As you go through each section:</p>
+            <ul>
+                <li>Consider listening to the accompanying <strong>podcast audio</strong> using the player above for a
+                    richer experience.</li>
+                <li><strong>Read</strong> the summary points and key scriptures.</li>
+                <li><strong>Reflect</strong> on the questions provided. Consider writing down your thoughts or
+                    discussing them with others.</li>
+                <li><strong>Note</strong> the "Key Takeaways" which highlight crucial biblical principles.</li>
+                <li><strong>Pray</strong> for understanding and wisdom as you study God's Word.</li>
+            </ul>
+        </div>
+
+        <div class="section intro-section" id="section-intro">
+            <h2 class="animate-on-scroll">Introduction: The Unexpected Criminal</h2>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">
+                A man, outraged by a burglary at his home, rushed to the police station demanding justice. While sifting
+                through mugshots to identify the culprit, an officer paused, looked closely at a picture, and then at
+                the man. "That's you," the officer declared, "and there's an outstanding warrant for your arrest." The
+                very individual demanding justice was, ironically, a wanted criminal himself.
+            </p>
+            <p class="animate-on-scroll" style="animation-delay: 0.2s;">
+                This story highlights a critical question: In a world where lines blur, what truly defines right and
+                wrong? This study explores this question, seeking answers from the timeless wisdom of the Bible.
+            </p>
+        </div>
+
+        <div class="section animate-on-scroll" id="section-moral-crisis">
+            <h3 class="animate-on-scroll">A World in Moral Crisis</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">
+                Crime and violence seem to be escalating, appearing in unexpected places – workplaces, schools, and even
+                churches. Society grapples with self-centered role models, a casual attitude towards dishonesty, and a
+                general disrespect for traditional values, God, and family.
+            </p>
+            <p class="animate-on-scroll" style="animation-delay: 0.2s;">
+                Even within religious circles, confusion about morality persists. Some teach that God's commandments are
+                abolished or irrelevant. The consequence? A society reaping broken homes, uncontrolled behavior, and
+                rampant crime, fulfilling the prophet Hosea's words:
+            </p>
+            <div class="scripture-ref animate-on-scroll" style="animation-delay: 0.3s;">
+                <span>"They sow the wind, And reap the whirlwind." (Hosea 8:7, NKJV)</span>
+            </div>
+            <div class="reflection animate-on-scroll" style="animation-delay: 0.4s;">
+                <h4>Reflection:</h4>
+                <ul>
+                    <li class="question">In what ways do you see a moral decline in society today?</li>
+                    <li class="question">How might the church, at times, contribute to confusion about right and wrong?
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section animate-on-scroll" id="section-divine-standard">
+            <h3 class="animate-on-scroll">God's Unchanging Standard</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">
+                Who determines what is right or wrong? Human judgment is often flawed. The Bible warns:
+            </p>
+            <div class="scripture-ref animate-on-scroll" style="animation-delay: 0.2s;">
+                <span>"There is a way that seems right to a man, But its end is the way of death." (Proverbs 14:12,
+                    NKJV)</span>
+            </div>
+            <p class="animate-on-scroll" style="animation-delay: 0.3s;">
+                Our natural inclinations may not align with truth, especially if truth feels inconvenient. The Apostle
+                Paul foresaw a time when people would reject sound teaching for messages that suit their own desires:
+            </p>
+            <div class="scripture-ref animate-on-scroll" style="animation-delay: 0.4s;">
+                <span>"For the time will come when they will not endure sound doctrine, but according to their own
+                    desires, because they have itching ears, they will heap up for themselves teachers; and they will
+                    turn their ears away from the truth, and be turned aside to fables." (2 Timothy 4:3-4, NKJV)</span>
+            </div>
+            <p class="animate-on-scroll" style="animation-delay: 0.5s;">
+                True freedom isn't found by discarding rules, but by adhering to the divine standard God established for
+                a prosperous and free society: His Law.
+            </p>
+            <div class="key-takeaway animate-on-scroll" style="animation-delay: 0.6s;">
+                <span class="takeaway-title">Key Takeaway:</span> Human standards of right and wrong are unreliable;
+                God's Law provides the true and unchanging foundation for morality.
+            </div>
+        </div>
+
+        <div class="page-break section animate-on-scroll" id="section-ten-commandments">
+            <h3 class="animate-on-scroll">The Ten Commandments: God's Blueprint for Life</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">
+                At Mount Sinai, after freeing the Israelites from bondage, God presented them with His Ten Commandments.
+                These are not arbitrary rules but principles flowing from His character of love, guiding our
+                relationship with Him and with others.
+            </p>
+            <div class="scripture-ref animate-on-scroll" style="animation-delay: 0.2s;">
+                <span>"I am the LORD your God, who brought you out of the land of Egypt, out of the house of bondage."
+                    (Exodus 20:2, NKJV)</span>
+            </div>
+            <h4 class="animate-on-scroll" style="animation-delay: 0.3s;">A Summary of the Ten Commandments (Exodus
+                20:3-17):</h4>
+            <ul class="animate-on-scroll" style="animation-delay: 0.4s;">
+                <li>1. You shall have no other gods before Me.</li>
+                <li>2. You shall not make for yourself a carved image... you shall not bow down to them.</li>
+                <li>3. You shall not take the name of the LORD your God in vain.</li>
+                <li>4. Remember the Sabbath day, to keep it holy.</li>
+                <li>5. Honor your father and your mother.</li>
+                <li>6. You shall not murder.</li>
+                <li>7. You shall not commit adultery.</li>
+                <li>8. You shall not steal.</li>
+                <li>9. You shall not bear false witness against your neighbor.</li>
+                <li>10. You shall not covet anything that is your neighbor's.</li>
+            </ul>
+            <div class="scripture-ref animate-on-scroll" style="animation-delay: 0.5s;">
+                <span>"When the LORD had finished speaking with him on Mount Sinai, He gave Moses the two tablets of the
+                    testimony, tablets of stone, written by the finger of God." (Exodus 31:18, CSB)</span>
+            </div>
+            <div class="reflection animate-on-scroll" style="animation-delay: 0.6s;">
+                <h4>Reflection:</h4>
+                <ul>
+                    <li class="question">Why do you think God wrote these commandments on stone?</li>
+                    <li class="question">How do these commandments reflect God's love and concern for humanity?</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section animate-on-scroll" id="section-law-eternal-nature">
+            <h3 class="animate-on-scroll">The Law's Eternal Nature</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">
+                God's law, an expression of His unselfish love, existed from eternity, governing even the angels in
+                heaven. The rebellion led by Satan was against this divine order.
+            </p>
+            <div class="scripture-ref animate-on-scroll" style="animation-delay: 0.2s;">
+                <span>"And war broke out in heaven: Michael and his angels fought with the dragon... So the great dragon
+                    was cast out, that serpent of old, called the Devil and Satan, who deceives the whole world; he was
+                    cast to the earth, and his angels were cast out with him." (Revelation 12:7,9, NKJV)</span>
+            </div>
+            <p class="animate-on-scroll" style="animation-delay: 0.3s;">
+                The loyal angels continue to obey His word (Psalm 103:20). Adam and Eve's sin was a transgression of
+                this pre-existing law, for "where there is no law there is no transgression" (Romans 4:15). Abraham,
+                centuries before Sinai, obeyed God's commandments (Genesis 26:5). Joseph recognized adultery as a "great
+                wickedness and sin against God" (Genesis 39:9). Even before the formal giving of the law at Sinai, God
+                rebuked the Israelites for breaking His laws concerning the Sabbath (Exodus 16:28).
+            </p>
+            <div class="key-takeaway animate-on-scroll" style="animation-delay: 0.4s;">
+                <span class="takeaway-title">Key Takeaway:</span> God's law is not a temporary construct but an eternal
+                principle, reflecting His unchanging character and operative since creation.
+            </div>
+        </div>
+
+        <div class="page-break section animate-on-scroll" id="section-law-and-love">
+            <h3 class="animate-on-scroll">The Law and Love</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">
+                The Ten Commandments are fundamentally about love: love for God (first four) and love for fellow humans
+                (last six). Jesus summarized this:
+            </p>
+            <div class="scripture-ref animate-on-scroll" style="animation-delay: 0.2s;">
+                <span>"‘You shall love the Lord your God with all your heart, with all your soul, and with all your
+                    mind.’ This is the first and great commandment. And the second is like it: ‘You shall love your
+                    neighbor as yourself.’ On these two commandments hang all the Law and the Prophets." (Matthew
+                    22:37-40, NKJV)</span>
+            </div>
+            <p class="animate-on-scroll" style="animation-delay: 0.3s;">
+                Jesus also directly linked love and obedience:
+            </p>
+            <div class="scripture-ref animate-on-scroll" style="animation-delay: 0.4s;">
+                <span>"If you love Me, keep My commandments." (John 14:15, NKJV)</span>
+            </div>
+            <div class="reflection animate-on-scroll" style="animation-delay: 0.5s;">
+                <h4>Reflection:</h4>
+                <ul>
+                    <li class="question">How does understanding the law as an expression of love change your perspective
+                        on obedience?</li>
+                    <li class="question">Pick one of the Ten Commandments. How does it demonstrate love for God or love
+                        for others?</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section animate-on-scroll" id="section-purpose-of-law">
+            <h3 class="animate-on-scroll">Purpose and Perfection of the Law</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">
+                God's law, concise yet comprehensive, is perfect and intended to bring peace, happiness, and protection.
+            </p>
+            <div class="scripture-ref animate-on-scroll" style="animation-delay: 0.2s;">
+                <span>"The law of the LORD is perfect, converting the soul." (Psalm 19:7, NKJV)</span>
+            </div>
+            <p class="animate-on-scroll" style="animation-delay: 0.3s;">
+                Because it reflects God's perfect, unchanging character, the law itself is unalterable.
+            </p>
+            <div class="scripture-ref animate-on-scroll" style="animation-delay: 0.4s;">
+                <span>"And it is easier for heaven and earth to pass away than for one tittle of the law to fail." (Luke
+                    16:17, NKJV, cf. Matthew 5:18)</span>
+            </div>
+            <p class="animate-on-scroll" style="animation-delay: 0.5s;">
+                It is not a fence to keep us from happiness, but a protective wall. God desires our well-being through
+                obedience:
+            </p>
+            <div class="scripture-ref animate-on-scroll" style="animation-delay: 0.6s;">
+                <span>"Oh, that they had such a heart in them that they would fear Me and always keep all My
+                    commandments, that it might be well with them and with their children forever!" (Deuteronomy 5:29,
+                    NKJV)</span>
+            </div>
+            <div class="key-takeaway animate-on-scroll" style="animation-delay: 0.7s;">
+                <span class="takeaway-title">Key Takeaway:</span> The law is a perfect, unchanging expression of God's
+                love, designed for our protection and well-being.
+            </div>
+        </div>
+
+        <div class="page-break section animate-on-scroll" id="section-law-as-mirror">
+            <h3 class="animate-on-scroll">The Law as a Mirror</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">
+                Like a mirror, God's law reveals our true condition – our sinfulness. It doesn't change our condition,
+                but it makes us aware of it.
+            </p>
+            <div class="scripture-ref animate-on-scroll" style="animation-delay: 0.2s;">
+                <span>"For by the law is the knowledge of sin." (Romans 3:20, NKJV)</span>
+            </div>
+            <p class="animate-on-scroll" style="animation-delay: 0.3s;">
+                Paul personally experienced this:
+            </p>
+            <div class="scripture-ref animate-on-scroll" style="animation-delay: 0.4s;">
+                <span>"I would not have known sin except through the law. For I would not have known covetousness unless
+                    the law had said, ‘You shall not covet.’" (Romans 7:7, NKJV)</span>
+            </div>
+            <p class="animate-on-scroll" style="animation-delay: 0.5s;">
+                The primary spiritual function of the law is to point out our sin and, consequently, our desperate need
+                for a Savior.
+            </p>
+            <div class="reflection animate-on-scroll" style="animation-delay: 0.6s;">
+                <h4>Reflection:</h4>
+                <ul>
+                    <li class="question">If the law is like a mirror, what "blemishes" might it reveal in our lives
+                        today?</li>
+                    <li class="question">Why is it important to see our sinfulness before we can appreciate the Savior?
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section animate-on-scroll" id="section-law-cannot-save">
+            <h3 class="animate-on-scroll">Why the Law Cannot Save</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">
+                While the law reveals sin, it cannot provide the solution. It cannot grant power to overcome sin or
+                erase past guilt. Even perfect future obedience cannot atone for past transgressions.
+            </p>
+            <p class="animate-on-scroll" style="animation-delay: 0.2s;">
+                From Eden, God instituted sacrificial offerings (an innocent lamb) to illustrate the deadly consequence
+                of sin and to point forward to the ultimate sacrifice: Jesus Christ, the Lamb of God, who would die for
+                humanity's sins.
+            </p>
+            <div class="scripture-ref animate-on-scroll" style="animation-delay: 0.3s;">
+                <span>"For if there had been a law given which could have given life, truly righteousness would have
+                    been by the law." (Galatians 3:21, NKJV)</span>
+            </div>
+            <div class="key-takeaway animate-on-scroll" style="animation-delay: 0.4s;">
+                <span class="takeaway-title">Key Takeaway:</span> The law diagnoses sin but cannot cure it; salvation
+                comes only through Christ's sacrifice, not by law-keeping.
+            </div>
+        </div>
+
+        <div class="page-break section animate-on-scroll" id="section-cross-upholds-law">
+            <h3 class="animate-on-scroll">The Cross Upholds the Law</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">
+                Jesus' death on Calvary does not abolish the law. Instead, it magnifies the law's importance. If the law
+                could have been changed or set aside, Christ's death would have been unnecessary.
+            </p>
+            <p class="animate-on-scroll" style="animation-delay: 0.2s;">
+                Consider this:
+                If there is no law, there is no sin (transgression of the law).
+                If there is no sin, there is no need for grace (God's unmerited favor).
+                If there is no need for grace, there is no need for a Savior or the Cross.
+            </p>
+            <p class="animate-on-scroll" style="animation-delay: 0.3s;">
+                The Cross is an eternal memorial to the price God paid because His law is unchangeable and humanity was
+                guilty. God, in His love, found a way to save sinners in harmony with His holy principles.
+            </p>
+            <div class="scripture-ref animate-on-scroll" style="animation-delay: 0.4s;">
+                <span>"For God so loved the world that He gave His only begotten Son, that whoever believes in Him
+                    should not perish but have everlasting life." (John 3:16, NKJV)</span>
+            </div>
+            <div class="reflection animate-on-scroll" style="animation-delay: 0.5s;">
+                <h4>Reflection:</h4>
+                <ul>
+                    <li class="question">How does Christ's death demonstrate the unchanging nature of God's law?</li>
+                    <li class="question">If someone says, "Now that Christ has died, we don't need to worry about the
+                        law," how would you respond based on this section?</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section animate-on-scroll" id="section-saved-by-grace">
+            <h3 class="animate-on-scroll">Saved by Grace, Not Works</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">
+                Our salvation is a gift, purchased by Christ's blood. Nothing we do can add to His sacrifice or make us
+                worthy.
+            </p>
+            <div class="scripture-ref animate-on-scroll" style="animation-delay: 0.2s;">
+                <span>"For the wages of sin is death, but the gift of God is eternal life in Christ Jesus our Lord."
+                    (Romans 6:23, NKJV)</span>
+            </div>
+            <div class="scripture-ref animate-on-scroll" style="animation-delay: 0.3s;">
+                <span>"For by grace you have been saved through faith, and that not of yourselves; it is the gift of
+                    God, not of works, lest anyone should boast." (Ephesians 2:8-9, NKJV)</span>
+            </div>
+            <div class="key-takeaway animate-on-scroll" style="animation-delay: 0.4s;">
+                <span class="takeaway-title">Key Takeaway:</span> Salvation is entirely by God's grace, received through
+                faith, not earned by obedience or good works.
+            </div>
+        </div>
+
+        <div class="page-break section animate-on-scroll" id="section-grace-and-obedience">
+            <h3 class="animate-on-scroll">Grace, Obedience, and a New Heart</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">
+                If we are not saved by works, does this mean we are free to disobey God's law? Paul answers
+                emphatically:
+            </p>
+            <div class="scripture-ref animate-on-scroll" style="animation-delay: 0.2s;">
+                <span>"What shall we say then? Shall we continue in sin that grace may abound? Certainly not! How shall
+                    we who died to sin live any longer in it?" (Romans 6:1-2, NKJV)</span>
+            </div>
+            <p class="animate-on-scroll" style="animation-delay: 0.3s;">
+                Those who receive salvation experience a change of heart. They desire to live in harmony with God's law
+                of love. Christ not only forgives but also provides the power to obey, promising:
+            </p>
+            <div class="scripture-ref animate-on-scroll" style="animation-delay: 0.4s;">
+                <span>"I will put My laws in their mind and write them on their hearts." (Hebrews 8:10, NKJV, cf.
+                    Jeremiah 31:33)</span>
+            </div>
+            <p class="animate-on-scroll" style="animation-delay: 0.5s;">
+                Obedience becomes a love response, not a means to earn salvation. Just as a pardoned prisoner wouldn't
+                continue a life of crime, a pardoned sinner desires to honor the law.
+            </p>
+            <div class="reflection animate-on-scroll" style="animation-delay: 0.6s;">
+                <h4>Reflection:</h4>
+                <ul>
+                    <li class="question">What is the difference between trying to obey God to be saved, and obeying God
+                        because you are saved?</li>
+                    <li class="question">How does the promise of God writing His law on our hearts offer hope for true
+                        obedience?</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section animate-on-scroll" id="section-following-example">
+            <h3 class="animate-on-scroll">Following Christ's Example</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">
+                Jesus Himself lived in perfect obedience to His Father's commandments, driven by love.
+            </p>
+            <div class="scripture-ref animate-on-scroll" style="animation-delay: 0.2s;">
+                <span>"I have kept My Father’s commandments and abide in His love." (John 15:10, NKJV)</span>
+            </div>
+            <p class="animate-on-scroll" style="animation-delay: 0.3s;">
+                Our motivation for keeping His commandments is also love:
+            </p>
+            <div class="scripture-ref animate-on-scroll" style="animation-delay: 0.4s;">
+                <span>"If you love Me, keep My commandments." (John 14:15, NKJV)</span>
+            </div>
+            <div class="key-takeaway animate-on-scroll" style="animation-delay: 0.5s;">
+                <span class="takeaway-title">Key Takeaway:</span> Love is the supreme motivation for obedience,
+                following the example of Christ.
+            </div>
+        </div>
+
+        <div class="page-break section animate-on-scroll" id="section-end-time-saints">
+            <h3 class="animate-on-scroll">God's People in the End Times</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">
+                The book of Revelation describes God's faithful people in the last days as those who keep His
+                commandments through faith in Jesus.
+            </p>
+            <div class="scripture-ref animate-on-scroll" style="animation-delay: 0.2s;">
+                <span>"Here is the patience of the saints; here are those who keep the commandments of God and the faith
+                    of Jesus." (Revelation 14:12, NKJV)</span>
+            </div>
+            <p class="animate-on-scroll" style="animation-delay: 0.3s;">
+                This obedience will not always be easy or popular, as Satan opposes those who live in harmony with God's
+                character.
+            </p>
+            <div class="scripture-ref animate-on-scroll" style="animation-delay: 0.4s;">
+                <span>"And the dragon was enraged with the woman, and he went to make war with the rest of her
+                    offspring, who keep the commandments of God and have the testimony of Jesus Christ." (Revelation
+                    12:17, NKJV)</span>
+            </div>
+            <div class="reflection animate-on-scroll" style="animation-delay: 0.5s;">
+                <h4>Reflection:</h4>
+                <ul>
+                    <li class="question">Why is there a connection between keeping God's commandments and having "the
+                        faith of Jesus"?</li>
+                    <li class="question">What kind of opposition might those who strive to keep God's commandments face
+                        today?</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section animate-on-scroll" id="section-ultimate-obedience">
+            <h3 class="animate-on-scroll">The Ultimate Act of Obedience</h3>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">
+                The greatest demonstration of love and obedience was Christ's prayer in Gethsemane, choosing the
+                Father's will over His own, even unto death.
+            </p>
+            <div class="scripture-ref animate-on-scroll" style="animation-delay: 0.2s;">
+                <span>"O My Father, if it is possible, let this cup pass from Me; nevertheless, not as I will, but as
+                    You will." (Matthew 26:39, NKJV)</span>
+            </div>
+            <p class="animate-on-scroll" style="animation-delay: 0.3s;">
+                He died the death that was ours so we could live eternally with Him, all because He loved us. This
+                profound love awakens a responsive love in our hearts.
+            </p>
+            <div class="key-takeaway animate-on-scroll" style="animation-delay: 0.4s;">
+                <span class="takeaway-title">Key Takeaway:</span> Christ's selfless obedience, rooted in love, is the
+                ultimate inspiration for our own commitment to God's will.
+            </div>
+        </div>
+
+        <div class="section animate-on-scroll" id="section-conclusion">
+            <h2 class="animate-on-scroll">Conclusion: A Heart Transformed by Love</h2>
+            <p class="animate-on-scroll" style="animation-delay: 0.1s;">
+                God's people love their Redeemer deeply and desire to do His will, living by His principles. His simple
+                request echoes: "If you love Me, keep My commandments."
+            </p>
+            <p class="animate-on-scroll" style="animation-delay: 0.2s;">
+                Jesus wants to write His law on our hearts, empowering us by His grace. No matter our past failures, He
+                invites us to a new beginning with Him today.
+            </p>
+            <h4 class="animate-on-scroll" style="animation-delay: 0.3s;">A Prayer of Commitment:</h4>
+            <blockquote class="animate-on-scroll" style="animation-delay: 0.4s;">
+                <p>Dear Jesus, thank You for loving us so much that You were willing to die on Calvary's cross for our
+                    sins. Please give us willing hearts today. Please take our hard hearts and give us hearts made soft
+                    by Your love. Give us hearts that will love and obey You in return. Thank You for giving us Your
+                    commandments as a guide for happy, holy, eternal living. Please write them in our hearts and make
+                    them the principles by which we live our lives. Lord, we want to be obedient, not because we have to
+                    work our way to heaven, but because You love us. Please, Lord, come again soon to save us in Your
+                    kingdom. Help us to be among those who are keeping the commandments of God and have the faith of
+                    Jesus. In His name we pray. Amen.</p>
+            </blockquote>
+            <div class="reflection animate-on-scroll" style="animation-delay: 0.5s;">
+                <h4>Final Reflection:</h4>
+                <ul>
+                    <li class="question">Is it your desire today to ask Jesus to write His law on your heart and empower
+                        you to live by His principles out of love for Him?</li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="navigation-links">
+            <button class="print-button" onclick="window.print()">Print Study Guide</button>
+            <a href="index.html" class="nav-button secondary">Return to Main Site (Livestream)</a>
+        </div>
+    </div> <!-- End .container -->
+
+    <img id="visualizerBgImg" src="" alt="Visualizer Background" style="display:none;">
+
+    <script>
+        const HEADER_IMAGE_URL = 'Assets/pics/what-happened-to-right-and-wrong.jpg';
+
+        function throttle(func, limit) {
+            let lastFunc;
+            let lastRan;
+            return function () {
+                const context = this;
+                const args = arguments;
+                if (!lastRan) {
+                    func.apply(context, args);
+                    lastRan = Date.now();
+                } else {
+                    clearTimeout(lastFunc);
+                    lastFunc = setTimeout(function () {
+                        if ((Date.now() - lastRan) >= limit) {
+                            func.apply(context, args);
+                            lastRan = Date.now();
+                        }
+                    }, limit - (Date.now() - lastRan));
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const pageHeaderImage = document.getElementById('pageHeaderImage');
+            if (pageHeaderImage) pageHeaderImage.src = HEADER_IMAGE_URL;
+
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            if ("IntersectionObserver" in window) {
+                let observer = new IntersectionObserver((entries, observerInstance) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observerInstance.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                animatedElements.forEach(el => observer.observe(el));
+            } else {
+                animatedElements.forEach(el => el.classList.add('is-visible'));
+            }
+
+            // --- Enhanced Podcast Player JS ---
+            const embeddedSermonAudio = document.getElementById('embeddedSermonAudio');
+            const embeddedPlaybackSpeed = document.getElementById('embeddedPlaybackSpeed');
+            const podcastArea = document.querySelector('.embedded-podcast-player-area');
+            const youtubeFallbackDiv = document.getElementById('youtubeFallback');
+
+            if (embeddedSermonAudio && podcastArea) {
+                const nowPlayingIndicator = document.createElement('p');
+                nowPlayingIndicator.className = 'now-playing-indicator';
+
+                if (youtubeFallbackDiv && youtubeFallbackDiv.parentNode === podcastArea) {
+                    youtubeFallbackDiv.insertAdjacentElement('afterend', nowPlayingIndicator);
+                } else {
+                    const controlsDiv = podcastArea.querySelector('.simple-playback-controls');
+                    if (controlsDiv) {
+                        controlsDiv.insertAdjacentElement('afterend', nowPlayingIndicator);
+                    } else {
+                        embeddedSermonAudio.insertAdjacentElement('afterend', nowPlayingIndicator);
+                    }
+                }
+
+
+                embeddedSermonAudio.addEventListener('play', () => {
+                    podcastArea.classList.remove('is-paused');
+                    podcastArea.classList.add('is-playing');
+                    nowPlayingIndicator.textContent = '▶ Now Playing';
+                });
+                embeddedSermonAudio.addEventListener('pause', () => {
+                    podcastArea.classList.remove('is-playing');
+                    podcastArea.classList.add('is-paused');
+                    nowPlayingIndicator.textContent = '❚❚ Paused';
+                });
+                embeddedSermonAudio.addEventListener('ended', () => {
+                    podcastArea.classList.remove('is-playing');
+                    podcastArea.classList.remove('is-paused');
+                    nowPlayingIndicator.textContent = 'Playback Ended';
+                });
+
+                if (embeddedPlaybackSpeed) {
+                    embeddedPlaybackSpeed.addEventListener('change', (e) => {
+                        embeddedSermonAudio.playbackRate = parseFloat(e.target.value);
+                        embeddedPlaybackSpeed.classList.add('speed-changed');
+                        setTimeout(() => {
+                            embeddedPlaybackSpeed.classList.remove('speed-changed');
+                        }, 500);
+                    });
+                    const normalSpeedOption = embeddedPlaybackSpeed.querySelector('option[value="1"]');
+                    if (normalSpeedOption && normalSpeedOption.textContent.includes("1x")) { // Make sure it's the right one
+                        if (!normalSpeedOption.textContent.includes("(Normal)")) {
+                            normalSpeedOption.textContent = "1x (Normal)";
+                        }
+                    }
+                }
+
+                embeddedSermonAudio.addEventListener('error', (e) => {
+                    console.error("Embedded Sermon Audio Element Error Event:", e);
+                    let errorMsgText = "Error loading embedded audio: ";
+                    const sourceElement = embeddedSermonAudio.querySelector('source');
+                    const srcPath = sourceElement ? sourceElement.getAttribute('src') : 'N/A';
+                    if (embeddedSermonAudio.error) {
+                        switch (embeddedSermonAudio.error.code) {
+                            case MediaError.MEDIA_ERR_ABORTED: errorMsgText += "Playback aborted."; break;
+                            case MediaError.MEDIA_ERR_NETWORK: errorMsgText += "Network error. Check file path ('" + srcPath + "')."; break;
+                            case MediaError.MEDIA_ERR_DECODE: errorMsgText += "Decoding error. Path: " + srcPath; break;
+                            case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED: errorMsgText += "Format not supported or server/network error. Path: '" + srcPath + "'."; break;
+                            default: errorMsgText += "Unknown error. Code: " + embeddedSermonAudio.error.code; break;
+                        }
+                    } else { errorMsgText += "Unknown audio error."; }
+                    console.error(errorMsgText, "File:", srcPath, "CurrentSrc:", embeddedSermonAudio.currentSrc);
+
+                    let errorPara = podcastArea.querySelector('.audio-error-message');
+                    if (!errorPara) {
+                        errorPara = document.createElement('p');
+                        errorPara.className = 'audio-error-message';
+                        const targetForError = (youtubeFallbackDiv && youtubeFallbackDiv.parentNode === podcastArea) ? youtubeFallbackDiv :
+                            (podcastArea.querySelector('.simple-playback-controls') || embeddedSermonAudio);
+                        targetForError.insertAdjacentElement('afterend', errorPara);
+                    }
+                    errorPara.textContent = "Sorry, the sermon audio could not be loaded. Please check your internet connection, ensure the audio file path is correct, or try refreshing the page. You can also use the YouTube link if available.";
+                });
+                embeddedSermonAudio.addEventListener('canplay', () => {
+                    const errorPara = podcastArea.querySelector('.audio-error-message');
+                    if (errorPara) errorPara.remove();
+                });
+            } else {
+                console.warn("Embedded sermon audio player or podcast area not found. Some JS enhancements may not apply.");
+            }
+            // --- END Enhanced Podcast Player JS ---
+
+
+            // --- Sticky Navigation Bar JS (MODIFIED for always collapsible) ---
+            const stickyNav = document.getElementById('sticky-nav');
+            const navToggleBtn = document.getElementById('nav-toggle-btn');
+            const navLinks = document.getElementById('nav-links');
+            const navContentBar = stickyNav ? stickyNav.querySelector('.nav-content') : null;
+
+            function adjustBodyPadding() {
+                if (!stickyNav || !document.body || !navContentBar) return;
+                let navHeight = 0;
+                if (window.getComputedStyle(stickyNav).position === 'fixed' && window.getComputedStyle(stickyNav).display !== 'none') {
+                    // Always use navContentBar height as the expanded menu is position:absolute
+                    navHeight = navContentBar.offsetHeight;
+                }
+                document.body.style.paddingTop = navHeight + 'px';
+            }
+
+            function updateActiveNavLink() {
+                if (!stickyNav || !navLinks || !navContentBar) return;
+
+                let currentActiveFound = false;
+                // Always use navContentBar height for detection
+                const navHeight = navContentBar.offsetHeight;
+                const detectionLine = navHeight + 5;
+
+                const linksToIterate = Array.from(navLinks.querySelectorAll('a[href^="#"]')).reverse();
+
+                for (const link of linksToIterate) {
+                    const sectionId = link.getAttribute('href');
+                    const section = document.querySelector(sectionId);
+
+                    if (section) {
+                        const rect = section.getBoundingClientRect();
+                        if (rect.top <= detectionLine && !currentActiveFound) {
+                            link.classList.add('active-nav-link');
+                            currentActiveFound = true;
+                        } else {
+                            link.classList.remove('active-nav-link');
+                        }
+                    } else {
+                        link.classList.remove('active-nav-link');
+                    }
+                }
+                if (!currentActiveFound) {
+                    const firstLink = navLinks.querySelector('a[href^="#"]');
+                    if (firstLink) {
+                        const firstSection = document.querySelector(firstLink.getAttribute('href'));
+                        if (firstSection) {
+                            // Use navHeight (navContentBar.offsetHeight) for this check too
+                            if (window.pageYOffset < navHeight || (firstSection.getBoundingClientRect().top < window.innerHeight * 0.5 && firstSection.getBoundingClientRect().bottom > detectionLine)) {
+                                firstLink.classList.add('active-nav-link');
+                                linksToIterate.forEach(l => { if (l !== firstLink) l.classList.remove('active-nav-link'); });
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            if (stickyNav && navToggleBtn && navLinks && navContentBar) {
+                function initializeNavState() {
+                    // Menu is hidden by default on ALL screen sizes
+                    navLinks.classList.add('nav-links-hidden');
+                    navLinks.classList.remove('nav-links-visible');
+                    navToggleBtn.setAttribute('aria-expanded', 'false');
+                    adjustBodyPadding(); // Call this to set initial padding
+                }
+                initializeNavState(); // Initialize on load
+
+                navToggleBtn.addEventListener('click', () => {
+                    const isVisible = navLinks.classList.toggle('nav-links-visible');
+                    navLinks.classList.toggle('nav-links-hidden', !isVisible);
+                    navToggleBtn.setAttribute('aria-expanded', isVisible.toString());
+                    // adjustBodyPadding(); // Not strictly needed on toggle if menu is absolute and navContentBar height is static
+                });
+
+                window.addEventListener('resize', throttle(() => {
+                    // No need to re-initialize nav state (hidden/visible), just adjust padding and active links
+                    adjustBodyPadding();
+                    updateActiveNavLink();
+                }, 100));
+
+
+                navLinks.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+
+                        if (targetElement) {
+                            let headerOffset = 0;
+                            if (window.getComputedStyle(stickyNav).position === 'fixed') {
+                                // Always use navContentBar height for offset calculation
+                                headerOffset = navContentBar.offsetHeight;
+                            }
+                            const elementPosition = targetElement.getBoundingClientRect().top;
+                            const offsetPosition = window.pageYOffset + elementPosition - headerOffset;
+
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: "smooth"
+                            });
+
+                            // ALWAYS close menu on link click if it's visible
+                            if (navLinks.classList.contains('nav-links-visible')) {
+                                navLinks.classList.remove('nav-links-visible');
+                                navLinks.classList.add('nav-links-hidden');
+                                navToggleBtn.setAttribute('aria-expanded', 'false');
+                                // adjustBodyPadding(); // Not strictly needed here
+                            }
+                            navLinks.querySelectorAll('a').forEach(link => link.classList.remove('active-nav-link'));
+                            this.classList.add('active-nav-link');
+                        }
+                    });
+                });
+                window.addEventListener('scroll', throttle(updateActiveNavLink, 100));
+                // Initial call after setup for active link and padding
+                if (stickyNav) {
+                    adjustBodyPadding(); // Call again to be sure after all elements are potentially laid out
+                    updateActiveNavLink(); // Set active link on load
+                }
+            }
+
+            // Ensure IDs are set for sections (original logic)
+            const sectionClassesToIds = {
+                "intro-section": "section-intro",
+                "embedded-podcast-player-area": "podcast-section",
+                "theme-moral-crisis": "section-moral-crisis",
+                "theme-divine-standard": "section-divine-standard",
+                "theme-ten-commandments": "section-ten-commandments",
+                "theme-law-eternal-nature": "section-law-eternal-nature",
+                "theme-law-and-love": "section-law-and-love",
+                "theme-purpose-of-law": "section-purpose-of-law",
+                "theme-law-as-mirror": "section-law-as-mirror",
+                "theme-law-cannot-save": "section-law-cannot-save",
+                "theme-cross-upholds-law": "section-cross-upholds-law",
+                "theme-saved-by-grace": "section-saved-by-grace",
+                "theme-grace-and-obedience": "section-grace-and-obedience",
+                "theme-following-example": "section-following-example",
+                "theme-end-time-saints": "section-end-time-saints",
+                "theme-ultimate-obedience": "section-ultimate-obedience",
+                "conclusion": "section-conclusion"
+            };
+
+            for (const className in sectionClassesToIds) {
+                const elements = document.querySelectorAll(`div.${className.replace(/\s+/g, '.')}`);
+                elements.forEach(element => {
+                    if (element.classList.contains('section') ||
+                        Object.keys(sectionClassesToIds).includes(className)) {
+                        if (!element.id && sectionClassesToIds[className]) {
+                            element.id = sectionClassesToIds[className];
+                        }
+                    }
+                });
+            }
+            const podcastDiv = document.querySelector('.embedded-podcast-player-area');
+            if (podcastDiv && !podcastDiv.id) {
+                podcastDiv.id = 'podcast-section';
+            }
+            // --- END Sticky Navigation Bar JS ---
+        });
+    </script>
+</body>
+
+</html>

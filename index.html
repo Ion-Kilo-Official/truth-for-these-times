@@ -1,0 +1,2658 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truth for These Times</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Lora&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Cinzel from new, Poppins & Lora common to both -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Three.js from OLD welcome section -->
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FCZ3YZW84T"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-FCZ3YZW84T');
+    </script>
+    <!-- END Google tag (gtag.js) -->
+
+    <style>
+        :root {
+            /* FROM OLD */
+            --bg-primary: #F8F1E9;
+            --text-primary: #1A2A44;
+            --text-secondary: #F8F1E9;
+            /* Note: New also has this, same value */
+            --accent-color: #D4A017;
+            /* Note: New also has this, same value */
+            --nav-bg: #1A2A44;
+            /* Note: New also has this, same value */
+            --nav-bg-rgb: 26, 42, 68;
+            /* Note: New also has this, same value */
+            --font-body: 'Lora', serif;
+            /* Note: New also has this, same value */
+            --font-heading: 'Poppins', sans-serif;
+            /* Note: New also has this, same value */
+
+            --welcome-gold-deep: #E67E22;
+            --welcome-gold-deep-rgb: 230, 126, 34;
+            --welcome-gold-medium: #F39C12;
+            --welcome-gold-light: #FFD700;
+            --welcome-gold-twinkle: rgba(255, 230, 150, 0.8);
+
+            --forest-brown-dark: #4A3B31;
+            /* Note: New also has this, same value */
+            --forest-brown-medium: #795548;
+            /* Note: New also has this, same value */
+            --mist-color: rgba(255, 255, 255, 0.7);
+
+            --message-blue-darkest: #1A2A44;
+            /* Note: New also has this, same value */
+            --message-blue-darkest-rgb: 26, 42, 68;
+            /* Note: New also has this, same value */
+            --message-blue-dark: #2E4A7B;
+            /* Note: New also has this, same value */
+            --message-blue-medium: #406EAF;
+            /* Note: New also has this, same value */
+            --message-blue-light: #608BCF;
+            /* Note: New also has this, same value */
+
+            --success-bg: #e0ffe0;
+            /* Note: New also has this, same value */
+            --success-text: #006400;
+            /* Note: New also has this, same value */
+            --error-bg: #ffe0e0;
+            /* Note: New also has this, same value */
+            --error-text: #b22222;
+            /* Note: New also has this, same value */
+
+            /* FROM NEW (unique or preferred) */
+            --font-ornate: 'Cinzel', serif;
+
+            /* Podcast Theme Colors (from New) */
+            --podcast-bg-dark: #1A1A1D;
+            /* Kept for reference, but now using image bg */
+            --podcast-bg-dark-rgb: 26, 26, 29;
+            /* RGB for the overlay */
+            --podcast-scarlet-red: #C3073F;
+            --podcast-rich-gold: #D4A017;
+            /* Using existing accent for consistency */
+            --podcast-silver: #BDC3C7;
+            --podcast-text-light: #F5F5F5;
+
+            /* Overlay colors */
+            --overlay-dark-strong: rgba(var(--nav-bg-rgb), 0.7);
+            /* For sections needing good contrast for light text */
+            --overlay-dark-medium: rgba(var(--nav-bg-rgb), 0.6);
+            --overlay-dark-light: rgba(var(--nav-bg-rgb), 0.4);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            /* Fallback, but sections will cover this */
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        main {
+            scroll-snap-type: y proximity;
+        }
+
+        section {
+            scroll-snap-align: start;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* KEYFRAMES from OLD and NEW (merged) */
+        @keyframes fadeIn {
+
+            /* Common to both */
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+
+            /* From OLD */
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes twinkle {
+
+            /* From OLD */
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes gentleDrift {
+
+            /* From OLD */
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(5px, -3px) rotate(1deg);
+            }
+
+            50% {
+                transform: translate(-5px, 3px) rotate(-1deg);
+            }
+
+            75% {
+                transform: translate(3px, 2px) rotate(0.5deg);
+            }
+
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+        }
+
+        @keyframes mistDescend {
+
+            /* From OLD */
+            from {
+                opacity: 0;
+                transform: translateY(-50px) translateX(var(--mist-initial-x, -50%)) scale(0.8);
+            }
+
+            50% {
+                opacity: var(--mist-opacity, 0.7);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(100vh) translateX(var(--mist-initial-x, -50%)) scale(1.2);
+            }
+        }
+
+        @keyframes pulseLive {
+
+            /* Common to both */
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* animatedMessageBackground is no longer needed as #message will use a static image */
+        /* @keyframes animatedMessageBackground { ... } */
+
+        @keyframes subtleSparkle {
+
+            /* From NEW (for podcast section) */
+            0%,
+            100% {
+                opacity: 0.2;
+                transform: scale(0.8);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: scale(1.2);
+            }
+        }
+
+
+        @media (prefers-reduced-motion: reduce) {
+
+            /* OLD reduced motion rules (more comprehensive for old Welcome/Message animations) */
+            .fade-in,
+            .welcome-subtitle,
+            /* From OLD */
+            .twinkle-star,
+            /* From OLD */
+            .mist-particle,
+            /* From OLD */
+            #message h2,
+            /* From OLD */
+            #message p,
+            /* From OLD */
+            #message .register-cta {
+                /* From OLD */
+                animation: fadeIn 0.01s forwards !important;
+                transition-duration: 0.01s !important;
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+            }
+
+            .twinkling-overlay,
+            /* From OLD */
+            #mist-canvas-container,
+            /* From OLD */
+            #threejs-canvas-container canvas {
+                /* From OLD */
+                display: none !important;
+            }
+
+            .gentleDrift {
+                /* From OLD */
+                animation-name: none !important;
+            }
+
+            /* #message animation-name none already covered if keyframe is removed */
+        }
+
+        .skip-link {
+            /* Common */
+            position: absolute;
+            top: -100px;
+            left: 0;
+            background: var(--accent-color);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            z-index: 1100;
+            transition: top 0.3s ease;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            /* Common */
+            font-family: var(--font-heading);
+            color: var(--text-primary);
+            /* Default, will be overridden in sections with dark backgrounds */
+        }
+
+        section h2 {
+            /* Common */
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .pad-1 {
+            padding: 1rem;
+        }
+
+        /* Common */
+        .pad-2 {
+            padding: 2rem;
+        }
+
+        /* Common */
+        .text-center {
+            text-align: center;
+        }
+
+        /* Common */
+        .full-screen {
+            min-height: 100vh;
+        }
+
+        /* Common */
+
+        .fade-in {
+            /* Common */
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        *:focus-visible {
+            /* Common */
+            outline: 3px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+
+        *:focus:not(:focus-visible) {
+            outline: none;
+        }
+
+        nav {
+            /* Common (using New's as base, likely identical) */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            z-index: 1000;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo {
+            width: 80px;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        .nav-title {
+            color: var(--text-secondary);
+            margin-left: 0.75rem;
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin: 0 0.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 0.5rem;
+            transition: color 0.3s;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent-color);
+        }
+
+
+        /* STYLES FOR OLD #welcome SECTION */
+        #welcome {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            /* background: linear-gradient(170deg, var(--welcome-gold-light) 0%, var(--welcome-gold-medium) 40%, var(--welcome-gold-deep) 100%); */
+            background-image: linear-gradient(var(--overlay-dark-light), var(--overlay-dark-light)), url('Assets/pics/liiiiiiiight.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            padding: 2rem 1rem;
+            color: var(--text-secondary);
+            /* Ensure text is light */
+        }
+
+        #welcome h2,
+        #welcome h3,
+        #welcome p {
+            /* Ensure all direct text children are light */
+            color: var(--text-secondary);
+        }
+
+        #welcome .welcome-subtitle {
+            /* specific override for subtitle if needed */
+            color: var(--text-secondary);
+            /* Was --forest-brown-dark */
+            text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3), 0 0 10px rgba(var(--welcome-gold-medium-rgb, 243, 156, 18), 0.7);
+            /* Adjusted shadow for light text */
+        }
+
+
+        #threejs-canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .twinkling-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .twinkle-star {
+            position: absolute;
+            background-color: var(--welcome-gold-twinkle);
+            border-radius: 50%;
+            box-shadow: 0 0 6px 2px var(--welcome-gold-twinkle);
+            animation-name: twinkle;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+            opacity: 0;
+        }
+
+        .twinkle-star.small {
+            width: 2px;
+            height: 2px;
+            animation-duration: 3s;
+        }
+
+        .twinkle-star.medium {
+            width: 3px;
+            height: 3px;
+            animation-duration: 4.5s;
+        }
+
+        .twinkle-star.large {
+            width: 4px;
+            height: 4px;
+            animation-duration: 6s;
+        }
+
+        .welcome-content {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            box-sizing: border-box;
+            z-index: 2;
+            position: relative;
+        }
+
+        .welcome-subtitle {
+            font-family: var(--font-heading);
+            /* color: var(--forest-brown-dark); */
+            /* Changed above */
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            /* text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.1), 0 0 20px rgba(var(--welcome-gold-medium-rgb, 243, 156, 18), 0.5); */
+            /* Adjusted above */
+            animation: fadeInUp 1s ease-out 0.5s forwards, gentleDrift 20s ease-in-out infinite 1.5s;
+            opacity: 0;
+        }
+
+        .video-container-polished {
+            /* From OLD, for Welcome/Message videos */
+            width: 100%;
+            aspect-ratio: 16/9;
+            margin: 0 auto;
+            border-radius: 12px;
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 4px;
+            box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.3), 0px -2px 10px rgba(255, 255, 255, 0.05), inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-container-polished video,
+        .video-container-polished #welcomeVideo {
+            /* Selector for welcomeVideo specifically if needed */
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .welcome-video-container {
+            /* Container for OLD welcome video */
+            max-width: min(900px, 95vw);
+            margin-bottom: 1rem;
+        }
+
+        .message-video-container {
+            /* Container for OLD message video */
+            max-width: 1000px;
+            margin-bottom: 1.5rem;
+        }
+
+        .welcome-card-flipper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease;
+        }
+
+        .welcome-card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .welcome-card-front {
+            cursor: pointer;
+        }
+
+        .welcome-card-back {
+            transform: rotateY(180deg);
+            background: var(--text-primary);
+            color: var(--text-secondary);
+            padding: 1rem;
+            cursor: pointer;
+        }
+
+        .welcome-card-back-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            border-radius: 2px;
+        }
+
+        .welcome-video-container.is-flipped .welcome-card-flipper {
+            transform: rotateY(180deg);
+        }
+
+        .register-cta {
+            /* Base from NEW, should be fine */
+            display: inline-block;
+            background: var(--accent-color);
+            color: var(--text-primary);
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            font-family: var(--font-heading);
+            border-radius: 4px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .register-cta:hover {
+            background-color: #e7af27;
+            transform: scale(1.02);
+        }
+
+        .welcome-bible-study-cta {
+            /* Specific for OLD welcome */
+            background-color: var(--message-blue-dark) !important;
+            color: var(--text-secondary) !important;
+            /* Already light, good */
+        }
+
+        .welcome-bible-study-cta:hover {
+            background-color: var(--message-blue-medium) !important;
+        }
+
+        /* END STYLES FOR OLD #welcome SECTION */
+
+
+        /* STYLES FOR section-transition-mist-container (from OLD) */
+        .section-transition-mist-container {
+            height: 7px;
+            position: relative;
+            z-index: 5;
+            margin-top: -1px;
+            pointer-events: none;
+        }
+
+        .section-transition-mist-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(var(--welcome-gold-deep-rgb), 0.1) 0%, var(--forest-brown-medium) 70%, var(--forest-brown-dark) 100%);
+            opacity: 0.9;
+        }
+
+        /* END STYLES FOR section-transition-mist-container */
+
+
+        /* STYLES FOR OLD #message SECTION */
+        #message {
+            /* background: linear-gradient(135deg, var(--message-blue-darkest) 0%, var(--message-blue-dark) 30%, var(--message-blue-medium) 70%, var(--message-blue-light) 100%); */
+            /* background-size: 250% 250%; */
+            /* animation: animatedMessageBackground 30s ease infinite; */
+            background-image: linear-gradient(var(--overlay-dark-medium), var(--overlay-dark-medium)), url('Assets/pics/waaaaaater.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            color: var(--text-secondary);
+            padding: 3rem 1rem 2rem;
+            z-index: 3;
+        }
+
+        #mist-canvas-container {
+            position: absolute;
+            top: -50px;
+            left: 0;
+            right: 0;
+            height: calc(100% + 100px);
+            pointer-events: none;
+            z-index: 1;
+            /* Mist above background image overlay, below text */
+        }
+
+        .mist-particle {
+            position: absolute;
+            background-color: var(--mist-color);
+            border-radius: 50%;
+            filter: blur(15px);
+            opacity: 0;
+            animation-name: mistDescend;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        #message h2,
+        #message p {
+            color: var(--text-secondary);
+            /* Already light, good */
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+            opacity: 0;
+            position: relative;
+            z-index: 2;
+            /* Text above mist */
+        }
+
+        #message .register-cta {
+            animation: fadeInUp 1s ease-out 0.6s forwards;
+            opacity: 0;
+            position: relative;
+            z-index: 2;
+            /* CTA above mist */
+        }
+
+        /* END STYLES FOR OLD #message SECTION */
+
+
+        /* --- BEGIN UPLOAD MODAL STYLES (From NEW) --- */
+        .upload-modal-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+        }
+
+        .upload-modal-container.is-open {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.3s ease, visibility 0s linear 0s;
+        }
+
+        .modal-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.65);
+        }
+
+        .modal-dialog {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2001;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .upload-modal-container.is-open .modal-dialog {
+            transform: scale(1);
+        }
+
+        .modal-close-button {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: transparent;
+            border: none;
+            font-size: 2rem;
+            line-height: 1;
+            color: var(--text-primary);
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .modal-close-button:hover {
+            opacity: 1;
+        }
+
+        .modal-title {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            color: var(--text-primary);
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        #fileUploadForm .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        #fileUploadForm label {
+            display: block;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        #fileUploadForm .form-control-file,
+        #fileUploadForm .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--text-primary);
+            border-radius: 4px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            background-color: #fff;
+        }
+
+        #fileUploadForm .form-control-file {
+            padding: 0.5rem 0.75rem;
+        }
+
+        #fileUploadForm textarea.form-control {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .btn.btn-modal-upload {
+            display: block;
+            width: 100%;
+            background: var(--accent-color);
+            color: var(--text-primary);
+            padding: 0.85rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 1rem;
+        }
+
+        .btn.btn-modal-upload:hover {
+            background-color: #e7af27;
+            transform: translateY(-1px);
+        }
+
+        /* --- END UPLOAD MODAL STYLES --- */
+
+        /* --- BEGIN IMAGE DISPLAY MODAL STYLES (From NEW) --- */
+        .image-display-modal-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0.4s;
+        }
+
+        .image-display-modal-container.is-open {
+            opacity: 1;
+            visibility: visible;
+            transition-delay: 0s;
+        }
+
+        .image-modal-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(var(--nav-bg-rgb), 0.85);
+        }
+
+        .image-modal-dialog {
+            background-color: var(--bg-primary);
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+            position: relative;
+            z-index: 3001;
+            max-width: 85vw;
+            max-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: scale(0.75) translateY(30px);
+            opacity: 0;
+            transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s ease-out 0.05s;
+        }
+
+        .image-display-modal-container.is-open .image-modal-dialog {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        .image-modal-close-button {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            background: var(--accent-color);
+            color: var(--text-primary);
+            border: 2px solid var(--bg-primary);
+            font-size: 1.25rem;
+            font-weight: bold;
+            line-height: 1;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease;
+        }
+
+        .image-modal-close-button:hover,
+        .image-modal-close-button:focus-visible {
+            transform: scale(1.15) rotate(90deg);
+            background-color: #e7af27;
+        }
+
+        .image-modal-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .modal-highlight-image {
+            display: block;
+            max-width: 100%;
+            max-height: calc(85vh - 2rem);
+            object-fit: contain;
+            border-radius: 6px;
+        }
+
+        /* --- END IMAGE DISPLAY MODAL STYLES --- */
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        /* Common */
+
+        /* --- Stream Section Styling (From NEW) --- */
+        #stream {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('Assets/pics/jeeeesus.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            color: var(--text-secondary);
+            padding: 2rem 1rem;
+            z-index: 3;
+        }
+
+        #stream h2,
+        #stream p,
+        #stream blockquote {
+            color: var(--text-secondary);
+            /* Ensured for this section */
+        }
+
+        .scripture-quote {
+            font-family: var(--font-body);
+            font-style: italic;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 2rem auto;
+            padding: 1rem;
+            border-left: 3px solid var(--accent-color);
+            background: rgba(0, 0, 0, 0.2);
+            /* Slightly darker for better blend on varied images */
+            border-radius: 0 4px 4px 0;
+        }
+
+        .scripture-quote footer {
+            font-style: normal;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            text-align: right;
+        }
+
+        .pentecost-schedule-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            gap: 2rem;
+        }
+
+        .stream-event {
+            background: rgba(var(--nav-bg-rgb), 0.25);
+            /* Darker, semi-transparent card bg */
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 160, 23, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: row;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .stream-event:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .stream-event.nearest-event {
+            border-left: 5px solid var(--accent-color);
+            background: rgba(var(--accent-color), 0.15);
+            /* Use accent color for highlight */
+            border-color: rgba(212, 160, 23, 0.5);
+        }
+
+        .stream-event-info {
+            flex: 0 0 320px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 0.6rem;
+        }
+
+        .stream-event-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0;
+            color: var(--text-secondary);
+            line-height: 1.35;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+            text-align: left;
+        }
+
+        .stream-event-info h3 a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .stream-event-info h3 a:hover {
+            text-decoration: underline;
+        }
+
+        .stream-event-info p {
+            font-size: 0.95rem;
+            margin-bottom: 0;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            text-align: left;
+        }
+
+        .stream-event-info .event-description {
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            font-style: italic;
+        }
+
+        .stream-event-info .countdown {
+            font-size: 1.6rem;
+            font-family: var(--font-heading);
+            margin-bottom: 0;
+            color: var(--text-secondary);
+            transition: color 0.3s ease, transform 0.3s ease;
+            line-height: 1.2;
+            text-align: left;
+        }
+
+        .stream-event-info .countdown:hover {
+            transform: scale(1.02);
+        }
+
+        .stream-event-info .countdown.live-active {
+            color: var(--accent-color);
+            font-weight: bold;
+            animation: pulseLive 1.5s infinite;
+        }
+
+        .stream-event-media-wrapper {
+            flex: 1 1 auto;
+            min-width: 200px;
+            max-width: 60%;
+            border: 1px solid rgba(212, 160, 23, 0.4);
+            border-radius: 6px;
+            box-shadow: 0 0 8px rgba(212, 160, 23, 0.5);
+            background-color: #000;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: unset !important;
+        }
+
+        .stream-event-media-wrapper:hover {
+            transform: scale(1.02);
+            border-color: var(--accent-color);
+        }
+
+        .stream-event-media-wrapper img,
+        .stream-event-media-wrapper video {
+            display: block;
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain !important;
+            border-radius: 4px;
+        }
+
+        .study-guide-cta {
+            display: inline-block;
+            background: var(--message-blue-medium);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            font-family: var(--font-heading);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-top: 0.75rem;
+            transition: background-color 0.3s, transform 0.2s;
+            border: 1px solid rgba(212, 160, 23, 0.5);
+            text-align: center;
+        }
+
+        .study-guide-cta:hover {
+            background-color: var(--message-blue-light);
+            border-color: var(--accent-color);
+            transform: scale(1.02);
+        }
+
+        /* --- BEGIN PODCASTS SECTION STYLES (From NEW) --- */
+        #podcasts {
+            background-image: linear-gradient(rgba(var(--podcast-bg-dark-rgb), 0.75), rgba(var(--podcast-bg-dark-rgb), 0.75)), url('Assets/pics/waterfaaaaaaall.jpg');
+            /* Slightly darker overlay */
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            color: var(--podcast-text-light);
+            padding: 3rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #podcasts h2 {
+            font-family: var(--font-ornate, var(--font-heading));
+            font-size: 2.8rem;
+            color: var(--podcast-rich-gold);
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 0 0 5px var(--podcast-rich-gold);
+        }
+
+        #podcasts .podcast-section-tagline {
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            color: var(--podcast-silver);
+            max-width: 700px;
+            margin: 0 auto 2.5rem auto;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .podcast-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .podcast-item {
+            background-color: rgba(var(--podcast-bg-dark-rgb), 0.5);
+            /* Darker card background */
+            border: 1px solid var(--podcast-silver);
+            border-image: linear-gradient(to bottom right, var(--podcast-silver), var(--podcast-rich-gold)) 1;
+            border-radius: 10px;
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 30px -10px var(--podcast-scarlet-red);
+            position: relative;
+        }
+
+        .podcast-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(var(--podcast-scarlet-red), 0.5), 0 0 40px -5px var(--podcast-rich-gold);
+        }
+
+        .podcast-thumbnail {
+            width: 100%;
+            aspect-ratio: 3 / 2;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            display: block;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .podcast-item h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--podcast-rich-gold);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .podcast-meta {
+            font-size: 0.85rem;
+            color: var(--podcast-silver);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .podcast-description {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--podcast-text-light);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .podcast-listen-button {
+            display: inline-block;
+            background-image: linear-gradient(to right, var(--podcast-scarlet-red) 0%, var(--podcast-rich-gold) 70%, var(--podcast-scarlet-red) 100%);
+            background-size: 200% auto;
+            color: var(--podcast-text-light);
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            border-radius: 5px;
+            text-align: center;
+            transition: background-position 0.4s ease, transform 0.2s ease;
+            border: none;
+            margin-top: auto;
+        }
+
+        .podcast-listen-button:hover,
+        .podcast-listen-button:focus {
+            background-position: right center;
+            transform: scale(1.03);
+            color: #fff;
+            text-shadow: 0 0 5px #000;
+        }
+
+        #podcasts::before {
+            /* Sparkle elements remain */
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background-color: var(--podcast-silver);
+            border-radius: 50%;
+            box-shadow: 0 0 8px 2px var(--podcast-silver);
+            top: 20%;
+            left: 15%;
+            animation: subtleSparkle 15s infinite ease-in-out alternate;
+            opacity: 0;
+            z-index: 1;
+        }
+
+        #podcasts::after {
+            /* Sparkle elements remain */
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: var(--podcast-rich-gold);
+            border-radius: 50%;
+            box-shadow: 0 0 10px 3px var(--podcast-rich-gold);
+            top: 60%;
+            right: 25%;
+            animation: subtleSparkle 12s infinite ease-in-out alternate-reverse;
+            animation-delay: -6s;
+            opacity: 0;
+            z-index: 1;
+        }
+
+        /* --- END PODCASTS SECTION STYLES --- */
+
+        /* --- BEGIN SERMON ARCHIVE SECTION STYLES --- */
+        #archive {
+            /* background-color: var(--bg-primary); */
+            /* Replaced */
+            background-image: linear-gradient(var(--overlay-dark-strong), var(--overlay-dark-strong)), url('Assets/pics/mooooooountain.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            color: var(--text-secondary);
+            /* Default text in section to light */
+            padding: 3rem 1rem;
+        }
+
+        .archive-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .archive-header h2 {
+            /* font-size: 2.2rem; */
+            /* Already defined */
+            color: var(--text-secondary);
+            /* Changed from --text-primary */
+            /* margin-bottom: 0.5rem; */
+            /* Already defined */
+        }
+
+        .archive-tagline {
+            /* font-size: 1.1rem; */
+            /* Already defined */
+            color: var(--text-secondary);
+            /* Changed from --text-primary */
+            /* max-width: 700px; */
+            /* Already defined */
+            /* margin: 0 auto 2rem auto; */
+            /* Already defined */
+            /* line-height: 1.5; */
+            /* Already defined */
+        }
+
+        .sermon-archive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .sermon-item-archive {
+            /* Card styling remains, will sit on dark bg */
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(var(--nav-bg-rgb), 0.1);
+        }
+
+        .sermon-item-archive:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .sermon-thumbnail-archive {
+            width: 100%;
+            aspect-ratio: 3 / 2;
+            object-fit: cover;
+            object-position: center;
+            border-bottom: 1px solid rgba(var(--nav-bg-rgb), 0.1);
+        }
+
+        .sermon-info-archive {
+            padding: 1.25rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sermon-info-archive h3 {
+            /* Text inside card is dark */
+            font-size: 1.3rem;
+            font-family: var(--font-heading);
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .sermon-meta {
+            /* Text inside card is dark-ish */
+            font-size: 0.8rem;
+            color: var(--forest-brown-medium);
+            margin-bottom: 0.35rem;
+            line-height: 1.4;
+        }
+
+        #archive .sermon-meta strong {
+            /* Text inside card is dark */
+            color: var(--text-primary);
+        }
+
+        .sermon-description-archive {
+            /* Text inside card is dark */
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+            flex-grow: 1;
+            color: var(--text-primary);
+        }
+
+        .sermon-actions-archive {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+
+        .btn-archive {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.6rem 1.1rem;
+            text-decoration: none;
+            font-family: var(--font-heading);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.2s, border-color 0.3s;
+            cursor: pointer;
+            border: 1px solid transparent;
+            text-align: center;
+        }
+
+        .btn-archive svg {
+            margin-right: 0.4em;
+        }
+
+        .btn-archive:hover {
+            transform: translateY(-2px);
+        }
+
+        .play-sermon-button {
+            background-color: var(--accent-color);
+            color: var(--text-primary);
+            border-color: var(--accent-color);
+        }
+
+        .play-sermon-button:hover {
+            background-color: #e7af27;
+            border-color: #e7af27;
+        }
+
+        .view-study-guide-button {
+            background-color: var(--message-blue-dark);
+            color: var(--text-secondary);
+            border-color: var(--message-blue-dark);
+        }
+
+        .view-study-guide-button:hover {
+            background-color: var(--message-blue-medium);
+            border-color: var(--message-blue-medium);
+        }
+
+        /* --- END SERMON ARCHIVE SECTION STYLES --- */
+
+        /* --- BEGIN REFINED REGISTRATION SECTION STYLES --- */
+        #register {
+            /* background: var(--bg-primary); */
+            /* Replaced */
+            background-image: linear-gradient(var(--overlay-dark-strong), var(--overlay-dark-strong)), url('Assets/pics/boooooooooooks.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            padding: 3rem 1rem;
+            z-index: 3;
+            color: var(--text-secondary);
+            /* Default text in section to light */
+        }
+
+        .registration-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .registration-header h2 {
+            color: var(--text-secondary);
+            /* Changed from --text-primary */
+        }
+
+        .registration-tagline {
+            color: var(--text-secondary);
+            /* Changed from --text-primary */
+        }
+
+        .registration-main-content {
+            display: flex;
+            gap: 2.5rem;
+            align-items: flex-start;
+        }
+
+        .registration-image-column {
+            flex: 1 1 40%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .registration-promo-image {
+            width: 100%;
+            max-width: 450px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            margin-bottom: 1rem;
+            border: 3px solid white;
+        }
+
+        .image-caption {
+            /* This text is outside the form card, so it needs to be light */
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            text-align: center;
+            max-width: 400px;
+        }
+
+        #registrationForm {
+            /* Form card styling remains */
+            flex: 1 1 55%;
+            background: rgba(255, 255, 255, 0.95);
+            /* Light background for form */
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            margin: 0;
+        }
+
+        #registrationForm h2 {
+            display: none;
+        }
+
+        #registrationForm label {
+            /* Text inside form is dark */
+            display: block;
+            font-family: var(--font-heading);
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        #registrationForm input,
+        #registrationForm textarea {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1.25rem;
+            border: 1px solid var(--text-primary);
+            border-radius: 4px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+        }
+
+        #registrationForm input[type="checkbox"] {
+            width: auto;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+
+        #registrationForm .checkbox-label {
+            /* Text inside form is dark */
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            font-family: var(--font-body);
+            font-weight: normal;
+            color: var(--text-primary);
+        }
+
+        #registrationForm textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .registration-submit-cta {
+            background: var(--accent-color);
+            color: var(--text-primary);
+            padding: 0.85rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 1rem;
+        }
+
+        .registration-submit-cta:hover {
+            background-color: #e7af27;
+            transform: scale(1.01);
+        }
+
+        #formSuccessMessage {
+            /* Text color will be set by .success or .error */
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 4px;
+            display: none;
+            font-size: 0.9rem;
+        }
+
+        #formSuccessMessage.success {
+            background: var(--success-bg);
+            color: var(--success-text);
+            border: 1px solid var(--success-text);
+        }
+
+        #formSuccessMessage.error {
+            background: var(--error-bg);
+            color: var(--error-text);
+            border: 1px solid var(--error-text);
+        }
+
+        /* ... (rest of form styles are fine as they are for elements within the light form card) ... */
+
+        #registrationForm fieldset {
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding: 1.25rem;
+            border: 1px solid rgba(var(--nav-bg-rgb), 0.2);
+            border-radius: 4px;
+            background-color: rgba(var(--nav-bg-rgb), 0.05);
+            /* Slightly off-white bg for fieldset */
+        }
+
+        #registrationForm fieldset legend {
+            /* Text inside form is dark */
+            font-weight: 700;
+            font-family: var(--font-heading);
+            padding: 0 0.5rem;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+
+        .registration-benefits {
+            /* Container for "Why Register?" benefits */
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            /* background-color: rgba(var(--message-blue-darkest-rgb), 0.03); */
+            /* Original light bg */
+            background-color: transparent;
+            /* MODIFIED: Made transparent for light text */
+            border-radius: 8px;
+        }
+
+        .registration-benefits h3 {
+            /* Text now light to match section */
+            font-size: 1.5rem;
+            /* color: var(--text-primary); */
+            /* Original dark text */
+            color: var(--text-secondary);
+            /* MODIFIED: Made light */
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .registration-benefits li {
+            /* Text now light to match section */
+            font-size: 1rem;
+            /* color: var(--text-primary); */
+            /* Original dark text */
+            color: var(--text-secondary);
+            /* MODIFIED: Made light */
+            line-height: 1.6;
+            display: flex;
+            align-items: center;
+            text-align: left;
+        }
+
+        .registration-benefits li svg {
+            width: 1.2em;
+            height: 1.2em;
+            margin-right: 0.75em;
+            vertical-align: middle;
+            color: var(--accent-color);
+            flex-shrink: 0;
+        }
+
+        /* --- END REFINED REGISTRATION SECTION STYLES --- */
+
+        /* --- Media Queries (Merged and checked from both NEW and OLD) --- */
+        @media (max-width: 992px) {
+
+            /* Tablet and below */
+            .registration-main-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .registration-image-column,
+            #registrationForm {
+                flex-basis: auto;
+                width: 100%;
+                max-width: 600px;
+            }
+
+            .registration-image-column {
+                margin-bottom: 2rem;
+            }
+
+            .registration-promo-image {
+                max-width: 350px;
+            }
+
+            #podcasts h2 {
+                font-size: 2.4rem;
+            }
+
+            .podcast-grid {
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            /* Mobile landscape and smaller */
+            html {
+                font-size: 15px;
+            }
+
+            nav {
+                flex-direction: column;
+                padding: 0.75rem 0.5rem;
+                align-items: center;
+            }
+
+            .nav-brand {
+                margin-bottom: 0.5rem;
+            }
+
+            .nav-logo {
+                width: 70px;
+                margin-bottom: 0;
+            }
+
+            .nav-title {
+                margin-left: 0.5rem;
+                font-size: 1rem;
+                text-align: left;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                padding-left: 0;
+            }
+
+            .nav-links li {
+                margin: 0.25rem 0.5rem;
+            }
+
+            #welcome.full-screen {
+                min-height: 70vh;
+            }
+
+            .welcome-subtitle {
+                font-size: 1.8rem;
+            }
+
+            .video-container-polished {
+                max-width: 90vw !important;
+            }
+
+            .stream-event {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+            }
+
+            .stream-event-info {
+                flex-basis: auto;
+                width: 100%;
+                max-width: 100%;
+                text-align: left;
+                align-items: flex-start;
+                justify-content: flex-start;
+            }
+
+            .stream-event-info h3 {
+                white-space: normal;
+                overflow: visible;
+                text-overflow: clip;
+                text-align: left;
+            }
+
+            .stream-event-media-wrapper {
+                flex-basis: auto;
+                width: 100%;
+                max-width: 400px;
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .sermon-archive-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .podcast-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .archive-header h2 {
+                font-size: 1.8rem;
+            }
+
+            #podcasts h2 {
+                font-size: 2rem;
+            }
+
+            .archive-tagline {
+                font-size: 1rem;
+            }
+
+            #podcasts .podcast-section-tagline {
+                font-size: 1rem;
+            }
+
+            #register {
+                padding: 2rem 1rem;
+            }
+
+            .registration-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .registration-tagline {
+                font-size: 1rem;
+            }
+
+            #registrationForm {
+                padding: 1.5rem;
+            }
+
+            .registration-benefits h3 {
+                font-size: 1.3rem;
+            }
+
+            .registration-benefits li {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .modal-dialog {
+                padding: 1.5rem;
+                width: 95%;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+            }
+
+            .image-modal-dialog {
+                max-width: 90vw;
+                max-height: 90vh;
+                padding: 0.75rem;
+            }
+
+            .modal-highlight-image {
+                max-height: calc(90vh - 1.5rem);
+            }
+
+            .image-modal-close-button {
+                top: -10px;
+                right: -10px;
+                width: 28px;
+                height: 28px;
+                font-size: 1rem;
+            }
+
+            #podcasts h2 {
+                font-size: 1.8rem;
+            }
+
+            .podcast-item h3 {
+                font-size: 1.3rem;
+            }
+
+            .podcast-listen-button {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            html {
+                font-size: 14px;
+            }
+
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+
+            section h2 {
+                font-size: 1.5rem;
+                /* General */
+            }
+
+            #welcome .welcome-subtitle {
+                /* Ensure welcome subtitle also scales */
+                font-size: 1.5rem;
+            }
+
+
+            .registration-header h2 {
+                font-size: 1.6rem;
+            }
+
+            .pad-2 {
+                padding: 1.5rem 0.75rem;
+            }
+
+            .nav-title {
+                font-size: 0.9rem;
+            }
+
+            .stream-event-info {
+                flex: 0 0 auto;
+                padding: 0 0.5rem;
+            }
+
+            .stream-event-info h3 {
+                font-size: 1.15rem;
+            }
+
+            .stream-event-info .countdown {
+                font-size: 1.3rem;
+            }
+
+            .stream-event-media-wrapper {
+                max-width: 95%;
+            }
+
+            #archive {
+                padding: 2rem 0.75rem;
+            }
+
+            #archive .archive-header h2 {
+                font-size: 1.6rem;
+            }
+
+            /* Specific for archive at this breakpoint */
+
+
+            .sermon-info-archive h3 {
+                font-size: 1.2rem;
+            }
+
+            .btn-archive {
+                font-size: 0.85rem;
+                padding: 0.55rem 1rem;
+            }
+
+            #podcasts {
+                padding: 2rem 0.75rem;
+            }
+
+            #podcasts h2 {
+                font-size: 1.6rem;
+            }
+
+            /* Specific for podcasts at this breakpoint */
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <nav class="nav">
+        <div class="nav-brand">
+            <img src="Assets/pics/logo.png" alt="Site Logo" class="nav-logo">
+            <span class="nav-title">WAY, TRUTH, LIFE</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#welcome" class="nav-link">Welcome</a></li>
+            <li><a href="#message" class="nav-link">Message</a></li>
+            <li><a href="#stream" class="nav-link">Scripture Focus</a></li> <!-- Link text updated by JS if needed -->
+            <li><a href="#podcasts" class="nav-link">Podcasts</a></li>
+            <li><a href="#archive" class="nav-link">Sermon Archive</a></li>
+            <li><a href="#register" class="nav-link">Registrations</a></li>
+        </ul>
+    </nav>
+
+    <main id="main-content">
+        <!-- OLD Welcome Section -->
+        <section id="welcome" class="section full-screen fade-in">
+            <div id="threejs-canvas-container"></div>
+            <div class="twinkling-overlay" id="twinklingStarsContainer"></div>
+            <div class="welcome-content">
+                <div class="welcome-video-container video-container-polished" id="welcomeCardContainer">
+                    <div class="welcome-card-flipper" id="welcomeCardFlipper">
+                        <div class="welcome-card-face welcome-card-front" id="welcomeCardFrontFace" tabindex="0"
+                            role="button" aria-label="Play intro video. Click or press Enter/Space to see a message.">
+                            <video id="welcomeVideo" muted playsinline poster="Assets/pics/dirt.jpg">
+                                <source src="Assets/vids/jesus.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div class="welcome-card-face welcome-card-back" id="welcomeCardBackFace" tabindex="0"
+                            role="button" aria-label="Message revealed. Click or press Enter/Space to return to video.">
+                            <img src="Assets/pics/click-to-flip-back.png" alt="Message revealed. Click to flip back."
+                                class="welcome-card-back-image">
+                        </div>
+                    </div>
+                </div>
+                <h3 class="welcome-subtitle">Truth for These Times</h3>
+                <a href="#amazingFactsRegistrationSection" class="register-cta welcome-bible-study-cta"
+                    style="margin-top: 1rem; animation: fadeInUp 1s ease-out 0.8s forwards; opacity: 0;">Sign Up for
+                    Free Bible Studies!</a>
+            </div>
+        </section>
+
+        <!-- Section Transition from OLD HTML -->
+        <div class="section-transition-mist-container"></div>
+
+        <!-- OLD Message Section -->
+        <section id="message" class="section fade-in pad-2">
+            <div id="mist-canvas-container"></div>
+            <h2>A Message For You</h2>
+            <div class="message-video-container video-container-polished">
+                <video id="messageVideo" muted loop playsinline autoplay poster="Assets/pics/message-bg.jpg">
+                    <source src="Assets/vids/message-video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="text-center"> <a href="#register" class="register-cta">Register now for live stream</a> </div>
+        </section>
+
+        <!-- Repurposed Stream Section (Now Scripture Focus) -->
+        <section id="stream" class="section fade-in pad-2">
+            <!-- Heading will be changed by JS to "Today's Scripture" -->
+            <h2>Pentecost 2025 Livestream Schedule</h2>
+            <blockquote class="scripture-quote text-center">
+                <p>"Blessed is he that readeth, and they that hear the words of this prophecy, and keep those things
+                    which are written therein: for the time is at hand."</p>
+                <footer>- Revelation 1:3</footer>
+            </blockquote>
+            <!-- The div#pentecostScheduleDisplay will be removed by JS if a specific stream is archived -->
+            <div id="pentecostScheduleDisplay" class="pentecost-schedule-container">
+                <p>Loading schedule...</p>
+            </div>
+        </section>
+
+        <!-- NEW Podcasts Section -->
+        <section id="podcasts" class="section fade-in pad-2">
+            <header class="text-center">
+                <h2>Podcasts</h2>
+                <p class="podcast-section-tagline">
+                    Dive deeper into compelling topics, inspiring stories, and timeless truths with our collection of
+                    podcasts.
+                </p>
+            </header>
+            <div id="podcastListContainer" class="podcast-grid">
+                <p style="color: var(--podcast-text-light);">Loading podcasts...</p>
+            </div>
+        </section>
+
+        <!-- NEW Sermon Archive Section -->
+        <section id="archive" class="section fade-in pad-2">
+            <div class="archive-container">
+                <header class="archive-header text-center">
+                    <h2>Sermon Archive</h2>
+                    <p class="archive-tagline">Explore past sermons and deepen your understanding with accompanying
+                        study guides.</p>
+                </header>
+                <div id="sermonArchiveDisplay" class="sermon-archive-grid" style="margin-top: 0;">
+                    <p>Loading archived sermons...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW Registration Section -->
+        <section id="register" class="section fade-in pad-2">
+            <div class="registration-container">
+                <header class="registration-header text-center">
+                    <h2>Register for Live Streams & Free Bible Studies</h2>
+                    <p class="registration-tagline">Connect with us, receive updates, and deepen your understanding with
+                        free resources.</p>
+                </header>
+                <div class="registration-main-content">
+                    <div class="registration-image-column">
+                        <img src="Assets/pics/AM collection.png" alt="Amazing Facts Bible Study Guides Collection"
+                            class="registration-promo-image">
+                        <p class="image-caption"><em>Discover timeless truths and deepen your understanding of the Bible
+                                with these comprehensive, mail-order study guides from Amazing Facts. Opt-in below to
+                                receive your free course!</em></p>
+                    </div>
+                    <form id="registrationForm" novalidate>
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required placeholder="you@example.com">
+                        <label for="phone">Phone (Optional):</label>
+                        <input type="tel" id="phone" name="phone" placeholder="e.g., 123-456-7890">
+                        <label for="prayerRequest">Questions, Comments, Prayer Requests (Optional):</label>
+                        <textarea id="prayerRequest" name="prayerRequest" rows="3"></textarea>
+                        <fieldset id="amazingFactsRegistrationSection">
+                            <legend>Free Mail-Order Bible Study Course</legend>
+                            <div>
+                                <input type="checkbox" id="af_optIn" name="af_optIn" value="1">
+                                <label for="af_optIn" class="checkbox-label">Yes, I'd like to register for the Free
+                                    Mail-Order Bible Study Course.</label>
+                            </div>
+                            <label for="mailingAddress">Mailing Address (Required if requesting Bible Studies):</label>
+                            <input type="text" id="mailingAddress" name="mailingAddress"
+                                placeholder="123 Main St, Anytown, Postal Code, Country">
+                        </fieldset>
+                        <button type="submit" class="registration-submit-cta">Submit Registration</button>
+                        <p id="formSuccessMessage" aria-live="polite"></p>
+                    </form>
+                </div>
+                <div class="registration-benefits">
+                    <h3>Why Register?</h3>
+                    <ul>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em"
+                                height="1em">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"></path>
+                            </svg>Receive timely notifications for upcoming live streams.</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em"
+                                height="1em">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"></path>
+                            </svg>Get exclusive access to free Bible study guides by mail.</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em"
+                                height="1em">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"></path>
+                            </svg>Connect with a community seeking truth and understanding.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals from NEW HTML (kept at end of body) -->
+    <div class="upload-modal-container" id="uploadModalContainer" role="dialog" aria-modal="true"
+        aria-labelledby="uploadModalTitle" style="display: none;" aria-hidden="true">
+        <div class="modal-backdrop" id="modalBackdrop"></div>
+        <div class="modal-dialog">
+            <button class="modal-close-button" id="modalCloseButton" aria-label="Close modal">×</button>
+            <div class="modal-content">
+                <h2 class="modal-title" id="uploadModalTitle">Upload File</h2>
+                <form id="fileUploadForm">
+                    <div class="form-group">
+                        <label for="fileInput">Select file to upload:</label>
+                        <input type="file" id="fileInput" name="fileInput" class="form-control-file">
+                    </div>
+                    <div class="form-group">
+                        <label for="fileDescription">Description (Optional):</label>
+                        <textarea id="fileDescription" name="fileDescription" rows="3" class="form-control"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-modal-upload" id="modalUploadButton">Upload</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="image-display-modal-container" id="imageDisplayModalContainer" role="dialog" aria-modal="true"
+        aria-hidden="true" style="display: none;">
+        <div class="image-modal-backdrop" id="imageDisplayModalBackdrop"></div>
+        <div class="image-modal-dialog">
+            <button class="image-modal-close-button" id="imageDisplayModalCloseButton"
+                aria-label="Close image viewer">×</button>
+            <div class="image-modal-content">
+                <img src="Assets/pics/cardback.png" alt="Highlight Image" class="modal-highlight-image"
+                    id="modalHighlightImageElement">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        if (history.scrollRestoration) { history.scrollRestoration = 'manual'; }
+        window.scrollTo(0, 0);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => { window.scrollTo(0, 0); }, 0);
+
+            const navElement = document.querySelector('nav');
+            const mainElement = document.getElementById('main-content');
+            const contentSections = Array.from(document.querySelectorAll('main section[id]'));
+            const navLinks = document.querySelectorAll('.nav-link');
+            let lastNavHeight = 0;
+            let isReducedMotion = window.matchMedia(`(prefers-reduced-motion: reduce)`).matches === true;
+
+            const mainPageElementsToHide = [navElement, mainElement].filter(el => el);
+
+            function updateActiveLink() {
+                if (!navElement || contentSections.length === 0) return;
+                const navHeight = navElement.offsetHeight;
+                let currentSectionId = '';
+                let bestMatch = { id: '', visibility: -1, topDistance: Infinity };
+                contentSections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    const topEdgeInViewport = rect.top;
+                    const bottomEdgeInViewport = rect.bottom;
+                    if (topEdgeInViewport <= navHeight + 75 && bottomEdgeInViewport > navHeight + 20) {
+                        const visibleBelowNav = Math.min(bottomEdgeInViewport, window.innerHeight) - Math.max(topEdgeInViewport, navHeight);
+                        const distanceToNavIdeal = Math.abs(topEdgeInViewport - navHeight);
+                        if (visibleBelowNav > 0) {
+                            if (distanceToNavIdeal < bestMatch.topDistance - 10 || (Math.abs(distanceToNavIdeal - bestMatch.topDistance) <= 10 && visibleBelowNav > bestMatch.visibility)) {
+                                bestMatch = { id: section.id, visibility: visibleBelowNav, topDistance: distanceToNavIdeal };
+                            }
+                        }
+                    }
+                });
+                currentSectionId = bestMatch.id;
+                if (!currentSectionId) {
+                    if (window.scrollY < 50 && contentSections.length > 0) currentSectionId = contentSections[0].id;
+                    else if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50 && contentSections.length > 0) currentSectionId = contentSections[contentSections.length - 1].id;
+                    else if (contentSections.length > 0) {
+                        for (let section of contentSections) { if (section.getBoundingClientRect().bottom > navHeight) { currentSectionId = section.id; break; } }
+                        if (!currentSectionId) currentSectionId = contentSections[0].id;
+                    }
+                }
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    link.removeAttribute('aria-current');
+                    if (link.getAttribute('href') === `#${currentSectionId}`) {
+                        link.classList.add('active');
+                        link.setAttribute('aria-current', 'page');
+                    }
+                });
+            }
+
+            function setPaddingForFixedNav(reason = "initial") {
+                if (navElement && mainElement) {
+                    const navHeight = navElement.offsetHeight;
+                    if (navHeight === 0 && reason !== "retry-maxed" && reason.length < 20) {
+                        requestAnimationFrame(() => setPaddingForFixedNav(reason.startsWith("retry") ? reason + "!" : "retry"));
+                        return;
+                    }
+                    if (navHeight > 0 && navHeight !== lastNavHeight) {
+                        document.documentElement.style.scrollPaddingTop = `${navHeight}px`;
+                        mainElement.style.paddingTop = `${navHeight}px`;
+                        lastNavHeight = navHeight;
+                        updateActiveLink();
+                    } else if (navHeight > 0 && navHeight === lastNavHeight && (reason === "DOMContentLoaded" || reason === "window.load")) {
+                        updateActiveLink();
+                    }
+                }
+            }
+            setPaddingForFixedNav("DOMContentLoaded");
+            window.addEventListener('load', () => setPaddingForFixedNav("window.load"));
+            if (window.ResizeObserver && navElement) {
+                const navObserver = new ResizeObserver(() => setPaddingForFixedNav("ResizeObserver"));
+                navObserver.observe(navElement);
+            } else {
+                window.addEventListener('resize', () => setPaddingForFixedNav("window.resize_fallback"), { passive: true });
+            }
+
+            const welcomeVideo = document.getElementById('welcomeVideo');
+            if (welcomeVideo) {
+                welcomeVideo.addEventListener('ended', () => welcomeVideo.pause());
+                welcomeVideo.play().catch(error => console.warn("Welcome video autoplay blocked:", error));
+            }
+            const welcomeCardContainer = document.getElementById('welcomeCardContainer');
+            const welcomeCardFrontFace = document.getElementById('welcomeCardFrontFace');
+            const welcomeCardBackFace = document.getElementById('welcomeCardBackFace');
+            if (welcomeCardContainer && welcomeVideo && welcomeCardFrontFace && welcomeCardBackFace) {
+                let shouldResumePlayOnFlipToFront = !welcomeVideo.paused;
+                welcomeVideo.onplaying = () => { if (!welcomeCardContainer.classList.contains('is-flipped')) shouldResumePlayOnFlipToFront = true; };
+                welcomeVideo.onpause = () => { if (!welcomeCardContainer.classList.contains('is-flipped')) shouldResumePlayOnFlipToFront = false; };
+                const flipToBack = () => {
+                    welcomeCardContainer.classList.add('is-flipped');
+                    if (!welcomeVideo.paused) { shouldResumePlayOnFlipToFront = true; welcomeVideo.pause(); }
+                    else { shouldResumePlayOnFlipToFront = false; }
+                    welcomeCardBackFace.focus();
+                };
+                const flipToFront = () => {
+                    welcomeCardContainer.classList.remove('is-flipped');
+                    if (shouldResumePlayOnFlipToFront) welcomeVideo.play().catch(e => console.warn("Welcome video play interrupted:", e));
+                    welcomeCardFrontFace.focus();
+                };
+                welcomeCardFrontFace.addEventListener('click', flipToBack);
+                welcomeCardBackFace.addEventListener('click', flipToFront);
+                welcomeCardFrontFace.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flipToBack(); } });
+                welcomeCardBackFace.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flipToFront(); } });
+            }
+
+            const messageVideo = document.getElementById('messageVideo');
+            if (messageVideo) {
+                messageVideo.play().catch(error => console.warn("Message video autoplay blocked:", error));
+            }
+
+            if (!isReducedMotion) {
+                const sectionsToFade = document.querySelectorAll('.fade-in');
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+                }, { threshold: 0.1 });
+                sectionsToFade.forEach(section => observer.observe(section));
+            } else {
+                document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const href = link.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = href.substring(1);
+                        const targetSection = document.getElementById(targetId);
+                        if (targetSection && navElement) {
+                            const navHeight = navElement.offsetHeight;
+                            const sectionTopEdgeInDocument = targetSection.getBoundingClientRect().top + window.pageYOffset;
+                            const targetScrollY = sectionTopEdgeInDocument - navHeight;
+                            window.scrollTo({ top: targetScrollY, behavior: isReducedMotion ? 'auto' : 'smooth' });
+                        }
+                    }
+                });
+            });
+
+            document.querySelectorAll('a.register-cta[href^="#"], a.welcome-bible-study-cta[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = href.substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        if (targetElement && navElement) {
+                            const navHeight = navElement.offsetHeight;
+                            const elementPosition = targetElement.getBoundingClientRect().top;
+                            const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: isReducedMotion ? 'auto' : 'smooth'
+                            });
+                        } else if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: isReducedMotion ? 'auto' : 'smooth' });
+                        }
+                    }
+                });
+            });
+
+            window.addEventListener('scroll', updateActiveLink, { passive: true });
+
+            // --- Data Definitions ---
+            let pentecostScheduleData = [
+                { name: "What Happened to Right and Wrong", date: "2025-05-16T19:00:00", durationHours: 3, youtubeLink: "https://www.youtube.com/watch?v=hoLG95Gia1w", promoImage: "Assets/pics/stream-promo-may16.jpg", idSuffix: "May16", description: "As crime and violence overrun our cities lawlessness abounds. Does the Bible offer a remedy? Watch this thought- provoking livestream and click to receive the study guide." }
+            ];
+
+            let archivedSermonsData = [
+                { id: "archive-sermon-1", title: "Signs You Can't Ignore", date: "2025-02-15T19:00:00", speaker: "Pastor Sprianu", description: "The sermon discusses biblical prophecies about the end of the world and Jesus' Second Coming, emphasizing signs of turmoil and the need for spiritual preparation.", thumbnailUrl: "Assets/pics/signsucantignore.png", youtubeUrl: "https://youtu.be/LlhDwuWzC5g", studyGuideUrl: "signs-u-can't-ignore.html" },
+                { id: "archive-sermon-2", title: "Voices From Beyond The Grave", date: "2025-05-09T19:00:00", speaker: "Pastor Sprianu", description: "Death is one of the most misunderstood subjects today. For many, death is shrouded in mystery and evokes dread, uncertainty, and hopelessness. This Bible based livestream and study Guide will give you exactly what God says on this subject. Get ready for a real eye-opener!", thumbnailUrl: "Assets/pics/vfbtgwith-text.jpg", youtubeUrl: "https://www.youtube.com/watch?v=BaIB8LA-w1E", studyGuideUrl: "voices_from_beyond_the_grave_study_guide.html" },
+                { id: "archive-sermon-3", title: "Making a New Start", date: "2025-05-10T11:45:00", speaker: "Pastor Sprianu", description: "Do you live in constant regret for your past mistakes? Have you ever wished you could be washed clean inside and out? Then we have great news. Watch this livestream and click to receive the study guide. Time for a new start!", thumbnailUrl: "Assets/pics/watery-0making-a-new-start.png", youtubeUrl: "https://www.youtube.com/watch?v=kmQNRHO_naM", studyGuideUrl: "making-a-new-start.html" }
+            ];
+
+            const podcastsData = [{ title: "Set Free by the Truth", link: "set-free-by-the-truth.html", date: "2025-05-14", thumbnailUrl: "Assets/pics/set free.png", description: "Pastor Sprianu explores why Christian denominations multiplied, tracing the church’s history and urging a Bible-based faith amid modern confusion." }];
+
+
+            // --- Part 1 & 2: Repurpose Livestream Section & Archive Most Recent Stream ---
+            const livestreamToArchiveName = "What Happened to Right and Wrong";
+            const livestreamToMove = pentecostScheduleData.find(event => event.name === livestreamToArchiveName);
+
+            if (livestreamToMove) {
+                // 2.1 Extract Data and create new archive item
+                const newArchivedSermon = {
+                    id: `archive-sermon-${archivedSermonsData.length + 1}`,
+                    title: livestreamToMove.name,
+                    date: livestreamToMove.date,
+                    speaker: "Pastor Sprianu", // Assumed based on context
+                    description: livestreamToMove.description,
+                    thumbnailUrl: "Assets/pics/what-happened-to-right-and-wrong.jpg", // Specific image for archive
+                    youtubeUrl: livestreamToMove.youtubeLink,
+                    studyGuideUrl: "right-vs-wrong.html"
+                };
+                archivedSermonsData.push(newArchivedSermon);
+
+                // Remove from pentecostScheduleData
+                pentecostScheduleData = pentecostScheduleData.filter(event => event.name !== livestreamToArchiveName);
+
+                // 1. Repurpose the #stream section
+                const streamSectionH2 = document.querySelector('#stream h2');
+                if (streamSectionH2) {
+                    streamSectionH2.textContent = "Scripture of the Hour"; // New heading for the repurposed section
+                }
+
+                const scheduleDisplayContainerToRemove = document.getElementById('pentecostScheduleDisplay');
+                if (scheduleDisplayContainerToRemove) {
+                    scheduleDisplayContainerToRemove.remove(); // Remove the dynamic schedule part
+                }
+                // Update nav link for #stream
+                const streamNavLink = document.querySelector('.nav-links a[href="#stream"]');
+                if (streamNavLink) {
+                    streamNavLink.textContent = "Scripture Focus";
+                }
+            }
+            // --- End of Repurposing and Archiving Logic ---
+
+
+            const scheduleDisplayContainer = document.getElementById('pentecostScheduleDisplay'); // Re-get, might have been removed
+            let countdownIntervals = [];
+            function formatEventDate(dateObj) { return dateObj.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) + ' at ' + dateObj.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' }); }
+            function updatePentecostCountdown(eventData, countdownElement) { const now = new Date(); const targetDate = new Date(eventData.date); const streamStartTime = targetDate.getTime(); const streamEndTime = streamStartTime + (eventData.durationHours * 3600 * 1000); let timeLeft = streamStartTime - now.getTime(); countdownElement.classList.remove('live-active'); if (now.getTime() >= streamStartTime && now.getTime() < streamEndTime) { countdownElement.innerHTML = 'Stream is LIVE!'; countdownElement.classList.add('live-active'); return true; } else if (now.getTime() >= streamEndTime) { countdownElement.innerHTML = 'Stream has ended.'; return false; } else if (timeLeft <= 0) { countdownElement.innerHTML = 'Starting soon...'; return true; } const d = Math.max(0, Math.floor(timeLeft / (1000 * 60 * 60 * 24))); const h = Math.max(0, Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))); const m = Math.max(0, Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60))); const s = Math.max(0, Math.floor((timeLeft % (1000 * 60)) / 1000)); countdownElement.innerHTML = `${d}d ${h}h ${m}m ${s}s until start`; return true; }
+
+            function displayPentecostSchedule() {
+                const currentScheduleDisplayContainer = document.getElementById('pentecostScheduleDisplay');
+                if (!currentScheduleDisplayContainer) return;
+
+                currentScheduleDisplayContainer.innerHTML = ''; countdownIntervals.forEach(clearInterval); countdownIntervals = [];
+                const now = new Date().getTime();
+                const sortedEvents = pentecostScheduleData.map(event => ({ ...event, targetTime: new Date(event.date).getTime() })).sort((a, b) => {
+                    const aIsLive = now >= a.targetTime && now < (a.targetTime + a.durationHours * 3600000);
+                    const bIsLive = now >= b.targetTime && now < (b.targetTime + b.durationHours * 3600000);
+                    if (aIsLive && !bIsLive) return -1; if (!aIsLive && bIsLive) return 1;
+                    return a.targetTime - b.targetTime;
+                });
+                let nearestUpcomingEventMarked = false;
+                sortedEvents.forEach(event => {
+                    const eventElement = document.createElement('div'); eventElement.classList.add('stream-event'); eventElement.id = `event-${event.idSuffix}`;
+                    const eventDateObj = new Date(event.date); const streamStartTime = event.targetTime; const streamEndTime = streamStartTime + (event.durationHours * 3600 * 1000);
+                    let isLiveNow = now >= streamStartTime && now < streamEndTime; let isUpcoming = now < streamStartTime; let hasEnded = now >= streamEndTime;
+                    if (isLiveNow) { eventElement.classList.add('nearest-event'); nearestUpcomingEventMarked = true; }
+                    else if (isUpcoming && !nearestUpcomingEventMarked) { eventElement.classList.add('nearest-event'); nearestUpcomingEventMarked = true; }
+                    const infoDiv = document.createElement('div'); infoDiv.classList.add('stream-event-info');
+                    let eventTitleHTML = event.name; let anchorText = event.name;
+                    if (event.youtubeLink) { if (hasEnded) { anchorText = `${event.name} (Watch Recording)`; } eventTitleHTML = `<a href="${event.youtubeLink}" target="_blank" rel="noopener noreferrer">${anchorText}</a>`; }
+                    infoDiv.innerHTML = `<h3>${eventTitleHTML}</h3><p>${formatEventDate(eventDateObj)}</p><div class="countdown" id="countdown-${event.idSuffix}">Loading...</div>`;
+                    if (event.description) { const descriptionP = document.createElement('p'); descriptionP.classList.add('event-description'); descriptionP.innerHTML = event.description.includes("<!-- TODO:") ? '<em>Description coming soon.</em>' : event.description; infoDiv.appendChild(descriptionP); }
+                    let finalMediaElementToAppend = null;
+                    if (event.promoImage) {
+                        const mediaWrapper = document.createElement('div'); mediaWrapper.classList.add('stream-event-media-wrapper');
+                        let mediaContentElement; const isVideo = event.promoImage.toLowerCase().endsWith('.mp4') || event.promoImage.toLowerCase().endsWith('.webm');
+                        if (isVideo) { mediaContentElement = document.createElement('video'); mediaContentElement.loop = true; mediaContentElement.autoplay = true; mediaContentElement.muted = true; mediaContentElement.playsInline = true; mediaContentElement.poster = 'Assets/pics/video-poster-fallback.jpg'; const sourceElement = document.createElement('source'); sourceElement.src = event.promoImage; sourceElement.type = `video/${event.promoImage.split('.').pop()}`; mediaContentElement.appendChild(sourceElement); mediaContentElement.appendChild(document.createTextNode('Your browser does not support video.')); }
+                        else { mediaContentElement = document.createElement('img'); mediaContentElement.src = event.promoImage; mediaContentElement.alt = `Promo for ${event.name}`; }
+                        mediaWrapper.appendChild(mediaContentElement);
+                        if (event.youtubeLink) { const linkWrapper = document.createElement('a'); linkWrapper.href = event.youtubeLink; linkWrapper.target = "_blank"; linkWrapper.rel = "noopener noreferrer"; linkWrapper.style.display = "block"; linkWrapper.appendChild(mediaWrapper); finalMediaElementToAppend = linkWrapper; }
+                        else { finalMediaElementToAppend = mediaWrapper; }
+                    }
+                    eventElement.appendChild(infoDiv); if (finalMediaElementToAppend) { eventElement.appendChild(finalMediaElementToAppend); }
+                    currentScheduleDisplayContainer.appendChild(eventElement);
+                    const countdownDiv = document.getElementById(`countdown-${event.idSuffix}`);
+                    if (countdownDiv) { if (updatePentecostCountdown(event, countdownDiv)) { const intervalId = setInterval(() => { if (!updatePentecostCountdown(event, countdownDiv)) clearInterval(intervalId); }, 1000); countdownIntervals.push(intervalId); } }
+                });
+                if (sortedEvents.length === 0 && currentScheduleDisplayContainer) {
+                    currentScheduleDisplayContainer.innerHTML = '<p>No upcoming stream events. Check the <a href="#archive" style="color: var(--accent-color);">Sermon Archive</a> for past events.</p>';
+                }
+            }
+            displayPentecostSchedule();
+
+            function displayPodcasts() {
+                const podcastContainer = document.getElementById('podcastListContainer'); if (!podcastContainer) return;
+                podcastContainer.innerHTML = ''; if (podcastsData.length === 0) { podcastContainer.innerHTML = '<p style="color: var(--podcast-text-light); text-align: center;">No podcasts available.</p>'; return; }
+                podcastsData.forEach(podcast => {
+                    const item = document.createElement('article'); item.classList.add('podcast-item'); item.setAttribute('aria-labelledby', `podcast-title-${podcast.episode || podcast.title.replace(/\s+/g, '-').toLowerCase()}`);
+                    let metaInfo = '';
+                    if (podcast.date) metaInfo = `Published: ${new Date(podcast.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}`;
+                    const thumbnailHTML = podcast.thumbnailUrl ? `<img src="${podcast.thumbnailUrl}" alt="Thumbnail for ${podcast.title}" class="podcast-thumbnail">` : '';
+                    item.innerHTML = `${thumbnailHTML}<h3 id="podcast-title-${podcast.episode || podcast.title.replace(/\s+/g, '-').toLowerCase()}">${podcast.title}</h3>${metaInfo ? `<p class="podcast-meta">${metaInfo}</p>` : ''}<p class="podcast-description">${podcast.description}</p><a href="${podcast.link}" class="podcast-listen-button">Listen Now <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style="width:1em; height:1em; vertical-align:middle; margin-left: 0.3em;"><path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" /></svg></a>`;
+                    podcastContainer.appendChild(item);
+                });
+            }
+            displayPodcasts();
+
+            const form = document.getElementById('registrationForm'); const successMessageEl = document.getElementById('formSuccessMessage');
+            if (form && successMessageEl) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault(); successMessageEl.innerHTML = ''; successMessageEl.className = ''; successMessageEl.style.display = 'none';
+                    const errors = []; let firstInvalidField = null;
+                    const afOptInCheckbox = form.elements['af_optIn']; const mailingAddressField = form.elements['mailingAddress'];
+                    if (afOptInCheckbox && afOptInCheckbox.checked && mailingAddressField && mailingAddressField.value.trim() === '') { errors.push('Please provide your Mailing Address for the Bible Studies course.'); if (!firstInvalidField) firstInvalidField = mailingAddressField; }
+                    for (const field of form.elements) {
+                        if (field.willValidate && !field.checkValidity()) {
+                            if (!firstInvalidField && field !== mailingAddressField) firstInvalidField = field;
+                            const labelText = field.labels && field.labels.length > 0 ? field.labels[0].textContent.replace(':', '').replace('.', '') : field.name;
+                            let label = labelText.trim(); if (field.type === "checkbox") label = `The checkbox for "${label}"`;
+                            if (field.validity.valueMissing) { if (field.type !== "checkbox") errors.push(`Please fill out the ${label} field.`); }
+                            else if (field.validity.typeMismatch) { errors.push(`Please enter a valid ${label}.`); }
+                            else { if (!(field === mailingAddressField && errors.some(err => err.includes("Mailing Address")))) errors.push(`There's an error with the ${label} field.`); }
+                        }
+                    }
+                    if (errors.length === 0) {
+                        const formData = new FormData(form); const submitButton = form.querySelector('button[type="submit"]'); const originalButtonText = submitButton.textContent;
+                        submitButton.disabled = true; submitButton.textContent = 'Submitting...';
+                        setTimeout(() => {
+                            const isSuccess = true;
+                            if (isSuccess) {
+                                successMessageEl.textContent = 'Thank you for registering!'; successMessageEl.className = 'success'; form.reset();
+                            } else {
+                                successMessageEl.innerHTML = `<strong>Error:</strong> Could not submit form. Please try again.`; successMessageEl.className = 'error';
+                            }
+                            successMessageEl.style.display = 'block'; successMessageEl.setAttribute('tabindex', '-1'); successMessageEl.focus();
+                            submitButton.disabled = false; submitButton.textContent = originalButtonText;
+                            setTimeout(() => { if (successMessageEl.classList.contains('success')) { successMessageEl.style.display = 'none'; successMessageEl.textContent = ''; successMessageEl.className = ''; successMessageEl.removeAttribute('tabindex'); } }, 7000);
+                        }, 1000);
+                    } else {
+                        let errorHTML = '<strong>Please correct the following:</strong><ul>'; errors.forEach(err => { errorHTML += `<li>${err}</li>`; }); errorHTML += '</ul>';
+                        successMessageEl.innerHTML = errorHTML; successMessageEl.classList.add('error'); successMessageEl.style.display = 'block';
+                        successMessageEl.setAttribute('tabindex', '-1'); successMessageEl.focus();
+                        if (firstInvalidField) { firstInvalidField.focus(); firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+                    }
+                });
+            }
+
+            function displayArchivedSermons() {
+                const archiveDisplayContainer = document.getElementById('sermonArchiveDisplay'); if (!archiveDisplayContainer) return;
+                const sermonsToDisplay = archivedSermonsData.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
+                archiveDisplayContainer.innerHTML = ''; if (sermonsToDisplay.length === 0) { archiveDisplayContainer.innerHTML = '<p>No archived sermons available.</p>'; return; }
+                sermonsToDisplay.forEach(sermon => {
+                    const sermonItem = document.createElement('div'); sermonItem.classList.add('sermon-item-archive'); sermonItem.id = sermon.id;
+                    const formattedDate = sermon.date ? new Date(sermon.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) : 'Date N/A';
+                    const speakerInfo = sermon.speaker ? `<p class="sermon-meta"><strong>Speaker:</strong> ${sermon.speaker}</p>` : '';
+                    const dateInfo = `<p class="sermon-meta"><strong>Date:</strong> ${formattedDate}</p>`;
+                    sermonItem.innerHTML = `<img src="${sermon.thumbnailUrl}" alt="Thumbnail for ${sermon.title}" class="sermon-thumbnail-archive" onerror="this.onerror=null;this.src='Assets/pics/placeholder-thumbnail.jpg';"><div class="sermon-info-archive"><h3>${sermon.title}</h3>${dateInfo}${speakerInfo}<p class="sermon-description-archive">${sermon.description}</p><div class="sermon-actions-archive"><a href="${sermon.youtubeUrl}" class="btn-archive play-sermon-button" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em"><path d="M8 5v14l11-7L8 5z"></path></svg>Watch Sermon</a><button class="btn-archive view-study-guide-button" data-study-guide-url="${sermon.studyGuideUrl}" aria-label="View Study Guide for ${sermon.title}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"></path></svg>View Study Guide</button></div></div>`;
+                    archiveDisplayContainer.appendChild(sermonItem);
+                });
+                const studyGuideButtons = archiveDisplayContainer.querySelectorAll('.view-study-guide-button');
+                studyGuideButtons.forEach(button => { button.addEventListener('click', () => { const studyGuideUrl = button.getAttribute('data-study-guide-url'); if (studyGuideUrl && studyGuideUrl !== "undefined" && studyGuideUrl !== "null") { window.location.href = studyGuideUrl; } else { alert('Study guide is not available.'); } }); });
+            }
+            displayArchivedSermons();
+
+            const uploadModalContainer = document.getElementById('uploadModalContainer'); const uploadModalCloseButton = document.getElementById('modalCloseButton'); const uploadModalBackdrop = document.getElementById('modalBackdrop'); const fileUploadForm = document.getElementById('fileUploadForm'); const modalUploadButton = document.getElementById('modalUploadButton');
+            let uploadModalFirstFocusableElement, uploadModalLastFocusableElement, uploadModalPreviouslyFocusedElement;
+            function setupUploadModalFocusableElements() { const focusableElementsString = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'; const focusableElements = uploadModalContainer.querySelectorAll(focusableElementsString); if (focusableElements.length > 0) { uploadModalFirstFocusableElement = focusableElements[0]; uploadModalLastFocusableElement = focusableElements[focusableElements.length - 1]; } else { uploadModalFirstFocusableElement = uploadModalContainer; uploadModalLastFocusableElement = uploadModalContainer; } }
+            function openUploadModal() { if (!uploadModalContainer) return; uploadModalPreviouslyFocusedElement = document.activeElement; uploadModalContainer.style.display = 'flex'; setTimeout(() => { uploadModalContainer.classList.add('is-open'); }, 10); document.body.classList.add('modal-open'); uploadModalContainer.setAttribute('aria-hidden', 'false'); mainPageElementsToHide.forEach(el => el.setAttribute('aria-hidden', 'true')); setupUploadModalFocusableElements(); uploadModalFirstFocusableElement.focus(); document.addEventListener('keydown', handleUploadModalKeydown); }
+            function closeUploadModal() { if (!uploadModalContainer) return; uploadModalContainer.classList.remove('is-open'); uploadModalContainer.addEventListener('transitionend', function handleTransitionEnd() { if (!uploadModalContainer.classList.contains('is-open')) { uploadModalContainer.style.display = 'none'; } uploadModalContainer.removeEventListener('transitionend', handleTransitionEnd); }, { once: true }); document.body.classList.remove('modal-open'); uploadModalContainer.setAttribute('aria-hidden', 'true'); mainPageElementsToHide.forEach(el => el.setAttribute('aria-hidden', 'false')); if (uploadModalPreviouslyFocusedElement) { uploadModalPreviouslyFocusedElement.focus(); } document.removeEventListener('keydown', handleUploadModalKeydown); }
+            function handleUploadModalKeydown(e) { if (e.key === 'Escape') closeUploadModal(); if (e.key === 'Tab') { if (e.shiftKey) { if (document.activeElement === uploadModalFirstFocusableElement) { uploadModalLastFocusableElement.focus(); e.preventDefault(); } } else { if (document.activeElement === uploadModalLastFocusableElement) { uploadModalFirstFocusableElement.focus(); e.preventDefault(); } } } }
+            if (uploadModalCloseButton) uploadModalCloseButton.addEventListener('click', closeUploadModal);
+            if (uploadModalBackdrop) uploadModalBackdrop.addEventListener('click', closeUploadModal);
+            if (modalUploadButton && fileUploadForm) { modalUploadButton.addEventListener('click', (e) => { e.preventDefault(); const fileInput = document.getElementById('fileInput'); if (fileInput && fileInput.files.length > 0) { alert('File "' + fileInput.files[0].name + '" selected for upload (simulation).'); } else { alert('Please select a file.'); return; } closeUploadModal(); fileUploadForm.reset(); }); }
+
+            const imageDisplayModal = document.getElementById('imageDisplayModalContainer'); const imageDisplayModalCloseBtn = document.getElementById('imageDisplayModalCloseButton'); const imageDisplayModalBackdrop = document.getElementById('imageDisplayModalBackdrop');
+            let imgModalFirstFocusableElement, imgModalLastFocusableElement, imgModalPreviouslyFocusedElement;
+            function setupImageDisplayModalFocusableElements() { const focusableElementsString = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'; const focusableElements = imageDisplayModal.querySelectorAll(focusableElementsString); if (focusableElements.length > 0) { imgModalFirstFocusableElement = focusableElements[0]; imgModalLastFocusableElement = focusableElements[focusableElements.length - 1]; } else { imgModalFirstFocusableElement = imageDisplayModal; imgModalLastFocusableElement = imageDisplayModal; } }
+            function openImageDisplayModal() { if (!imageDisplayModal) return; imgModalPreviouslyFocusedElement = document.activeElement; imageDisplayModal.style.display = 'flex'; setTimeout(() => { imageDisplayModal.classList.add('is-open'); document.body.classList.add('modal-open'); }, 10); imageDisplayModal.setAttribute('aria-hidden', 'false'); mainPageElementsToHide.forEach(el => el.setAttribute('aria-hidden', 'true')); setupImageDisplayModalFocusableElements(); if (imgModalFirstFocusableElement) imgModalFirstFocusableElement.focus(); document.addEventListener('keydown', handleImageDisplayModalKeydown); }
+            function closeImageDisplayModal() { if (!imageDisplayModal) return; imageDisplayModal.classList.remove('is-open'); imageDisplayModal.addEventListener('transitionend', function handleImgModalTransitionEnd() { if (!imageDisplayModal.classList.contains('is-open')) { imageDisplayModal.style.display = 'none'; } imageDisplayModal.removeEventListener('transitionend', handleImgModalTransitionEnd); }, { once: true }); document.body.classList.remove('modal-open'); imageDisplayModal.setAttribute('aria-hidden', 'true'); mainPageElementsToHide.forEach(el => el.setAttribute('aria-hidden', 'false')); if (imgModalPreviouslyFocusedElement) imgModalPreviouslyFocusedElement.focus(); document.removeEventListener('keydown', handleImageDisplayModalKeydown); }
+            function handleImageDisplayModalKeydown(e) { if (e.key === 'Escape') closeImageDisplayModal(); if (e.key === 'Tab') { if (!imgModalFirstFocusableElement) return; if (e.shiftKey) { if (document.activeElement === imgModalFirstFocusableElement) { imgModalLastFocusableElement.focus(); e.preventDefault(); } } else { if (document.activeElement === imgModalLastFocusableElement) { imgModalFirstFocusableElement.focus(); e.preventDefault(); } } } }
+            if (imageDisplayModalCloseBtn) imageDisplayModalCloseBtn.addEventListener('click', closeImageDisplayModal);
+            if (imageDisplayModalBackdrop) imageDisplayModalBackdrop.addEventListener('click', closeImageDisplayModal);
+
+            if (!isReducedMotion) {
+                const starsContainer = document.getElementById('twinklingStarsContainer');
+                if (starsContainer) { for (let i = 0; i < 50; i++) { let star = document.createElement('span'); star.classList.add('twinkle-star'); const sr = Math.random(); if (sr < 0.33) star.classList.add('small'); else if (sr < 0.66) star.classList.add('medium'); else star.classList.add('large'); star.style.top = `${Math.random() * 100}%`; star.style.left = `${Math.random() * 100}%`; star.style.animationDelay = `${Math.random() * 5}s`; starsContainer.appendChild(star); } }
+
+                const mistContainer = document.getElementById('mist-canvas-container');
+                if (mistContainer) { for (let i = 0; i < 20; i++) { let p = document.createElement('div'); p.classList.add('mist-particle'); const s = Math.random() * 150 + 50; p.style.width = `${s}px`; p.style.height = `${s * (Math.random() * 0.3 + 0.4)}px`; const initialX = Math.random() * 100; p.style.setProperty('--mist-initial-x', `${initialX}%`); p.style.left = `${initialX}%`; p.style.transform = `translateX(-50%)`; p.style.animationDuration = `${Math.random() * 15 + 10}s`; p.style.animationDelay = `${Math.random() * 10}s`; p.style.setProperty('--mist-opacity', (Math.random() * 0.4 + 0.3).toFixed(2)); mistContainer.appendChild(p); } }
+            }
+
+            function initThreeJSInteractiveEffects() {
+                if (typeof THREE === 'undefined') { console.warn("Three.js library not loaded."); return; }
+                if (isReducedMotion) { console.log("Reduced motion preferred, skipping 3.js animations."); return; }
+                const container = document.getElementById('threejs-canvas-container'); if (!container) return;
+                let scene, camera, renderer, particles; let mouseX = 0, mouseY = 0; const particleCount = 50;
+                try {
+                    scene = new THREE.Scene(); camera = new THREE.PerspectiveCamera(75, container.offsetWidth / container.offsetHeight, 1, 1000); camera.position.z = 50;
+                    renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true }); renderer.setSize(container.offsetWidth, container.offsetHeight); renderer.setPixelRatio(window.devicePixelRatio); container.appendChild(renderer.domElement);
+                    const positions = new Float32Array(particleCount * 3); const colors = new Float32Array(particleCount * 3);
+                    const baseColorCSS = getComputedStyle(document.documentElement).getPropertyValue('--welcome-gold-twinkle').trim() || 'rgba(255,215,0,0.8)'; const baseColor = new THREE.Color(baseColorCSS);
+                    for (let i = 0; i < particleCount; i++) { positions[i * 3] = (Math.random() - 0.5) * 100; positions[i * 3 + 1] = (Math.random() - 0.5) * 100; positions[i * 3 + 2] = (Math.random() - 0.5) * 30; colors[i * 3] = baseColor.r; colors[i * 3 + 1] = baseColor.g; colors[i * 3 + 2] = baseColor.b; }
+                    const geometry = new THREE.BufferGeometry(); geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3)); geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+                    const material = new THREE.PointsMaterial({ size: 2, vertexColors: true, transparent: true, opacity: 0.7, sizeAttenuation: true, blending: THREE.AdditiveBlending });
+                    particles = new THREE.Points(geometry, material); scene.add(particles);
+                    const welcomeSection = document.getElementById('welcome'); if (welcomeSection) welcomeSection.addEventListener('mousemove', onMouseMove, false);
+                    window.addEventListener('resize', onWindowResize, false); animate3JS();
+                } catch (err) { console.error("Error initializing Three.js effects:", err); if (container) container.style.display = 'none'; }
+                function onMouseMove(event) { if (!container) return; const rect = container.getBoundingClientRect(); mouseX = ((event.clientX - rect.left) - container.offsetWidth / 2) / 5; mouseY = ((event.clientY - rect.top) - container.offsetHeight / 2) / 5; }
+                function onWindowResize() { if (!container || !renderer || !camera) return; camera.aspect = container.offsetWidth / container.offsetHeight; camera.updateProjectionMatrix(); renderer.setSize(container.offsetWidth, container.offsetHeight); }
+                function animate3JS() { if (isReducedMotion || !renderer) return; requestAnimationFrame(animate3JS); if (particles) { particles.rotation.x += (mouseY * 0.0001 - particles.rotation.x) * 0.05; particles.rotation.y += (mouseX * 0.0001 - particles.rotation.y) * 0.05; } renderer.render(scene, camera); }
+            }
+            initThreeJSInteractiveEffects();
+
+            // --- Hourly Scripture Verse Logic ---
+            const hourlyVerses = [
+                { text: "Your word is a lamp to my feet and a light to my path.", reference: "Psalm 119:105" }, // Hour 0
+                { text: "The steadfast love of the LORD never ceases; his mercies never come to an end; they are new every morning; great is your faithfulness.", reference: "Lamentations 3:22-23" }, // Hour 1
+                { text: "But they who wait for the LORD shall renew their strength; they shall mount up with wings like eagles; they shall run and not be weary; they shall walk and not faint.", reference: "Isaiah 40:31" }, // Hour 2
+                { text: "For his anger is but for a moment, and his favor is for a lifetime. Weeping may tarry for the night, but joy comes with the morning.", reference: "Psalm 30:5" }, // Hour 3
+                { text: "Come to me, all who labor and are heavy laden, and I will give you rest.", reference: "Matthew 11:28" }, // Hour 4
+                { text: "And you will know the truth, and the truth will set you free.", reference: "John 8:32" }, // Hour 5
+                { text: "Trust in the LORD with all your heart, and do not lean on your own understanding. In all your ways acknowledge him, and he will make straight your paths.", reference: "Proverbs 3:5-6" }, // Hour 6
+                { text: "If any of you lacks wisdom, let him ask God, who gives generously to all without reproach, and it will be given him.", reference: "James 1:5" }, // Hour 7
+                { text: "I can do all things through him who strengthens me.", reference: "Philippians 4:13" }, // Hour 8
+                { text: "All Scripture is breathed out by God and profitable for teaching, for reproof, for correction, and for training in righteousness, that the man of God may be complete, equipped for every good work.", reference: "2 Timothy 3:16-17" }, // Hour 9
+                { text: "Jesus said to him, 'I am the way, and the truth, and the life. No one comes to the Father except through me.'", reference: "John 14:6" }, // Hour 10
+                { text: "So faith comes from hearing, and hearing through the word of Christ.", reference: "Romans 10:17" }, // Hour 11
+                { text: "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.", reference: "John 3:16" }, // Hour 12
+                { text: "For by grace you have been saved through faith. And this is not your own doing; it is the gift of God, not a result of works, so that no one may boast.", reference: "Ephesians 2:8-9" }, // Hour 13
+                { text: "For the word of God is living and active, sharper than any two-edged sword, piercing to the division of soul and of spirit, of joints and of marrow, and discerning the thoughts and intentions of the heart.", reference: "Hebrews 4:12" }, // Hour 14
+                { text: "But seek first the kingdom of God and his righteousness, and all these things will be added to you.", reference: "Matthew 6:33" }, // Hour 15
+                { text: "But the fruit of the Spirit is love, joy, peace, patience, kindness, goodness, faithfulness, gentleness, self-control; against such things there is no law.", reference: "Galatians 5:22-23" }, // Hour 16
+                { text: "If we confess our sins, he is faithful and just to forgive us our sins and to cleanse us from all unrighteousness.", reference: "1 John 1:9" }, // Hour 17
+                { text: "Blessed is the one who reads aloud the words of this prophecy, and blessed are those who hear, and who keep what is written in it, for the time is near.", reference: "Revelation 1:3" }, // Hour 18
+                { text: "Rejoice always, pray without ceasing, give thanks in all circumstances; for this is the will of God in Christ Jesus for you.", reference: "1 Thessalonians 5:16-18" }, // Hour 19
+                { text: "Behold, I am coming soon, bringing my recompense with me, to repay each one for what he has done.", reference: "Revelation 22:12" }, // Hour 20
+                { text: "The LORD is my shepherd; I shall not want.", reference: "Psalm 23:1" }, // Hour 21
+                { text: "He will wipe away every tear from their eyes, and death shall be no more, neither shall there be mourning, nor crying, nor pain anymore, for the former things have passed away.", reference: "Revelation 21:4" }, // Hour 22
+                { text: "In the beginning was the Word, and the Word was with God, and the Word was God.", reference: "John 1:1" } // Hour 23
+            ];
+
+            const scriptureQuoteElement = document.querySelector('#stream .scripture-quote');
+            let scriptureTextElement, scriptureRefElement;
+
+            if (scriptureQuoteElement) {
+                scriptureTextElement = scriptureQuoteElement.querySelector('p');
+                scriptureRefElement = scriptureQuoteElement.querySelector('footer');
+            }
+
+            function updateHourlyVerse() {
+                if (!scriptureTextElement || !scriptureRefElement) {
+                    // console.warn("Scripture quote elements not found in #stream section. This might be normal if the section was repurposed differently.");
+                    return;
+                }
+
+                const currentHour = new Date().getHours();
+                const verseToShow = hourlyVerses[currentHour];
+
+                if (verseToShow) {
+                    scriptureTextElement.textContent = `"${verseToShow.text}"`;
+                    scriptureRefElement.textContent = `- ${verseToShow.reference}`;
+                } else {
+                    // Fallback, though with 24 verses this should ideally not be hit unless currentHour is unexpected
+                    scriptureTextElement.textContent = `"Your word is a lamp to my feet and a light to my path."`;
+                    scriptureRefElement.textContent = `- Psalm 119:105`; // Default fallback
+                }
+            }
+
+            function scheduleNextVerseUpdate() {
+                const now = new Date();
+                // Calculate milliseconds until the start of the next hour + a tiny delay (1ms)
+                const nextHour = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours() + 1, 0, 0, 1);
+                const msUntilNextHour = nextHour.getTime() - now.getTime();
+
+                setTimeout(() => {
+                    updateHourlyVerse();
+                    // After the first update at the top of the hour, set an interval for subsequent hours
+                    setInterval(updateHourlyVerse, 60 * 60 * 1000); // 1 hour in milliseconds
+                }, msUntilNextHour);
+            }
+
+            // Initial call and schedule next updates, only if the scripture quote elements exist
+            if (scriptureQuoteElement && scriptureTextElement && scriptureRefElement) {
+                updateHourlyVerse(); // Update immediately on load
+                scheduleNextVerseUpdate(); // Schedule updates for subsequent hours
+            }
+            // --- End Hourly Scripture Verse Logic ---
+
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podcast Player | Set Free by the Truth</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@400;700&display=swap"
+        rel="stylesheet">
+            <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1BJM4LM7JC"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-1BJM4LM7JC');
+    </script>
+    <!-- END Google tag (gtag.js) -->
+    <style>
+        :root {
+            --podcast-bg-dark: #1A1A1D;
+            --podcast-scarlet-red: #C3073F;
+            --podcast-rich-gold: #D4A017;
+            --podcast-silver: #BDC3C7;
+            --podcast-text-light: #F5F5F5;
+            
+            --podcast-rich-gold-rgb: 212, 160, 23;
+            --podcast-scarlet-red-rgb: 195, 7, 63;
+            --podcast-silver-rgb: 189, 195, 199;
+            --podcast-bg-medium: #2c2c30; 
+            --podcast-bg-light-accent: #38383c; /* Slightly lighter than medium for accents */
+
+            --font-body: 'Lora', serif;
+            --font-heading: 'Poppins', sans-serif;
+            --font-ornate: 'Cinzel', serif;
+
+            --soft-shadow-dark-theme: 0 8px 25px rgba(0, 0, 0, 0.3);
+            --element-reveal-duration: 0.7s;
+
+            /* Project Titan Player Specific Variables */
+            --player-bg: #232326; /* Slightly different from podcast-bg-medium for distinction */
+            --player-accent-color: var(--podcast-rich-gold); 
+            --player-text-primary: var(--podcast-text-light);
+            --player-text-secondary: var(--podcast-silver);
+            --player-control-icon-size: 22px;
+            --player-play-icon-size: 28px;
+            --player-border-radius: 12px; /* Softer, more modern radius */
+            --player-padding: 1.5rem;
+            --player-shadow: 0 10px 30px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.75;
+            margin: 0;
+            padding: 25px; 
+            background-color: var(--podcast-bg-dark);
+            color: var(--podcast-text-light);
+            font-size: 17px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 25px auto;
+            background-color: rgba(0, 0, 0, 0.25); 
+            border: 1px solid var(--podcast-silver);
+            border-image: linear-gradient(to bottom right, var(--podcast-silver), var(--podcast-rich-gold)) 1;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4), 0 0 20px -10px rgba(var(--podcast-scarlet-red-rgb), 0.7);
+            opacity: 0;
+            animation: fadeInPage var(--element-reveal-duration) ease-out forwards 0.2s;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes fadeInPage {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .back-button-container {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .back-button {
+            display: inline-block;
+            background-image: linear-gradient(to right, var(--podcast-scarlet-red) 0%, var(--podcast-rich-gold) 70%, var(--podcast-scarlet-red) 100%);
+            background-size: 200% auto;
+            color: var(--podcast-text-light);
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            border-radius: 5px;
+            text-align: center;
+            transition: background-position 0.4s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .back-button:hover,
+        .back-button:focus {
+            background-position: right center;
+            transform: scale(1.03);
+            color: #fff;
+            text-shadow: 0 0 5px #000;
+            box-shadow: 0 4px 8px rgba(var(--podcast-rich-gold-rgb),0.4);
+        }
+
+        .header-image-container {
+            width: 100%;
+            margin-bottom: 2rem; 
+            animation: slideDownFadeIn 0.8s ease-out forwards 0.3s; 
+            position: relative;
+        }
+
+        .header-image {
+            width: 100%;
+            height: auto; 
+            object-fit: cover; /* Changed to cover for better aesthetics if image is not square */
+            max-height: 300px; /* Added max-height */
+            border-radius: 8px;
+            display: block;
+            border: 2px solid var(--podcast-silver); 
+        }
+
+        h1 { /* Page Title */
+            font-family: var(--font-ornate, var(--font-heading)); 
+            color: var(--podcast-rich-gold); 
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7), 0 0 8px rgba(var(--podcast-rich-gold-rgb), 0.7); 
+            text-align: center;
+            border-bottom: 2px solid var(--podcast-rich-gold); 
+            padding-bottom: 20px;
+            margin-top: 0;
+            margin-bottom: 2rem; 
+            font-size: 2.5em; 
+            font-weight: 700;
+            letter-spacing: 1px;
+            animation: slideDownFadeIn 0.8s ease-out forwards 0.5s;
+        }
+
+        .embedded-podcast-player-area h2 { /* Title "Set Free by the Truth" */
+            font-family: var(--font-heading);
+            margin-top: 1em;
+            margin-bottom: 1.2em; 
+            text-align: center;
+            border-bottom: none; 
+            padding-bottom: 0.5em;
+            font-size: 1.8em;
+            color: var(--podcast-silver);
+            transition: color 0.3s ease;
+        }
+        
+        .embedded-podcast-player-area { 
+            padding: 0; /* Removed padding, player will have its own */
+            background-color: transparent; /* Removed background, player will have its own */
+            border-radius: var(--player-border-radius);
+            margin-bottom: 2rem; 
+            border: none; /* Removed border, player will have its own */
+            transition: border-color 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+        }
+        
+        /* --- Project Titan: Custom Audio Player Styles --- */
+        .custom-audio-player {
+            background-color: var(--player-bg);
+            border-radius: var(--player-border-radius);
+            padding: var(--player-padding);
+            box-shadow: var(--player-shadow);
+            color: var(--player-text-primary);
+            margin-top: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem; /* Space between major sections */
+        }
+
+        .player-info-area {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(var(--podcast-silver-rgb), 0.15);
+        }
+
+        .player-album-art {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .player-track-details {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* Prevent text overflow issues */
+        }
+
+        .player-track-details .track-title {
+            font-family: var(--font-heading);
+            font-size: 1.1em;
+            font-weight: 600;
+            color: var(--player-text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 0.2em;
+        }
+
+        .player-track-details .track-artist {
+            font-family: var(--font-body);
+            font-size: 0.9em;
+            color: var(--player-text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .player-timeline {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            width: 100%;
+        }
+        .player-timeline .time-current,
+        .player-timeline .time-duration {
+            font-size: 0.85em;
+            color: var(--player-text-secondary);
+            min-width: 35px; 
+            text-align: center;
+            font-family: var(--font-heading);
+        }
+
+        .progress-bar-container {
+            flex-grow: 1;
+            height: 10px; /* Slightly thicker */
+            background-color: rgba(var(--podcast-silver-rgb), 0.2);
+            border-radius: 5px; /* Rounded to match height */
+            cursor: pointer;
+            position: relative; 
+            transition: height 0.2s ease;
+        }
+        .progress-bar-container:hover {
+            height: 12px; /* Enlarge on hover */
+        }
+        .progress-bar-played {
+            height: 100%;
+            width: 0%;
+            background-color: var(--player-accent-color);
+            border-radius: 5px;
+            transition: width 0.1s linear;
+        }
+        
+        .seek-slider { /* Hidden, but functional for accessibility and clicking progress bar */
+            position: absolute;
+            top: -3px; /* Adjust based on progress-bar-container height */
+            left: 0;
+            width: 100%;
+            height: 16px; /* Clickable area */
+            margin: 0;
+            cursor: pointer;
+            opacity: 0; 
+            z-index: 2; 
+        }
+        .player-controls-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .player-controls-main {
+            display: flex;
+            justify-content: center; /* Center main controls */
+            align-items: center;
+            gap: 1rem; /* Adjust gap as needed */
+        }
+        .control-button {
+            background: none;
+            border: none;
+            color: var(--player-text-secondary);
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: color 0.2s ease, transform 0.2s ease;
+            display: flex; /* For better icon alignment */
+            justify-content: center;
+            align-items: center;
+        }
+        .control-button:hover {
+            color: var(--player-accent-color);
+            transform: scale(1.15);
+        }
+        .control-button.active { /* For shuffle/repeat active state */
+            color: var(--player-accent-color);
+        }
+        .control-button svg {
+            width: var(--player-control-icon-size);
+            height: var(--player-control-icon-size);
+            display: block;
+        }
+        .play-pause-button {
+            background-color: var(--player-accent-color);
+            color: var(--player-bg); /* Icon color contrast with accent bg */
+            border-radius: 50%;
+            width: 48px; /* Larger touch target */
+            height: 48px;
+            padding: 0; /* SVG will be centered by flex */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .play-pause-button:hover {
+            background-color: var(--podcast-rich-gold); /* Keep gold for play/pause hover */
+            color: #fff;
+            transform: scale(1.05); /* More subtle scale for this button */
+        }
+        .play-pause-button svg {
+            width: var(--player-play-icon-size); 
+            height: var(--player-play-icon-size);
+        }
+        .skip-button svg { /* Skip buttons are standard size */
+             width: var(--player-control-icon-size);
+            height: var(--player-control-icon-size);
+        }
+
+
+        .player-controls-secondary {
+            display: flex;
+            justify-content: space-between; /* Space out volume and speed */
+            align-items: center;
+            gap: 0.75rem; 
+            padding: 0.5rem 0.25rem; /* Add some padding */
+        }
+        .volume-controls-group { /* Group mute and volume slider */
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .player-controls-secondary .mute-button svg {
+            width: 20px;
+            height: 20px;
+        }
+        .volume-slider {
+            width: 80px; /* More compact */
+            height: 6px;
+            background-color: rgba(var(--podcast-silver-rgb), 0.2);
+            border-radius: 3px;
+            -webkit-appearance: none;
+            appearance: none;
+            cursor: pointer;
+            outline: none;
+            transition: opacity 0.2s ease;
+        }
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            background: var(--player-text-secondary);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+        .volume-slider::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            background: var(--player-text-secondary);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+        .volume-slider:hover::-webkit-slider-thumb,
+        .volume-slider:hover::-moz-range-thumb {
+            background: var(--player-accent-color);
+            transform: scale(1.1);
+        }
+        
+        .simple-playback-controls { 
+            /* margin-left: auto; Removed, using flex space-between on parent */
+            display: flex;
+            align-items: center;
+            font-family: var(--font-heading);
+        }
+        .simple-playback-controls label {
+            margin-right: 8px; /* Increased spacing */
+            font-weight: 500; 
+            font-size: 0.85em; /* Slightly smaller */
+            color: var(--player-text-secondary);
+        }
+        .simple-playback-controls select {
+            font-family: var(--font-body);
+            background-color: var(--podcast-bg-light-accent); /* Use a lighter accent */
+            color: var(--player-text-primary);
+            border: 1px solid rgba(var(--podcast-silver-rgb), 0.3);
+            padding: 5px 8px; 
+            border-radius: 4px;
+            font-size: 0.8em; /* Slightly smaller */
+            cursor: pointer;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .simple-playback-controls select option {
+            background-color: var(--player-bg); 
+            color: var(--player-text-primary);
+        }
+        .simple-playback-controls select:focus {
+            outline: none;
+            border-color: var(--player-accent-color);
+            box-shadow: 0 0 0 2px rgba(var(--podcast-rich-gold-rgb), 0.4); /* Use gold for consistency */
+        }
+        .simple-playback-controls select.speed-changed {
+            animation: speedSelectFeedback 0.5s ease-out;
+        }
+        @keyframes speedSelectFeedback { /* Keep this as is, good feedback */
+            0% { box-shadow: 0 0 0 0 rgba(var(--podcast-rich-gold-rgb), 0.5); transform: scale(1); }
+            50% { box-shadow: 0 0 0 4px rgba(var(--podcast-rich-gold-rgb), 0.25); transform: scale(1.03); }
+            100% { box-shadow: 0 0 0 0 rgba(var(--podcast-rich-gold-rgb), 0.5); transform: scale(1); }
+        }
+        
+        .youtube-fallback { 
+            text-align: center;
+            margin-top: 1.2rem; 
+            margin-bottom: 0.5rem; 
+            font-size: 0.9em;
+            color: var(--podcast-silver);
+        }
+        .youtube-fallback p {
+            margin-bottom: 5px !important;
+            font-size: inherit !important;
+            color: inherit !important;
+            text-align: center !important;
+            line-height: 1.4;
+        }
+        .youtube-inline-link {
+            color: var(--podcast-rich-gold);
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        .youtube-inline-link:hover {
+            color: var(--podcast-silver);
+            text-decoration: none;
+        }
+
+        .audio-error-message { 
+            color: var(--podcast-scarlet-red); 
+            font-weight: bold;
+            margin-top: 0.75rem; 
+            text-align: center;
+            font-family: var(--font-heading);
+            font-size: 0.9em;
+            padding: 0.5rem var(--player-padding); /* Consistent padding */
+        }
+
+        .now-playing-indicator {
+            display: none;
+            font-family: var(--font-heading);
+            font-size: 0.85em; /* Slightly smaller */
+            color: var(--player-accent-color); 
+            font-weight: 500; /* Less bold */
+            text-align: center;
+            height: 1.2em; 
+            /* margin-top: 0.75rem; -- Now positioned absolute or handled by flex gap */
+        }
+        .custom-audio-player.is-playing .now-playing-indicator { 
+            display: block;
+            animation: fadeInIndicator 0.5s ease-out;
+        }
+        .custom-audio-player.is-paused .now-playing-indicator { 
+            display: block; 
+            opacity: 0.7;
+        }
+        @keyframes fadeInIndicator {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* END Project Titan: Custom Audio Player Styles */
+        
+        .episode-details-section {
+            background-color: rgba(0,0,0, 0.12); 
+            border: 1px solid rgba(var(--podcast-silver-rgb), 0.15);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem; 
+            color: var(--podcast-text-light);
+        }
+
+        .episode-details-section h3 {
+            font-family: var(--font-heading); 
+            color: var(--podcast-rich-gold);
+            margin-bottom: 1rem;
+            font-size: 1.5em; 
+            border-bottom: 1px solid rgba(var(--podcast-silver-rgb), 0.3);
+            padding-bottom: 0.6rem;
+        }
+
+        .episode-details-section p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            color: var(--podcast-text-light); 
+        }
+
+        .episode-details-section ul {
+            list-style-type: disc;
+            margin-left: 1.5rem; 
+            padding-left: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .episode-details-section li {
+            margin-bottom: 0.6rem;
+        }
+
+        .episode-details-section li a {
+            color: var(--podcast-silver); 
+            text-decoration: none;
+            font-weight: normal;
+            transition: color 0.2s ease;
+        }
+
+        .episode-details-section li a:hover {
+            text-decoration: underline;
+            color: var(--podcast-rich-gold);
+        }
+
+        @keyframes slideDownFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-on-scroll { 
+            opacity: 0;
+            transform: translateY(40px); 
+            transition: opacity var(--element-reveal-duration) ease-out, transform var(--element-reveal-duration) cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Responsive Adjustments for Titan Player --- */
+        @media (max-width: 768px) {
+            .custom-audio-player {
+                padding: 1rem; /* Smaller padding on mobile */
+            }
+            .player-info-area {
+                /* Could stack album art and info if very narrow, or keep side-by-side */
+                padding-bottom: 0.75rem;
+            }
+            .player-album-art {
+                width: 60px;
+                height: 60px;
+            }
+            .player-track-details .track-title {
+                font-size: 1em;
+            }
+            .player-track-details .track-artist {
+                font-size: 0.8em;
+            }
+            .player-controls-main {
+                gap: 0.5rem; /* Tighter gap for main controls */
+            }
+             .play-pause-button {
+                width: 44px;
+                height: 44px;
+            }
+            .play-pause-button svg {
+                width: calc(var(--player-play-icon-size) - 4px);
+                height: calc(var(--player-play-icon-size) - 4px);
+            }
+             .control-button svg { /* General control buttons smaller */
+                width: calc(var(--player-control-icon-size) - 2px);
+                height: calc(var(--player-control-icon-size) - 2px);
+            }
+
+            .player-controls-secondary {
+                flex-direction: column; /* Stack secondary controls */
+                align-items: stretch; /* Stretch items to full width */
+                gap: 1rem;
+            }
+            .volume-controls-group {
+                justify-content: center; /* Center volume controls when stacked */
+            }
+            .simple-playback-controls {
+                justify-content: center; /* Center speed controls when stacked */
+            }
+            .volume-slider {
+                width: 120px; /* Allow more space when stacked */
+            }
+        }
+
+        @media (max-width: 480px) {
+             :root { /* Further reduce sizes for very small screens */
+                --player-control-icon-size: 18px;
+                --player-play-icon-size: 22px;
+             }
+            .player-info-area {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .player-album-art {
+                margin-bottom: 0.5rem;
+            }
+            .player-controls-main {
+                /* Make sure controls fit, maybe wrap or ensure smaller icons */
+                gap: 0.3rem;
+                justify-content: space-around; /* Distribute controls evenly if tight */
+            }
+            .play-pause-button {
+                width: 40px;
+                height: 40px;
+            }
+        }
+        
+        @media print {
+            body {
+                background-color: #fff !important;
+                color: #000 !important;
+                margin: 20px;
+                padding: 0;
+                font-size: 11pt;
+                line-height: 1.45;
+            }
+            .back-button-container,
+            .header-image-container,
+            .custom-audio-player, 
+            #embeddedSermonAudio, 
+            .youtube-fallback, 
+            .now-playing-indicator,
+            .audio-error-message,
+            .episode-details-section { 
+                display: none !important;
+            }
+
+            .container {
+                background-color: #fff !important;
+                box-shadow: none !important;
+                border: none !important;
+                border-radius: 0;
+                padding: 0;
+                max-width: 100%;
+                margin: 0 auto;
+                opacity: 1 !important; 
+                animation: none !important; 
+            }
+
+            h1, .embedded-podcast-player-area h2 { 
+                color: #000 !important;
+                font-family: 'Times New Roman', Times, serif; 
+                text-align: left !important; 
+                animation: none !important;
+                text-shadow: none !important;
+            }
+
+            h1 { 
+                font-size: 18pt; 
+                border-bottom: 2px solid #000 !important; 
+                padding-bottom: 8px; 
+                margin-bottom: 18px; 
+            }
+            .embedded-podcast-player-area h2 { 
+                font-size: 15pt; 
+                border-bottom: 1px solid #333 !important; 
+                padding-bottom: 7px; 
+                margin-bottom: 14px; 
+                margin-top: 22px;
+            }
+            
+            .animate-on-scroll { 
+                opacity: 1 !important; 
+                transform: none !important; 
+            } 
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="back-button-container">
+            <a href="index.html" class="back-button">« Back to Podcasts</a>
+        </div>
+
+        <div class="header-image-container">
+            <img src="Assets/pics/set free.png" alt="Set Free by the Truth Podcast Art" class="header-image" id="pageHeaderImage">
+        </div>
+
+        <h1>Set Free by the Truth</h1>
+
+        <div id="podcast-player-wrapper" class="embedded-podcast-player-area animate-on-scroll">
+            <!-- Original H2 for context if needed, or can be removed if player has all info -->
+            <!-- <h2>Set Free by the Truth</h2> -->
+            
+            <audio id="embeddedSermonAudio" controlsList="nodownload">
+                <source src="Assets/audio/jesus.mp3" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+
+            <div class="custom-audio-player" id="customPlayer">
+                <div class="player-info-area">
+                    <img src="Assets/pics/set free.png" alt="Album Art" class="player-album-art" id="playerAlbumArt">
+                    <div class="player-track-details">
+                        <p class="track-title" id="playerTrackTitle"></p>
+                        <p class="track-artist" id="playerTrackArtist">Original Sermon by Pastor Sprianu</p>
+                    </div>
+                </div>
+
+                <div class="player-timeline">
+                    <span class="time-current" id="currentTime">0:00</span>
+                    <div class="progress-bar-container" id="progressBarContainer">
+                        <div class="progress-bar-played" id="progressBarPlayed"></div>
+                        <input type="range" class="seek-slider" id="seekSlider" value="0" max="100" step="0.1" aria-label="Seek audio position">
+                    </div>
+                    <span class="time-duration" id="totalDuration">0:00</span>
+                </div>
+        
+                <div class="player-controls-wrapper">
+                    <div class="player-controls-main">
+                        <button class="control-button shuffle-button" id="shuffleButton" aria-label="Shuffle">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41L18.59 20 20 18.59l-5.17-5.18z"/></svg>
+                        </button>
+                        <button class="control-button skip-button" id="skipBackwardBtn" aria-label="Skip backward 10 seconds">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6L18 6v12l-8.5-6z" transform="scaleX(-1) translate(-24 0)"></path><path d="M17 6h2v12h-2z" transform="scaleX(-1) translate(-38 0)"></path></svg>
+                        </button>
+                        <button class="control-button play-pause-button" id="playPauseButton" aria-label="Play">
+                            <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+                            <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg>
+                        </button>
+                        <button class="control-button skip-button" id="skipForwardBtn" aria-label="Skip forward 10 seconds">
+                             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"></path><path d="M4 6h2v12H4zm13 0h2v12h-2z" transform="translate(-2 0)"></path></svg>
+                        </button>
+                        <button class="control-button repeat-button" id="repeatButton" aria-label="Repeat">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>
+                        </button>
+                    </div>
+            
+                    <div class="player-controls-secondary">
+                        <div class="volume-controls-group">
+                            <button class="control-button mute-button" id="muteButton" aria-label="Mute">
+                                <svg class="volume-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+                                <svg class="mute-icon" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L7 9H3V4.27L12 4z"></path></svg>
+                            </button>
+                            <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="1" aria-label="Volume">
+                        </div>
+                        
+                        <div class="simple-playback-controls">
+                            <label for="embeddedPlaybackSpeed">Speed:</label>
+                            <select id="embeddedPlaybackSpeed" aria-label="Playback speed">
+                                <option value="0.75">0.75x</option>
+                                <option value="1" selected>1x (Normal)</option>
+                                <option value="1.25">1.25x</option>
+                                <option value="1.5">1.5x</option>
+                                <option value="2">2x</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- JS appends .now-playing-indicator and .audio-error-message here -->
+            </div>
+
+            <div id="youtubeFallback" class="youtube-fallback"> 
+                <p>Also available on <a href="https://www.youtube.com/watch?v=uodWgUb-FjI" class="youtube-inline-link">YouTube</a>.</p>
+            </div>
+        </div>
+
+        <section class="episode-details-section animate-on-scroll">
+            <h3>About This Episode</h3>
+            <p><strong>Podcast Series: "Set Free by the Truth"</strong> - Join us as we delve into profound spiritual topics, exploring biblical truths and their relevance in today's world. Each episode offers deep insights and encourages a closer walk with faith.</p>
+            <p><strong>Episode Hook:</strong> Alright, so, you ever just look around and think, 'Man, why are there SO many different Christian churches?' Thousands of 'em! It can totally make your head spin.<br><br>Well, that's what we're getting into today – how all these denominations popped up. We're gonna try and make sense of the confusion and see where all this variety came from, no theology degree needed!<br><br>And just so you know, our main guide for this chat is a sermon Pastor Sprianu gave on Wednesday, May 14, 2025, around 3 PM EST. We've got the word-for-word transcript, and it's the main thing we're drawing from. He uses this cool 'Four Horsemen' idea from Revelation to walk through church history – from the early days, through changes, and how beliefs got lost and found.<br><br>So yeah, if you're curious about the whole church denomination explosion, stick around!</p>
+            <p><strong>Final Thoughts:</strong> And there you have it – our deep dive into why there are just <em>so many</em> Christian denominations out there, all based on that sermon from Pastor Sprianu. We traced it from that early, unified church, through those 'Four Horsemen' periods where things got a bit lost in translation, to the reformers who started bringing key biblical truths back to light.<br><br>The big idea we kept coming back to, from the source, is how this 'spiritual Babylon' of confusion can happen when human traditions overshadow what the Bible actually says. And that call to 'come out' and really seek God's truth for yourself? Pretty powerful stuff.<br><br>So, the question that sermon leaves us with, and maybe what we can all ponder, is: what beliefs are <em>we</em> holding onto that might need a fresh look through the lens of Scripture? Definitely food for thought.<br><br>Thanks so much for hanging out with us today. We hope this gave you a bit more clarity on a pretty complex topic. Catch you next time!</p>
+        </section>
+
+        <section class="episode-details-section animate-on-scroll">
+            <h3>Mentioned Scriptures</h3>
+            <ul>
+                <li><a href="https://www.biblegateway.com/passage/?search=Amos+3%3A7&version=KJV">Amos 3:7</a></li>
+                <li><a href="https://www.biblegateway.com/passage/?search=Revelation+6&version=KJV">Revelation Chapter 6</a></li>
+                <li><a href="https://www.biblegateway.com/passage/?search=Daniel+8&version=KJV">Daniel Chapter 8</a></li>
+                <li><a href="https://www.biblegateway.com/passage/?search=Revelation+18%3A2&version=KJV">Revelation 18:2</a></li>
+                <li><a href="https://www.biblegateway.com/passage/?search=Revelation+18%3A4&version=KJV">Revelation 18:4</a></li>
+                <li><a href="https://www.biblegateway.com/passage/?search=Revelation+14%3A12&version=KJV">Revelation 14:12</a></li>
+            </ul>
+        </section>
+
+    </div> <!-- End .container -->
+
+    <script>
+        const HEADER_IMAGE_URL = 'Assets/pics/set free.png'; // This is used for page header, and now also player album art
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const pageHeaderImage = document.getElementById('pageHeaderImage');
+            if (pageHeaderImage) pageHeaderImage.src = HEADER_IMAGE_URL;
+
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            if (animatedElements.length > 0 && "IntersectionObserver" in window) {
+                let observer = new IntersectionObserver((entries, observerInstance) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                        }
+                    });
+                }, { threshold: 0.1 });
+                animatedElements.forEach(el => observer.observe(el));
+            } else {
+                animatedElements.forEach(el => el.classList.add('is-visible'));
+            }
+
+            const audio = document.getElementById('embeddedSermonAudio');
+            const customPlayer = document.getElementById('customPlayer');
+            
+            // New Titan Player Elements
+            const playerAlbumArt = document.getElementById('playerAlbumArt');
+            // const playerTrackTitle = document.getElementById('playerTrackTitle'); // Already set in HTML
+            // const playerTrackArtist = document.getElementById('playerTrackArtist'); // Already set in HTML
+            if (playerAlbumArt) playerAlbumArt.src = HEADER_IMAGE_URL; // Set album art dynamically
+
+
+            const playPauseButton = document.getElementById('playPauseButton');
+            const playIcon = playPauseButton.querySelector('.play-icon');
+            const pauseIcon = playPauseButton.querySelector('.pause-icon');
+            const skipBackwardBtn = document.getElementById('skipBackwardBtn');
+            const skipForwardBtn = document.getElementById('skipForwardBtn');
+            
+            const progressBarContainer = document.getElementById('progressBarContainer');
+            const progressBarPlayed = document.getElementById('progressBarPlayed');
+            const seekSlider = document.getElementById('seekSlider');
+
+            const currentTimeEl = document.getElementById('currentTime');
+            const totalDurationEl = document.getElementById('totalDuration');
+            
+            const muteButton = document.getElementById('muteButton');
+            const volumeIcon = muteButton.querySelector('.volume-icon');
+            const muteIconSvg = muteButton.querySelector('.mute-icon');
+            const volumeSlider = document.getElementById('volumeSlider');
+            
+            const playbackSpeedSelect = document.getElementById('embeddedPlaybackSpeed');
+            // const podcastPlayerWrapper = document.getElementById('podcast-player-wrapper'); // May not be needed directly
+
+            // New Control Buttons
+            const shuffleButton = document.getElementById('shuffleButton');
+            const repeatButton = document.getElementById('repeatButton');
+
+
+            if(audio) audio.controls = false; // Ensure native controls are hidden
+
+            function togglePlayPause() {
+                if (audio.paused || audio.ended) {
+                    audio.play().catch(e => console.error("Error playing audio:", e));
+                } else {
+                    audio.pause();
+                }
+            }
+
+            function updatePlayPauseIcon() {
+                if (audio.paused || audio.ended) {
+                    playIcon.style.display = 'block';
+                    pauseIcon.style.display = 'none';
+                    playPauseButton.setAttribute('aria-label', 'Play');
+                    if (customPlayer) customPlayer.classList.remove('is-playing'); 
+                    if (audio.paused && !audio.ended && customPlayer) customPlayer.classList.add('is-paused'); else if (customPlayer) customPlayer.classList.remove('is-paused');
+                } else {
+                    playIcon.style.display = 'none';
+                    pauseIcon.style.display = 'block';
+                    playPauseButton.setAttribute('aria-label', 'Pause');
+                    if (customPlayer) { 
+                        customPlayer.classList.add('is-playing');
+                        customPlayer.classList.remove('is-paused');
+                    }
+                }
+            }
+
+            function skip(seconds) {
+                audio.currentTime = Math.max(0, Math.min(audio.duration || 0, audio.currentTime + seconds));
+            }
+
+            function formatTime(timeInSeconds) {
+                if (isNaN(timeInSeconds) || timeInSeconds < 0) return "0:00";
+                const minutes = Math.floor(timeInSeconds / 60);
+                const seconds = Math.floor(timeInSeconds % 60).toString().padStart(2, '0');
+                return `${minutes}:${seconds}`;
+            }
+
+            function updateProgress() {
+                if (audio.duration > 0 && !isNaN(audio.duration)) {
+                    const percentage = (audio.currentTime / audio.duration) * 100;
+                    progressBarPlayed.style.width = `${percentage}%`;
+                    seekSlider.value = audio.currentTime; 
+                } else {
+                     progressBarPlayed.style.width = `0%`;
+                     seekSlider.value = 0;
+                }
+                currentTimeEl.textContent = formatTime(audio.currentTime);
+            }
+            
+            function handleSeek(event) { // Can be triggered by 'input' or 'change'
+                 if (audio.duration > 0 && !isNaN(audio.duration)) {
+                    audio.currentTime = parseFloat(seekSlider.value);
+                 }
+            }
+            
+            // For direct click on progress bar container
+            function handleProgressBarClick(event) {
+                if (audio.duration > 0 && !isNaN(audio.duration)) {
+                    const progressBarRect = progressBarContainer.getBoundingClientRect();
+                    const clickPositionX = event.clientX - progressBarRect.left;
+                    const clickRatio = clickPositionX / progressBarRect.width;
+                    audio.currentTime = audio.duration * clickRatio;
+                }
+            }
+
+
+            function updateMuteIcon() {
+                if (audio.muted || audio.volume === 0) {
+                    volumeIcon.style.display = 'none';
+                    muteIconSvg.style.display = 'block';
+                    muteButton.setAttribute('aria-label', 'Unmute');
+                } else {
+                    volumeIcon.style.display = 'block';
+                    muteIconSvg.style.display = 'none';
+                    muteButton.setAttribute('aria-label', 'Mute');
+                }
+            }
+            
+            let lastVolume = 1;
+            function toggleMute() {
+                if (audio.muted) {
+                    audio.muted = false;
+                    audio.volume = lastVolume > 0.01 ? lastVolume : 0.5; 
+                    volumeSlider.value = audio.volume;
+                } else {
+                    lastVolume = audio.volume;
+                    audio.muted = true;
+                    // volumeSlider.value = 0; // Visually show mute on slider
+                }
+                updateMuteIcon();
+            }
+
+            if (customPlayer && audio) {
+                playPauseButton.addEventListener('click', togglePlayPause);
+                audio.addEventListener('play', updatePlayPauseIcon);
+                audio.addEventListener('pause', updatePlayPauseIcon);
+                audio.addEventListener('ended', updatePlayPauseIcon);
+
+                skipBackwardBtn.addEventListener('click', () => skip(-10));
+                skipForwardBtn.addEventListener('click', () => skip(10));
+
+                audio.addEventListener('loadedmetadata', () => {
+                    totalDurationEl.textContent = formatTime(audio.duration);
+                    seekSlider.max = audio.duration || 0; 
+                });
+                audio.addEventListener('timeupdate', updateProgress);
+                
+                seekSlider.addEventListener('input', handleSeek);
+                // 'change' event for seekSlider can also be used if 'input' is too frequent for some logic
+                // seekSlider.addEventListener('change', handleSeek); 
+
+                progressBarContainer.addEventListener('click', handleProgressBarClick);
+
+
+                muteButton.addEventListener('click', toggleMute);
+                volumeSlider.addEventListener('input', (e) => {
+                    audio.volume = parseFloat(e.target.value);
+                    audio.muted = parseFloat(e.target.value) === 0; 
+                    if(audio.muted && parseFloat(e.target.value) > 0) { // If user drags to 0, then back up
+                        lastVolume = parseFloat(e.target.value); // update lastVolume if unmuting via slider
+                    }
+                    updateMuteIcon();
+                });
+                audio.addEventListener('volumechange', () => {
+                    if (!audio.muted) {
+                        volumeSlider.value = audio.volume;
+                    }
+                    updateMuteIcon(); // Keep this to ensure icon syncs if volume is changed by other means
+                });
+                
+                // Shuffle and Repeat Button Logic (Visual Toggle)
+                if(shuffleButton) {
+                    shuffleButton.addEventListener('click', () => {
+                        shuffleButton.classList.toggle('active');
+                        console.log('Shuffle toggled:', shuffleButton.classList.contains('active'));
+                        // Add actual shuffle logic here if needed
+                    });
+                }
+                if(repeatButton) {
+                    repeatButton.addEventListener('click', () => {
+                        repeatButton.classList.toggle('active');
+                        const isRepeating = repeatButton.classList.contains('active');
+                        audio.loop = isRepeating;
+                        console.log('Repeat toggled:', isRepeating);
+                        // Could cycle through repeat-one, repeat-all, no-repeat states
+                    });
+                }
+
+
+                updatePlayPauseIcon();
+                updateMuteIcon();
+
+                // Create and append Now Playing / Error messages
+                // Ensure they are appended to a logical place within the new structure if needed
+                // Current setup appends them to customPlayer, which should still work
+                const nowPlayingIndicator = document.createElement('p');
+                nowPlayingIndicator.className = 'now-playing-indicator';
+                customPlayer.appendChild(nowPlayingIndicator); 
+
+                audio.addEventListener('play', () => {
+                    nowPlayingIndicator.textContent = '▶ Now Playing';
+                });
+                audio.addEventListener('pause', () => {
+                    nowPlayingIndicator.textContent = '❚❚ Paused';
+                });
+                audio.addEventListener('ended', () => {
+                    nowPlayingIndicator.textContent = 'Playback Ended';
+                    if (customPlayer) customPlayer.classList.remove('is-playing', 'is-paused');
+                     // If repeat is active, it might not show "Playback Ended" as it will loop.
+                    if (audio.loop) {
+                        audio.play(); // Restart if loop is active
+                    }
+                });
+
+                audio.addEventListener('error', (e) => {
+                    console.error("Embedded Sermon Audio Element Error Event:", e);
+                    let errorMsgText = "Error loading embedded audio: ";
+                    const sourceElement = audio.querySelector('source');
+                    const srcPath = sourceElement ? sourceElement.getAttribute('src') : 'N/A';
+                    
+                    if (audio.error) {
+                        switch (audio.error.code) {
+                            case MediaError.MEDIA_ERR_ABORTED: errorMsgText += "Playback aborted."; break;
+                            case MediaError.MEDIA_ERR_NETWORK: errorMsgText += "Network error. Check file path ('" + srcPath + "')."; break;
+                            case MediaError.MEDIA_ERR_DECODE: errorMsgText += "Decoding error. Path: " + srcPath; break;
+                            case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED: errorMsgText += "Format not supported or server/network error. Path: '" + srcPath + "'."; break;
+                            default: errorMsgText += "Unknown error. Code: " + audio.error.code; break;
+                        }
+                    } else { errorMsgText += "Unknown audio error."; }
+                    console.error(errorMsgText, "File:", srcPath, "CurrentSrc:", audio.currentSrc);
+
+                    let errorPara = customPlayer.querySelector('.audio-error-message');
+                    if (!errorPara) {
+                        errorPara = document.createElement('p');
+                        errorPara.className = 'audio-error-message';
+                        // Append after controls or info area for better placement
+                        const controlsWrapper = customPlayer.querySelector('.player-controls-wrapper');
+                        if (controlsWrapper) {
+                            controlsWrapper.parentNode.insertBefore(errorPara, controlsWrapper.nextSibling);
+                        } else {
+                            customPlayer.appendChild(errorPara); 
+                        }
+                    }
+                    errorPara.textContent = "Sorry, the sermon audio could not be loaded. Please check the file path or your internet connection.";
+                });
+
+                audio.addEventListener('canplay', () => {
+                    const errorPara = customPlayer.querySelector('.audio-error-message');
+                    if (errorPara) errorPara.remove();
+                });
+
+            } else {
+                console.warn("Custom audio player or audio element not found. Player JS enhancements may not apply.");
+            }
+             if (playbackSpeedSelect && audio) { 
+                playbackSpeedSelect.addEventListener('change', (e) => {
+                    audio.playbackRate = parseFloat(e.target.value);
+                    playbackSpeedSelect.classList.add('speed-changed');
+                    setTimeout(() => {
+                        playbackSpeedSelect.classList.remove('speed-changed');
+                    }, 500);
+                });
+                const normalSpeedOption = playbackSpeedSelect.querySelector('option[value="1"]');
+                if (normalSpeedOption && normalSpeedOption.textContent.includes("1x") && !normalSpeedOption.textContent.includes("(Normal)")) {
+                    normalSpeedOption.textContent = "1x (Normal)";
+                }
+            }
+        });
+    </script>
+</body>
+</html>
